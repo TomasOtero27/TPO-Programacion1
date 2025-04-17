@@ -1,10 +1,9 @@
 import random
 from datos import *
-                
+
 def ordenar_lista(fila):
-    for k in range (datos_pacientes[fila]):
-        datos_pacientes[fila][k].sort() #cambie las 4 opciones de sort a 1 por comodidad
-    
+    datos_pacientes[fila].sort()
+        
     
 def mostrar_matriz(matriz):
     print("Matriz actualizada:")
