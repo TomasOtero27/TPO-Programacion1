@@ -1,4 +1,5 @@
 from base_prueba import *
+from datos import *
 def menu_main():
     bandera = True
     while bandera:
@@ -19,7 +20,7 @@ def menu_main():
             fila = int(input("\nIngrese el número de la fila que desea ordenar (0 a 3): "))
             
             if 0 <= fila and fila < len(datos_pacientes):  
-                ordenar_lista() 
+                ordenar_lista(fila) 
                 print("Fila ordenada con éxito.")
                 mostrar_matriz(datos_pacientes)  
             else:
