@@ -1,18 +1,9 @@
 import random
 from datos import *
-
-'''def burbuja(fila):
-    n = len(fila)
-    for i in range(n - 1):
-        for j in range(n - i - 1):
-            if fila[j] > fila[j + 1]:  
-                fila[j], fila[j + 1] = fila[j + 1], fila[j]  '''
                 
-def ordenar_lista():    
-    datos_pacientes[0].sort()
-    datos_pacientes[1].sort()
-    datos_pacientes[2].sort()
-    datos_pacientes[3].sort()
+def ordenar_lista(fila):
+    for k in range (datos_pacientes[fila]):
+        datos_pacientes[fila][k].sort() #cambie las 4 opciones de sort a 1 por comodidad
     
     
 def mostrar_matriz(matriz):
