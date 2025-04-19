@@ -1,6 +1,5 @@
 import random
 from datos import *
-
 def ordenar_lista(fila):
     datos_usuarios[fila].sort()
 
@@ -62,10 +61,24 @@ def agregar_medicos (datos_medicos):
             return datos_medicos 
 
 
-
-
-
-
-
-
-            
+def realizar_turnos (turnos,datos_medicos,datos_usuarios):
+    bandera_turnos = True
+    while bandera_turnos:                       #Modificar nombres para no generar confuciones jijijo
+        turno_medico = int(input("Ingrese el DNI: "))
+        if turno_medico in datos_usuarios[0]:
+            turnos[0].append(turno_medico)
+            print(datos_medicos)
+            especialidad_turno = input("Ingrese la especialidad")       #Validar
+            if especialidad_turno in datos_medicos[2]:
+                turnos[1].append(especialidad_turno)
+                turnos[2].append(datos_medicos[0])#modificar
+                fecha = input("Ingrese la fecha: ")
+                turnos[3].append(fecha)
+                print(turnos)
+            else:
+                print("No encontrado")
+        elif turno_medico == -1:
+            bandera_turnos = False
+        else:
+            print("DNI no encontrado")
+        return turnos

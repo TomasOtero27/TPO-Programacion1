@@ -1,5 +1,5 @@
 from menu_main import *
-
+from menu_cliente import *
 
 def menu():
         bandera = True
@@ -7,27 +7,31 @@ def menu():
             print("\nBienvenido al Menú:")
             print("registro")
 
-            eleccion = int(input("Ingresar codigo: "))
+            codigo = int(input("Ingresar codigo: "))
 
-            if eleccion == 912:
+            if codigo == 912:
                 menu_main()
 
                 bandera = False
                 
 
-            elif eleccion == 2:
+            elif codigo == 2:
                 agrego = agregar_usuarios(datos_usuarios)
 
                 print(agrego)
-                bandera = False
             
                 
-            elif eleccion == -1:
+            elif codigo == -1:
                 print("Cerrando el menu")
                 bandera = False
 
+            elif codigo in datos_usuarios[2]:
+                print(f"Código {codigo} encontrado, accediendo al menú.")
+                menu_usuario()
+                bandera = False
             else:
-                 print("Codigo invalido.")    
+                 print("Codigo no encontrado")
+
 
 
 menu()
