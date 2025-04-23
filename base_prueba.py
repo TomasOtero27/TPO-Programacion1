@@ -1,7 +1,9 @@
 import random
 from datos import *
+
 def ordenar_lista(fila):
     datos_usuarios[fila].sort()
+    return datos_usuarios[fila]
 
 
 def ordenar_lista(fila):
@@ -18,10 +20,10 @@ def agregar_usuarios (datos_usuarios):
     while bandera:
         extender = int(input("Ingrese DNI: "))
         if extender == -1:
-            print("Cerrando agregar....")
+            print("Cerrando menú")
             bandera = False
-        #elif extender < 11111111 and extender > 99999999:
-            #print("Numero invalido")
+        elif extender < 11111111 or extender > 99999999:
+            print("Numero invalido")
         else:
             datos_usuarios[0].append(extender)
             print("DNI agregado")
@@ -32,6 +34,7 @@ def agregar_usuarios (datos_usuarios):
             print("Codigo agregado")
             gmail = input("Ingrese su gmail: ")
             datos_usuarios[3].append(gmail)
+            print()
 
             return datos_usuarios 
 

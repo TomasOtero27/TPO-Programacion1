@@ -4,10 +4,13 @@ from menu_cliente import *
 def menu():
         bandera = True
         while bandera:
-            print("\nBienvenido al Menú:")
-            print("registro")
+            titulo = "Bienvenido al Menú"
+            titulo_decorado = titulo.center(50,"-")
+            print(titulo_decorado)
+            print("Inicio de Sesión")
 
-            codigo = int(input("Ingresar codigo: "))
+            codigo = int(input("Ingresar codigo de usuario: "))
+            print("-"*50)
 
             if codigo == 912:
                 menu_main()
@@ -30,7 +33,7 @@ def menu():
                 menu_usuario()
                 bandera = False
             else:
-                 print("Codigo no encontrado")
+                 print("Código no encontrado")
 
 
 
