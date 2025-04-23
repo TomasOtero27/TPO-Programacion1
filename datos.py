@@ -17,5 +17,5 @@ turnos = [
     [], #DNI del paciente
     [], #Especialidad
     [], #Nombre del doc
-    [], #Fecha del turno
+    [], #Fecha del turno, realizar bien la fecha
     ]
