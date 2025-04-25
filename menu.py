@@ -8,29 +8,37 @@ def menu():
             titulo_decorado = titulo.center(50,"-")
             print(titulo_decorado)
             print("Inicio de Sesión")
-
-            codigo = int(input("Ingresar codigo de usuario: "))
+            print("1 - Para ingresar")
+            print("2 - para crear usuario")
+            print("3 - Para cerrar")
+            opcion = int(input("Seleccione opcion: "))
             print("-"*50)
 
-            if codigo == 912:
-                menu_main()
-
-                bandera = False
+            if opcion == 1:
+                ingreso = int(input("Ingrese su DNI:"))
+                if ingreso in datos_usuarios[0]:
+                     indice = datos_usuarios[0].index(ingreso)
+                     contraseña = int(input("Ingrese la contraseña:"))
+                     if contraseña == 912:
+                          menu_main()
+                          bandera = False
+                     elif contraseña == datos_usuarios[2][indice]:
+                          menu_usuario()
+                          bandera = False
+                     else:
+                          print("Contraseña incorrecta")
+                else:
+                     print("DNI no encontrado...")
                 
 
-            elif codigo == 2:
+            elif opcion == 2:
                 agrego = agregar_usuarios(datos_usuarios)
 
                 print(agrego)
             
                 
-            elif codigo == -1:
+            elif opcion == 3:
                 print("Cerrando el menu")
-                bandera = False
-
-            elif codigo in datos_usuarios[2]:
-                print(f"Código {codigo} encontrado, accediendo al menú.")
-                menu_usuario()
                 bandera = False
             else:
                  print("Código no encontrado")

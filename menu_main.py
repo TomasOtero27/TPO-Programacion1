@@ -10,7 +10,9 @@ def menu_main():
         print("1 - Mostrar matriz de usuarios o medicos ")
         print("2 - Ordenar una fila específica")
         print("3 - Agregar datos paciente o medico")
-        print("4 - Cerrar menú")
+        print("4 - Para remover datos")
+        print("5 - Para modificar datos")
+        print("6 - Cerrar menú")
         
         eleccion = input("Ingrese la opción: ")
         print("-"*50)
@@ -20,7 +22,8 @@ def menu_main():
             print("Datos a mostrar:")
             print("1 - Datos de los usuarios")
             print("2 - Datos de los medicos")
-            print("3 - Cerrar menú")
+            print("3 - mostrar los 2")
+            print("4 - Cerrar menú")
             bandera_matriz = True
             while bandera_matriz :
                 eleccion_opcion_1 = int(input("Ingrese la opción: "))
@@ -31,6 +34,9 @@ def menu_main():
                     print("Mostrando los datos medicos: ")
                     print(datos_medicos) 
                 elif eleccion_opcion_1 == 3:
+                    print("Mostrando las dos matrices: ")
+                    print(datos_medicos,datos_usuarios)           #tuplas
+                elif eleccion_opcion_1 == 4:
                     print("Cerrando opción 1")
                     bandera_matriz = False
                 else:
@@ -48,9 +54,9 @@ def menu_main():
                     print(datos_usuarios)  
                     fila = int(input("\nIngrese el número de la fila que desea ordenar (0 a 3): "))
                     if 0 <= fila and fila < len(datos_usuarios):  
-                        ordenada = ordenar_lista(fila) 
+                        ordenar_lista_usuarios(fila) 
                         print("Fila ordenada con éxito.")
-                        mostrar_matriz(ordenada)  
+                        mostrar_matriz(datos_usuarios)  
                     else:
                         print("Número de fila inválido. Intente nuevamente.")
 
@@ -58,7 +64,7 @@ def menu_main():
                     print(datos_medicos)  
                     fila = int(input("\nIngrese el número de la fila que desea ordenar (0 a 3): "))
                     if 0 <= fila and fila < len(datos_medicos):  
-                        ordenar_lista(fila) 
+                        ordenar_lista_medicos(fila) 
                         print("Fila ordenada con éxito.")
                         mostrar_matriz(datos_medicos)  
                     else:
@@ -88,8 +94,45 @@ def menu_main():
                 else:
                     print("Numero invalido")
 
-
         elif eleccion == "4":
+            print("1- para borrar datos de usuarios")
+            print("2- para borrar datos de medicos")
+            print("3 Para borrar turnos")
+            print("4- Para cerrar")
+            bandera_borrar = True
+            while bandera_borrar:
+                eleccion_borrar = int(input("Ingrese la opcion: "))
+                if eleccion_borrar == 1:
+                    borrar = borrar_datos_usuarios(datos_usuarios)
+                    print(borrar)
+                elif eleccion_borrar == 2:
+                    borrar_medicos = borrar_datos_medicos (datos_medicos)
+                    print (borrar_medicos)
+                elif eleccion_borrar == 4:
+                    bandera_borrar = False
+                else:
+                    print("Numero incorrecto")
+
+        elif eleccion == "5":
+            print("1- para modificar datos de usuarios")
+            print("2- para modificar datos de medicos")
+            print("3 Para modificar turnos")
+            print("4- Para cerrar")
+            bandera_remplazo = True
+            while bandera_remplazo:
+                eleccion_reemplazar = int(input("Ingrese la opcion: "))
+                if eleccion_reemplazar == 1:
+                    remplazo_usuario = remplazar_datos_usuarios(datos_usuarios)
+                    print(remplazo_usuario)
+                if eleccion_reemplazar == 2:
+                    remplazo_medicos = remplazar_datos_medicos(datos_medicos)
+                    print(remplazo_medicos)
+                elif eleccion_reemplazar == 4:
+                    bandera_remplazo = False
+                else:
+                    print("Numero incorrecto...")
+
+        elif eleccion == "6":
             print("Cerrando menú...")
             bandera = False
 

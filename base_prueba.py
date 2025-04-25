@@ -1,12 +1,12 @@
 import random
 from datos import *
 
-def ordenar_lista(fila):
+def ordenar_lista_usuarios(fila):
     datos_usuarios[fila].sort()
-    return datos_usuarios[fila]
+    
 
 
-def ordenar_lista(fila):
+def ordenar_lista_medicos(fila):
     datos_medicos[fila].sort()
         
     
@@ -45,8 +45,8 @@ def agregar_medicos (datos_medicos):
         if extender_medicos == -1:
             print("Cerrando agregar....")
             bandera = False
-        #elif extender < 11111111 and extender > 99999999:
-            #print("Numero invalido")
+        elif extender_medicos < 11111111 or extender_medicos > 99999999:
+            print("Numero invalido")
         else:
             datos_medicos[1].append(extender_medicos)
             print("DNI agregado")
@@ -61,7 +61,7 @@ def agregar_medicos (datos_medicos):
             gmail = input("Ingrese su gmail: ")
             datos_medicos[4].append(gmail)
 
-            return datos_medicos 
+            return datos_medicos
 
 
 def realizar_turnos (turnos,datos_medicos,datos_usuarios):
@@ -85,3 +85,96 @@ def realizar_turnos (turnos,datos_medicos,datos_usuarios):
         else:
             print("DNI no encontrado")
         return turnos
+    
+def borrar_datos_usuarios(datos_usuarios):
+    print(datos_usuarios[0])
+    dni = int(input("Indique el DNI: "))
+    if dni in datos_usuarios[0]:
+        indice = datos_usuarios[0].index(dni) #con el index buscamos su ubicacion de la matriz
+        
+        for sublistas in datos_usuarios:        #usando metodo de listas, con for in
+            sublistas.pop(indice)                #el pop(indice) borra todos los datos de la ubicacion 
+        print(f"Usuario eliminado con éxito: {dni}")
+    else:
+        print("DNI no encontrado.")
+    
+    return datos_usuarios
+
+def borrar_datos_medicos(datos_medicos):
+    print(datos_medicos[1])
+    dni = int(input("Indique el DNI: "))
+    if dni in datos_medicos[1]:
+        indice = datos_medicos[1].index(dni) #con el index buscamos su ubicacion de la matriz
+        
+        for sublistas in datos_medicos:        #usando metodo de listas, con for in
+            sublistas.pop(indice)                #el pop(indice) borra todos los datos de la ubicacion 
+        print(f"Usuario eliminado con éxito: {dni}")   #parametros reales pasados por nombre F{}
+    else:
+        print("DNI no encontrado.")
+    
+    return datos_usuarios
+
+def remplazar_datos_usuarios(datos_usuarios):
+    dni = int(input("Indique DNI: "))
+    if dni in datos_usuarios[0]:
+        indice = datos_usuarios[0].index(dni)
+        print("Indique que quiere modificar")
+        print(f"1 - Nombre: {datos_usuarios[1][indice]}")
+        print(f"2 - Contraseña: {datos_usuarios[2][indice]}")
+        print(f"3 - Gmail: {datos_usuarios[3][indice]}")
+        print("4 - Para terminar")
+        bandera_remplazar = True
+        while bandera_remplazar:
+            remplazo = int(input("Ingrese la opcion: "))
+            if remplazo == 1:
+                nuevo_nombre = input("Ingrese el nuevo nombre: ")
+                datos_usuarios[1][indice] = nuevo_nombre
+                print(f"Nuevo nombre agregado: {nuevo_nombre.title()}") 
+            elif remplazo == 2:
+                nueva_contraseña = int(input("Ingrese la nueva contraseña: "))
+                datos_usuarios[2][indice] = nueva_contraseña
+                print("Contraseña cambiada....")                #USAR PARA QUE SEA TDO ##### POR SUB, VALIDAR CON DELIMITACION
+            elif remplazo == 3:
+                nuevo_gmail = input("Ingrese el nuevo gmail: ")
+                datos_usuarios[3][indice]= nuevo_gmail
+                print(f"Gmail cambiado: {nuevo_gmail}")
+            elif remplazo == 4:
+                bandera_remplazar = False
+            else:
+                print("Numero no ncontrado")
+    else:
+        print("DNI no encontrado...")
+    return datos_usuarios
+
+
+def remplazar_datos_medicos(datos_medicos):
+    dni = int(input("Indique DNI: "))
+    if dni in datos_medicos[0]:
+        indice = datos_medicos[0].index(dni)
+        print("Indique que quiere modificar")
+        print(f"1 - Nombre: {datos_medicos[1][indice]}")
+        print(f"2 - Contraseña: {datos_medicos[2][indice]}")
+        print(f"3 - Gmail: {datos_medicos[3][indice]}")
+        print("4 - Para terminar")
+        bandera_remplazar = True
+        while bandera_remplazar:
+            remplazo = int(input("Ingrese la opcion: "))
+            if remplazo == 1:
+                nuevo_nombre = input("Ingrese el nuevo nombre: ")
+                datos_medicos[1][indice] = nuevo_nombre
+                print(f"Nuevo nombre agregado: {nuevo_nombre.title()}") 
+            elif remplazo == 2:
+                nueva_contraseña = int(input("Ingrese la nueva contraseña: "))
+                datos_medicos[2][indice] = nueva_contraseña
+                print("Contraseña cambiada....")                #USAR PARA QUE SEA TDO ##### POR SUB, VALIDAR CON DELIMITACION
+            elif remplazo == 3:
+                nuevo_gmail = input("Ingrese el nuevo gmail: ")
+                datos_medicos[3][indice]= nuevo_gmail
+                print(f"Gmail cambiado: {nuevo_gmail}")
+            elif remplazo == 4:
+                bandera_remplazar = False
+            else:
+                print("Numero no ncontrado")
+    else:
+        print("DNI no encontrado...")
+    return datos_medicos
