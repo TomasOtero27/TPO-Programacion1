@@ -1,5 +1,5 @@
-from menu_main import *
-from menu_cliente import *
+from Menu.menu_main import *
+from Menu.menu_cliente import *
 
 def menu():
         bandera = True

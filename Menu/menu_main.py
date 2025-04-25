@@ -1,4 +1,4 @@
-from base_prueba import *
+from Funciones import *
 from datos import *
 def menu_main():
     bandera = True

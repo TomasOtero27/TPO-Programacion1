@@ -1,3 +1,4 @@
+import datetime
 import random
 from datos import *
 
@@ -6,8 +7,8 @@ def ordenar_lista_usuarios(fila):
     
 
 
-def ordenar_lista_medicos(fila):
-    datos_medicos[fila].sort()
+"""def ordenar_lista_medicos(fila):
+    datos_medicos[fila].sort()"""
         
     
 def mostrar_matriz(matriz):
@@ -37,7 +38,7 @@ def agregar_usuarios (datos_usuarios):
             print()
 
             return datos_usuarios 
-
+"""
 def agregar_medicos (datos_medicos):
     bandera = True
     while bandera:
@@ -61,7 +62,7 @@ def agregar_medicos (datos_medicos):
             gmail = input("Ingrese su gmail: ")
             datos_medicos[4].append(gmail)
 
-            return datos_medicos
+            return datos_medicos"""
 
 
 def realizar_turnos (turnos,datos_medicos,datos_usuarios):
@@ -99,7 +100,7 @@ def borrar_datos_usuarios(datos_usuarios):
         print("DNI no encontrado.")
     
     return datos_usuarios
-
+"""
 def borrar_datos_medicos(datos_medicos):
     print(datos_medicos[1])
     dni = int(input("Indique el DNI: "))
@@ -112,7 +113,7 @@ def borrar_datos_medicos(datos_medicos):
     else:
         print("DNI no encontrado.")
     
-    return datos_usuarios
+    return datos_usuarios"""
 
 def remplazar_datos_usuarios(datos_usuarios):
     dni = int(input("Indique DNI: "))
@@ -128,8 +129,8 @@ def remplazar_datos_usuarios(datos_usuarios):
             remplazo = int(input("Ingrese la opcion: "))
             if remplazo == 1:
                 nuevo_nombre = input("Ingrese el nuevo nombre: ")
-                datos_usuarios[1][indice] = nuevo_nombre
-                print(f"Nuevo nombre agregado: {nuevo_nombre.title()}") 
+                datos_usuarios[1][indice] = nuevo_nombre.title()
+                print(f"Nuevo nombre agregado: {nuevo_nombre.title()}") #title para que ponga mayuscula las palabras
             elif remplazo == 2:
                 nueva_contraseña = int(input("Ingrese la nueva contraseña: "))
                 datos_usuarios[2][indice] = nueva_contraseña
@@ -146,7 +147,7 @@ def remplazar_datos_usuarios(datos_usuarios):
         print("DNI no encontrado...")
     return datos_usuarios
 
-
+"""
 def remplazar_datos_medicos(datos_medicos):
     dni = int(input("Indique DNI: "))
     if dni in datos_medicos[0]:
@@ -178,3 +179,4 @@ def remplazar_datos_medicos(datos_medicos):
     else:
         print("DNI no encontrado...")
     return datos_medicos
+"""
