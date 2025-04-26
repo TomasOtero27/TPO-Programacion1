@@ -105,6 +105,8 @@ def menu_main():
                 elif eleccion_borrar == 2:
                     borrar_medicos = borrar_datos_medicos (datos_medicos)
                     print (borrar_medicos)
+                elif eleccion_borrar == 3:
+                    borrar_turnos(turnos)
                 elif eleccion_borrar == 4:
                     bandera_borrar = False
                 else:
