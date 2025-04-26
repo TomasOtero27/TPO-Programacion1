@@ -13,7 +13,7 @@ def menu_main():
         print("4 - Para remover datos")
         print("5 - Para modificar datos")
         print("6 - Para hacer turnos o mostrar turnos")
-        print("7 - Cerrar menú")
+        print("0 - Cerrar menú")
         
         eleccion = input("Ingrese la opción: ")
         print("-"*50)
@@ -32,7 +32,7 @@ def menu_main():
                     mostrar_tabla(diccionario_usuarios)
                 elif eleccion_opcion_1 == 2:
                     print("Mostrando los datos medicos: ")
-                    mostrar_tabla_medicos(diccionarios_medicos)          #tuplas
+                    mostrar_tabla_medicos(diccionarios_medicos)          
                 elif eleccion_opcion_1 == 3:
                     print("Cerrando opción 1")
                     bandera_matriz = False
@@ -73,8 +73,8 @@ def menu_main():
                     print("Numero invalido")
 
         elif eleccion == "3":
-            print("1- para ordenar la matriz de usuarios")
-            print("2- para ordenar la matriz de medicos")
+            print("1- para agregar usuarios")
+            print("2- para agregar medicos")
             print("3- Para cerrar")
             bandera_agregar = True
             while bandera_agregar:
@@ -92,10 +92,10 @@ def menu_main():
                     print("Numero invalido")
 
         elif eleccion == "4":
-            print("1- para borrar datos de usuarios")
-            print("2- para borrar datos de medicos")
-            print("3 Para borrar turnos")
-            print("4- Para cerrar")
+            print("1 - para borrar datos de usuarios")
+            print("2 - para borrar datos de medicos")
+            print("3 - Para borrar turnos")
+            print("4 - Para cerrar")
             bandera_borrar = True
             while bandera_borrar:
                 eleccion_borrar = int(input("Ingrese la opcion: "))
@@ -115,7 +115,6 @@ def menu_main():
         elif eleccion == "5":
             print("1- para modificar datos de usuarios")
             print("2- para modificar datos de medicos")
-            print("3 Para modificar turnos")
             print("4- Para cerrar")
             bandera_remplazo = True
             while bandera_remplazo:
@@ -130,24 +129,27 @@ def menu_main():
                 else:
                     print("Numero incorrecto...")
         elif eleccion == "6":
+            diccionario_turnos = dict(zip(encabezado_turnos, turnos))
             print("1 - para realizar turnos")
             print("2 - para mostrar turnos")
-            print("3 - para terminar")
+            print("3 - para borrar turnos")
+            print("0 - para cerrar el menú")
             bandera_turnos = True
             while bandera_turnos:
                 eleccion_turnos = int(input("Ingrese la opcion: "))
                 if eleccion_turnos == 1:
                     realizar_turnos(turnos,datos_medicos,datos_usuarios)
-                    
                 elif eleccion_turnos == 2:
+                    diccionario_turnos = dict(zip(encabezado_turnos, turnos))
                     mostrar_tabla_turnos(diccionario_turnos)
-
                 elif eleccion_turnos == 3:
+                    borrar_turnos(turnos)
+                elif eleccion_turnos == 0:
                     bandera_turnos = False
                 else:
                     print("Numero incorrecto")
-        elif eleccion == "7":
-            print("Cerrando menú...")
+        elif eleccion == "0":
+            print("Cerrando menú")
             bandera = False
 
         else:

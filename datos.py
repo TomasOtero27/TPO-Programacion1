@@ -16,24 +16,24 @@ diccionario_usuarios=dict(zip(encabezado, datos_usuarios))
 datos_medicos = [
     ["ALVAREZ PETER","FLORES JUAN","PAREDES CARLOS","GARCIA MAXIMO","TORRES DANTE"],
     [22482796,36457774,15445213,34456789,25444123],
-    ["GINECOLOGÍA","ODONTOLOGÍA","PEDIATRÍA","CARDIOLOGÍA","NEUROLOGÍA"],
+    ["GINECOLOGIA","ODONTOLOGIA","TRAUMATOLOGIA","CARDIOLOGIA","NEUROLOGIA"],
     ['MONSERRAT','MONSERRAT','PALERMO','PALERMO','PALERMO'],
     ['alvarezp@gmail.com','floresj@gmail.com','carlosp@gmail.com','maximog@gmail.com','torresd@gmail.com']
     ]
 
 # Convertir matriz médicos a diccionario
-encabezado_medicos = ["Nombres_y_Apellidos", "DNI", "Especialidad", "Sucursal", "Correo_electronico"]
+encabezado_medicos = ["Nombre", "DNI", "Especialidad", "Sucursal", "Correo"]
 diccionarios_medicos = dict(zip(encabezado_medicos, datos_medicos))
 
 # Matriz de turnos
 turnos = [
     [43091220,46754741,45871266,44788110,45928020], # DNI del paciente
-    ["GINECOLOGÍA","ODONTOLOGIA","PEDIATRA","CLINICO","ODONTOLOGIA"], # Especialidad
+    ["GINECOLOGIA","ODONTOLOGIA","TRAUMATOLOGIA","CARDIOLOGIA","NEUROLOGIA"], # Especialidad
     ["ALVAREZ PETER","FLORES JUAN","PAREDES CARLOS","GARCIA MAXIMO","TORRES DANTE"], #Nombre del doc
     ["20/09/2025","06/5/2025","15/08/2025","26/07/2025","30/10/2025"], # Fecha del turno
     ["MONSERRAT","MONSERRAT","PALERMO","PALERMO","PALERMO"] # Sede del turno
     ]
 
 # Convertir matriz turnos a diccionario
-encabezado_turnos=["DNI","Especialidad","Doctor", "Fecha"]
+encabezado_turnos=["DNI","Especialidad","Doctor", "Fecha","Sede"]
 diccionario_turnos = dict(zip(encabezado_turnos,turnos))

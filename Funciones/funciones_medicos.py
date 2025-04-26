@@ -1,13 +1,13 @@
 from datos import *
 
 def mostrar_tabla_medicos(diccionario_medicos):
-    print(f"{'Nombres_y_Apellidos':<20}{'DNI':<12}{'Especialidad':<20}{'Sucursal':<15}{'Correo_electronico':<30}") #rebanadas
+    print(f"{'Nombre':<20}{'DNI':<12}{'Especialidad':<20}{'Sucursal':<15}{'Correo':<30}")
     print("-" * 72)
-    lista_nombre = diccionario_medicos["Nombres_y_Apellidos"]
+    lista_nombre = diccionario_medicos["Nombre"]
     lista_dni = diccionario_medicos["DNI"]
     lista_especialidad = diccionario_medicos["Especialidad"]
     lista_sucursal = diccionario_medicos["Sucursal"]
-    lista_correo = diccionario_medicos["Correo_electronico"]
+    lista_correo = diccionario_medicos["Correo"]
 
     for i in range(len(lista_dni)):
         print(f"{str(lista_nombre[i]):<20}{lista_dni[i]:<12}{str(lista_especialidad[i]):<20}{lista_sucursal[i]:<15}{lista_correo[i]:<30}")
@@ -32,13 +32,13 @@ def agregar_medicos (datos_medicos):
             datos_medicos[1].append(extender_medicos)
             print("DNI agregado")
             nombre = input("Ingrese el nombre y apellido: ")
-            datos_medicos[0].append(nombre)
+            datos_medicos[0].append(nombre.title())
             print("Nombre agregado")
             especialidad = input("Ingrese especialidad: ")
-            datos_medicos[2].append(especialidad) 
+            datos_medicos[2].append(especialidad.title()) 
             print("Especialidad agregada")   
             sede = input("Ingrese la sede: ")
-            datos_medicos[3].append(sede)   
+            datos_medicos[3].append(sede.title())   
             gmail = input("Ingrese su gmail: ")
             datos_medicos[4].append(gmail)
 
@@ -60,29 +60,29 @@ def borrar_datos_medicos(datos_medicos):
 
 def remplazar_datos_medicos(datos_medicos):
     dni = int(input("Indique DNI: "))
-    if dni in datos_medicos[0]:
-        indice = datos_medicos[0].index(dni)
+    if dni in datos_medicos[1]:
+        indice = datos_medicos[1].index(dni)
         print("Indique que quiere modificar")
-        print(f"1 - Nombre: {datos_medicos[1][indice]}")
-        print(f"2 - Contraseña: {datos_medicos[2][indice]}")
+        print(f"1 - Nombre: {datos_medicos[0][indice]}")
+        print(f"2 - Especialidad: {datos_medicos[2][indice]}")
         print(f"3 - Gmail: {datos_medicos[3][indice]}")
-        print("4 - Para terminar")
+        print("0 - Para terminar")
         bandera_remplazar = True
         while bandera_remplazar:
             remplazo = int(input("Ingrese la opcion: "))
             if remplazo == 1:
                 nuevo_nombre = input("Ingrese el nuevo nombre: ")
-                datos_medicos[1][indice] = nuevo_nombre
+                datos_medicos[1][indice] = nuevo_nombre.title()
                 print(f"Nuevo nombre agregado: {nuevo_nombre.title()}") 
             elif remplazo == 2:
-                nueva_contraseña = int(input("Ingrese la nueva contraseña: "))
-                datos_medicos[2][indice] = nueva_contraseña
-                print("Contraseña cambiada....")                #USAR PARA QUE SEA TDO ##### POR SUB, VALIDAR CON DELIMITACION
+                nueva_especialidad =input("Ingrese la nueva especialidad: ")
+                datos_medicos[2][indice] = nueva_especialidad.title()
+                print(f"Especialidad cambiada: {nueva_especialidad.title()}")                #USAR PARA QUE SEA TDO ##### POR SUB, VALIDAR CON DELIMITACION
             elif remplazo == 3:
                 nuevo_gmail = input("Ingrese el nuevo gmail: ")
                 datos_medicos[3][indice]= nuevo_gmail
                 print(f"Gmail cambiado: {nuevo_gmail}")
-            elif remplazo == 4:
+            elif remplazo == 0:
                 bandera_remplazar = False
             else:
                 print("Numero no ncontrado")

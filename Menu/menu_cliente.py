@@ -17,7 +17,7 @@ def menu_usuario(ingreso):
             # Validación de opciónes
             if eleccion == 1: 
                   # Agregar turno
-                  realizar_turnos(turnos,datos_medicos,ingreso) 
+                  realizar_turnos(turnos,datos_medicos,datos_usuarios) 
             elif eleccion == 2:
                   # Cambiar datos
                   cambio = remplazar_datos_usuarios(datos_usuarios)
@@ -25,6 +25,8 @@ def menu_usuario(ingreso):
             elif eleccion == 3:
                   # Eliminar turno
                   borrar_turnos(turnos)
+            elif eleccion == 4:
+                  mostrar_turnos_cliente(diccionario_turnos)
             elif eleccion == 0:
                   # Cerrar menú
                   print ("Cerrando menú")
