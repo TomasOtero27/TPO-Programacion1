@@ -6,6 +6,9 @@ fecha_ingresada = "25/04/2025"
 fecha_usuario = datetime.strptime(fecha_ingresada, "%d/%m/%Y")
 fecha_actual = datetime.today()
 
+def separador():
+    print("-"*50)
+
 def ordenar_lista_usuarios(fila):
     datos_usuarios[fila].sort()
 
@@ -48,50 +51,64 @@ def agregar_usuarios (datos_usuarios):
             return datos_usuarios 
 
 
-def realizar_turnos (turnos,datos_medicos,datos_usuarios):
+def realizar_turnos (turnos,datos_medicos,ingreso):
     bandera_turnos = True
-    while bandera_turnos:                       #Modificar nombres para no generar confuciones jijijo
-#---------------------------- Buscamos DNI ------------------------------------------------------------------------------------  
-        turno_medico = int(input("Ingrese el DNI: "))
-        if turno_medico in datos_usuarios[0] or turno_medico in datos_medicos[1]:
-            print(f"DNI encontrado: {turno_medico}")
-            print(datos_medicos[2])
-#------------
-            especialidad_turno = input(f"Ingrese la especialidad: ")#------------Busco y valido especialidad
+    while bandera_turnos:
+            # Separamos especialidad de su matriz
             especialidad_disponible = datos_medicos[2]
-            patron = [especialidad for especialidad in especialidad_disponible if re.search(especialidad_turno,especialidad,re.IGNORECASE)] # Listas por compresion
+            # Mostrar especalidades
+            separador()
+            for especialidad in especialidad_disponible:
+                print(especialidad)
+            # Input especialidad
+            separador()
+            especialidad_turno = input(f"Ingrese la especialidad: ")
+            # Lista por comprensión
+            patron = [especialidad for especialidad in especialidad_disponible if re.search(especialidad_turno,especialidad,re.IGNORECASE)]
             if len(patron) > 0:
                 especialidad_turno = patron[0]
                 print(f"Especialidad elegida: {especialidad_turno}")
-#-------------
-                fecha = input("Ingrese la fecha: ")#----------------------------Ingreso y valido fecha
+                # Fecha
+                fecha = input("Ingrese la fecha en formato DD/MM/AAAA: ")
+                # Validacion de la fecha en formato DD/MM/AAAA
                 if len(fecha) == 10 and fecha[2] == "/" and fecha[5] == "/":
+                    # Slicing
                     dia = int(fecha[:2])
-                    mes = int(fecha[3:5])#----------------------------------------rebanadas
+                    mes = int(fecha[3:5])
                     anio = int(fecha[6:])
-                    if 1 <= dia <= 31 and 1 <= mes <= 12:
+                    if (1 <= dia <= 31) and (1 <= mes <= 12):
                         fecha_valida = datetime(anio, mes, dia)
                         if fecha_valida >= datetime.today():#------------------ datatime de una bibliote
-                             turnos[0].append(turno_medico)
-                             turnos[1].append(especialidad_turno)
-                             indice =datos_medicos[2].index(especialidad_turno)
-                             turnos[2].append(datos_medicos[0][indice])              #probamos con index para que me guarde el nombre del medico
-                             turnos[3].append(fecha_valida.strftime("%d/%m/%Y"))
-                             print(" Turno registrado.")
+                            turnos[0].append(ingreso) # DNI Paciente
+                            turnos[1].append(especialidad_turno) # Especialidad
+                            indice = datos_medicos[2].index(especialidad_turno) 
+                            turnos[2].append(datos_medicos[0][indice]) # Nombre médico
+                            turnos[3].append(fecha_valida.strftime("%d/%m/%Y")) # Fecha turno
+                            turnos[4].append(datos_medicos[3][indice]) # Lugar
+
+                            print(" Turno registrado con éxito.")
+                            separador()
+                            # Mostrar los datos del último turno
+                            dni = turnos[0][-1]
+                            especialidad = turnos[1][-1]
+                            nombre = turnos[2][-1]
+                            fecha = turnos[3][-1]
+                            lugar = turnos[4][-1]
+                            # Print
+                            print(f"DNI: {dni}")
+                            print(f"Especialidad: {especialidad}")
+                            print(f"Doctor: {nombre}")
+                            print(f"Fecha del turno: {fecha}")
+                            print(f"Sede del turno: {lugar}")
+                            bandera_turnos = False
                         else:
                             print(" No se pueden elegir fechas anteriores a hoy.")
                     else:
                             print(" Fecha inválida.") 
                 else:
                         print(" Formato de fecha incorrecto.") 
-
-                print(" Turnos actuales:", turnos) 
             else:
                 print(" Especialidad no encontrada.")
-        elif turno_medico == -1:
-            bandera_turnos = False
-        else:
-            print("DNI no encontrado")
     return 
 
 #---------------------------------------- Indico el DNI del usuario y borro los datos datos vinculados -------------------------------------------------           
