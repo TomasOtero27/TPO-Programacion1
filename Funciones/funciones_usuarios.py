@@ -1,14 +1,21 @@
-import datetime
-import random
+from datetime import datetime
+import re
 from datos import *
+
+fecha_ingresada = "25/04/2025"
+fecha_usuario = datetime.strptime(fecha_ingresada, "%d/%m/%Y")
+fecha_actual = datetime.today()
 
 def ordenar_lista_usuarios(fila):
     datos_usuarios[fila].sort()
-    
 
+def enmascarar_contraseña(contraseña):
+    contraseña_enmascarada =  re.sub(r'.','*', contraseña)
+    return contraseña_enmascarada
 
-"""def ordenar_lista_medicos(fila):
-    datos_medicos[fila].sort()"""
+def enmascarar_gmail(gmail):
+    gmail_enmascarado = re.sub(r'^[^@]+', '*' * 10, gmail)
+    return gmail_enmascarado
         
     
 def mostrar_matriz(matriz):
@@ -23,7 +30,7 @@ def agregar_usuarios (datos_usuarios):
         if extender == -1:
             print("Cerrando menú")
             bandera = False
-        elif extender < 11111111 or extender > 99999999:
+        elif extender < 11111111 or extender > 99999999:#----------Validacion para que realmente sea un DNI
             print("Numero invalido")
         else:
             datos_usuarios[0].append(extender)
@@ -31,62 +38,64 @@ def agregar_usuarios (datos_usuarios):
             nombre = input("Ingrese el nombre y apellido: ")
             datos_usuarios[1].append(nombre)       
             print("Nombre agregado")
-            datos_usuarios[2].append(random.randint(100,999))
-            print("Codigo agregado")
+            contraseña_agregar=input("Ingrese la contraseña: ")
+            datos_usuarios[2].append(contraseña_agregar)
+            print("Contraseña agregado")
             gmail = input("Ingrese su gmail: ")
             datos_usuarios[3].append(gmail)
             print()
 
             return datos_usuarios 
-"""
-def agregar_medicos (datos_medicos):
-    bandera = True
-    while bandera:
-        extender_medicos = int(input("Ingrese DNI: "))
-        if extender_medicos == -1:
-            print("Cerrando agregar....")
-            bandera = False
-        elif extender_medicos < 11111111 or extender_medicos > 99999999:
-            print("Numero invalido")
-        else:
-            datos_medicos[1].append(extender_medicos)
-            print("DNI agregado")
-            nombre = input("Ingrese el nombre y apellido: ")
-            datos_medicos[0].append(nombre)
-            print("Nombre agregado")
-            especialidad = input("Ingrese especialidad: ")
-            datos_medicos[2].append(especialidad) 
-            print("Especialidad agregada")   
-            sede = input("Ingrese la sede: ")
-            datos_medicos[3].append(sede)   
-            gmail = input("Ingrese su gmail: ")
-            datos_medicos[4].append(gmail)
-
-            return datos_medicos"""
 
 
 def realizar_turnos (turnos,datos_medicos,datos_usuarios):
     bandera_turnos = True
     while bandera_turnos:                       #Modificar nombres para no generar confuciones jijijo
+#---------------------------- Buscamos DNI ------------------------------------------------------------------------------------  
         turno_medico = int(input("Ingrese el DNI: "))
-        if turno_medico in datos_usuarios[0]:
-            turnos[0].append(turno_medico)
-            print(datos_medicos)
-            especialidad_turno = input("Ingrese la especialidad")       #Validar
-            if especialidad_turno in datos_medicos[2]:
-                turnos[1].append(especialidad_turno)
-                turnos[2].append(datos_medicos[0])#modificar
-                fecha = input("Ingrese la fecha: ")
-                turnos[3].append(fecha)
-                print(turnos)
+        if turno_medico in datos_usuarios[0] or turno_medico in datos_medicos[1]:
+            print(f"DNI encontrado: {turno_medico}")
+            print(datos_medicos[2])
+#------------
+            especialidad_turno = input(f"Ingrese la especialidad: ")#------------Busco y valido especialidad
+            especialidad_disponible = datos_medicos[2]
+            patron = [especialidad for especialidad in especialidad_disponible if re.search(especialidad_turno,especialidad,re.IGNORECASE)] # Listas por compresion
+            if len(patron) > 0:
+                especialidad_turno = patron[0]
+                print(f"Especialidad elegida: {especialidad_turno}")
+#-------------
+                fecha = input("Ingrese la fecha: ")#----------------------------Ingreso y valido fecha
+                if len(fecha) == 10 and fecha[2] == "/" and fecha[5] == "/":
+                    dia = int(fecha[:2])
+                    mes = int(fecha[3:5])#----------------------------------------rebanadas
+                    anio = int(fecha[6:])
+                    if 1 <= dia <= 31 and 1 <= mes <= 12:
+                        fecha_valida = datetime(anio, mes, dia)
+                        if fecha_valida >= datetime.today():#------------------ datatime de una bibliote
+                             turnos[0].append(turno_medico)
+                             turnos[1].append(especialidad_turno)
+                             indice =datos_medicos[2].index(especialidad_turno)
+                             turnos[2].append(datos_medicos[0][indice])              #probamos con index para que me guarde el nombre del medico
+                             turnos[3].append(fecha_valida.strftime("%d/%m/%Y"))
+                             print(" Turno registrado.")
+                        else:
+                            print(" No se pueden elegir fechas anteriores a hoy.")
+                    else:
+                            print(" Fecha inválida.") 
+                else:
+                        print(" Formato de fecha incorrecto.") 
+
+                print(" Turnos actuales:", turnos) 
             else:
-                print("No encontrado")
+                print(" Especialidad no encontrada.")
         elif turno_medico == -1:
             bandera_turnos = False
         else:
             print("DNI no encontrado")
-        return turnos
-    
+    return 
+
+#---------------------------------------- Indico el DNI del usuario y borro los datos datos vinculados -------------------------------------------------           
+
 def borrar_datos_usuarios(datos_usuarios):
     print(datos_usuarios[0])
     dni = int(input("Indique el DNI: "))
@@ -100,29 +109,17 @@ def borrar_datos_usuarios(datos_usuarios):
         print("DNI no encontrado.")
     
     return datos_usuarios
-"""
-def borrar_datos_medicos(datos_medicos):
-    print(datos_medicos[1])
-    dni = int(input("Indique el DNI: "))
-    if dni in datos_medicos[1]:
-        indice = datos_medicos[1].index(dni) #con el index buscamos su ubicacion de la matriz
-        
-        for sublistas in datos_medicos:        #usando metodo de listas, con for in
-            sublistas.pop(indice)                #el pop(indice) borra todos los datos de la ubicacion 
-        print(f"Usuario eliminado con éxito: {dni}")   #parametros reales pasados por nombre F{}
-    else:
-        print("DNI no encontrado.")
     
-    return datos_usuarios"""
-
+    #---------------------------------------- Busco y remplazo los datos del usuario segun su DNI ------------------------------------------------           
+    
 def remplazar_datos_usuarios(datos_usuarios):
     dni = int(input("Indique DNI: "))
     if dni in datos_usuarios[0]:
         indice = datos_usuarios[0].index(dni)
         print("Indique que quiere modificar")
         print(f"1 - Nombre: {datos_usuarios[1][indice]}")
-        print(f"2 - Contraseña: {datos_usuarios[2][indice]}")
-        print(f"3 - Gmail: {datos_usuarios[3][indice]}")
+        print(f"2 - Contraseña: {enmascarar_contraseña(datos_usuarios[2][indice])}")
+        print(f"3 - Gmail: {enmascarar_gmail(datos_usuarios[3][indice])}")
         print("4 - Para terminar")
         bandera_remplazar = True
         while bandera_remplazar:
@@ -132,7 +129,7 @@ def remplazar_datos_usuarios(datos_usuarios):
                 datos_usuarios[1][indice] = nuevo_nombre.title()
                 print(f"Nuevo nombre agregado: {nuevo_nombre.title()}") #title para que ponga mayuscula las palabras
             elif remplazo == 2:
-                nueva_contraseña = int(input("Ingrese la nueva contraseña: "))
+                nueva_contraseña = input("Ingrese la nueva contraseña: ")
                 datos_usuarios[2][indice] = nueva_contraseña
                 print("Contraseña cambiada....")                #USAR PARA QUE SEA TDO ##### POR SUB, VALIDAR CON DELIMITACION
             elif remplazo == 3:
@@ -145,38 +142,42 @@ def remplazar_datos_usuarios(datos_usuarios):
                 print("Numero no ncontrado")
     else:
         print("DNI no encontrado...")
-    return datos_usuarios
+    return 
 
-"""
-def remplazar_datos_medicos(datos_medicos):
-    dni = int(input("Indique DNI: "))
-    if dni in datos_medicos[0]:
-        indice = datos_medicos[0].index(dni)
-        print("Indique que quiere modificar")
-        print(f"1 - Nombre: {datos_medicos[1][indice]}")
-        print(f"2 - Contraseña: {datos_medicos[2][indice]}")
-        print(f"3 - Gmail: {datos_medicos[3][indice]}")
-        print("4 - Para terminar")
-        bandera_remplazar = True
-        while bandera_remplazar:
-            remplazo = int(input("Ingrese la opcion: "))
-            if remplazo == 1:
-                nuevo_nombre = input("Ingrese el nuevo nombre: ")
-                datos_medicos[1][indice] = nuevo_nombre
-                print(f"Nuevo nombre agregado: {nuevo_nombre.title()}") 
-            elif remplazo == 2:
-                nueva_contraseña = int(input("Ingrese la nueva contraseña: "))
-                datos_medicos[2][indice] = nueva_contraseña
-                print("Contraseña cambiada....")                #USAR PARA QUE SEA TDO ##### POR SUB, VALIDAR CON DELIMITACION
-            elif remplazo == 3:
-                nuevo_gmail = input("Ingrese el nuevo gmail: ")
-                datos_medicos[3][indice]= nuevo_gmail
-                print(f"Gmail cambiado: {nuevo_gmail}")
-            elif remplazo == 4:
-                bandera_remplazar = False
-            else:
-                print("Numero no ncontrado")
+def borrar_turnos(turnos):
+    print("Ingrese 2 para terminar")
+    borrar_turnos_dni= int(input("Ingrese su dni: "))
+    if borrar_turnos_dni in turnos[0]:
+        indice = turnos[0].index(borrar_turnos_dni)
+        for sublistas in turnos:
+            sublistas.pop(indice)
+        print("Turno eliminado con exito")
     else:
-        print("DNI no encontrado...")
-    return datos_medicos
-"""
+        print("DNI no econtrado")
+
+
+
+def mostrar_tabla(diccionario):
+    print(f"{'DNI':<12}{'Nombre':<20}{'Clave':<10}{'Correo_electronico':<30}") #rebanadas
+    print("-" * 72)
+    
+    lista_dni = diccionario["DNI"]
+    lista_nombre = diccionario["Nombre"]
+    lista_clave = diccionario["Clave"]
+    lista_correo = diccionario["Correo_electronico"]
+
+    for i in range(len(lista_dni)):
+        print(f"{str(lista_dni[i]):<12}{lista_nombre[i]:<20}{str(lista_clave[i]):<10}{lista_correo[i]:<30}")
+    return print()
+
+def mostrar_tabla_turnos(diccionario):
+    print(f"{'DNI':<12}{'Especialidad':<20}{'Doctor':<10}{'Fecha':<30}") #rebanadas
+    print("-" * 72)
+
+    lista_dni = diccionario["DNI"]
+    lista_especialidad = diccionario["Especialidad"]
+    lista_nombre = diccionario["Doctor"]
+    lista_fecha = diccionario["Fecha"]
+
+    for i in range(len(lista_dni)):
+        print(f"{str(lista_dni[i]):<12}{lista_especialidad[i]:<20}{lista_nombre[i]:<20}{str(lista_fecha[i]):<30}")

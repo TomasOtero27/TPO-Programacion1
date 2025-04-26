@@ -18,8 +18,8 @@ def menu():
                 ingreso = int(input("Ingrese su DNI:"))
                 if ingreso in datos_usuarios[0]:
                      indice = datos_usuarios[0].index(ingreso)
-                     contraseña = int(input("Ingrese la contraseña:"))
-                     if contraseña == 912:
+                     contraseña = input("Ingrese la contraseña:")
+                     if contraseña == "912":
                           menu_main()
                           bandera = False
                      elif contraseña == datos_usuarios[2][indice]:

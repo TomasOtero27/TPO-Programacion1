@@ -1,5 +1,17 @@
 from datos import *
 
+def mostrar_tabla_medicos(diccionario_medicos):
+    print(f"{'Nombres_y_Apellidos':<20}{'DNI':<12}{'Especialidad':<20}{'Sucursal':<15}{'Correo_electronico':<30}") #rebanadas
+    print("-" * 72)
+    lista_nombre = diccionario_medicos["Nombres_y_Apellidos"]
+    lista_dni = diccionario_medicos["DNI"]
+    lista_especialidad = diccionario_medicos["Especialidad"]
+    lista_sucursal = diccionario_medicos["Sucursal"]
+    lista_correo = diccionario_medicos["Correo_electronico"]
+
+    for i in range(len(lista_dni)):
+        print(f"{str(lista_nombre[i]):<20}{lista_dni[i]:<12}{str(lista_especialidad[i]):<20}{lista_sucursal[i]:<15}{lista_correo[i]:<30}")
+        
 def ordenar_lista_medicos(fila):
     datos_medicos[fila].sort()
 
@@ -44,7 +56,7 @@ def borrar_datos_medicos(datos_medicos):
     else:
         print("DNI no encontrado.")
     
-    return datos_usuarios
+    return datos_medicos
 
 def remplazar_datos_medicos(datos_medicos):
     dni = int(input("Indique DNI: "))

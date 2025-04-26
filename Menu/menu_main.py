@@ -12,7 +12,8 @@ def menu_main():
         print("3 - Agregar datos paciente o medico")
         print("4 - Para remover datos")
         print("5 - Para modificar datos")
-        print("6 - Cerrar menú")
+        print("6 - Para hacer turnos o mostrar turnos")
+        print("7 - Cerrar menú")
         
         eleccion = input("Ingrese la opción: ")
         print("-"*50)
@@ -22,21 +23,17 @@ def menu_main():
             print("Datos a mostrar:")
             print("1 - Datos de los usuarios")
             print("2 - Datos de los medicos")
-            print("3 - mostrar los 2")
-            print("4 - Cerrar menú")
+            print("3 - Cerrar menú")
             bandera_matriz = True
             while bandera_matriz :
                 eleccion_opcion_1 = int(input("Ingrese la opción: "))
                 if eleccion_opcion_1 == 1:
                     print("Mostrando los datos de los clientes")
-                    print(datos_usuarios)
+                    mostrar_tabla(diccionario_usuarios)
                 elif eleccion_opcion_1 == 2:
                     print("Mostrando los datos medicos: ")
-                    print(datos_medicos) 
+                    mostrar_tabla_medicos(diccionarios_medicos)          #tuplas
                 elif eleccion_opcion_1 == 3:
-                    print("Mostrando las dos matrices: ")
-                    print(datos_medicos,datos_usuarios)           #tuplas
-                elif eleccion_opcion_1 == 4:
                     print("Cerrando opción 1")
                     bandera_matriz = False
                 else:
@@ -122,8 +119,7 @@ def menu_main():
             while bandera_remplazo:
                 eleccion_reemplazar = int(input("Ingrese la opcion: "))
                 if eleccion_reemplazar == 1:
-                    remplazo_usuario = remplazar_datos_usuarios(datos_usuarios)
-                    print(remplazo_usuario)
+                    remplazar_datos_usuarios(datos_usuarios)
                 if eleccion_reemplazar == 2:
                     remplazo_medicos = remplazar_datos_medicos(datos_medicos)
                     print(remplazo_medicos)
@@ -131,8 +127,24 @@ def menu_main():
                     bandera_remplazo = False
                 else:
                     print("Numero incorrecto...")
-
         elif eleccion == "6":
+            print("1 - para realizar turnos")
+            print("2 - para mostrar turnos")
+            print("3 - para terminar")
+            bandera_turnos = True
+            while bandera_turnos:
+                eleccion_turnos = int(input("Ingrese la opcion: "))
+                if eleccion_turnos == 1:
+                    realizar_turnos(turnos,datos_medicos,datos_usuarios)
+                    
+                elif eleccion_turnos == 2:
+                    mostrar_tabla_turnos(diccionario_turnos)
+
+                elif eleccion_turnos == 3:
+                    bandera_turnos = False
+                else:
+                    print("Numero incorrecto")
+        elif eleccion == "7":
             print("Cerrando menú...")
             bandera = False
 

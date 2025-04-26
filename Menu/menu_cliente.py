@@ -17,6 +17,9 @@ def menu_usuario():
             elif eleccion == 2:
                   cambio = remplazar_datos_usuarios(datos_usuarios)
                   print(cambio)
+            elif eleccion == 3:
+                  borrar_turnos(turnos)
+
             elif eleccion == 9:
                   print ("Cerrando cliente")
                   bandera = False
