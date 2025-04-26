@@ -85,7 +85,6 @@ def realizar_turnos (turnos,datos_medicos,datos_usuarios):
                 else:
                         print(" Formato de fecha incorrecto.") 
 
-                print(" Turnos actuales:", turnos) 
             else:
                 print(" Especialidad no encontrada.")
         elif turno_medico == -1:
@@ -181,3 +180,12 @@ def mostrar_tabla_turnos(diccionario):
 
     for i in range(len(lista_dni)):
         print(f"{str(lista_dni[i]):<12}{lista_especialidad[i]:<20}{lista_nombre[i]:<20}{str(lista_fecha[i]):<30}")
+
+def mostrar_turnos_cliente(diccionario_turnos):
+    dni = int(input("Ingrese el dni: "))
+    print(f"{'DNI':<12}{'Especialidad':<20}{'Doctor':<10}{'Fecha':<30}") #rebanadas
+    print("-" * 72)
+
+    for i in range(len(diccionario_turnos["DNI"])):
+        if diccionario_turnos["DNI"][i]== dni:
+            print(f"{str(diccionario_turnos['DNI'][i]):<12}{diccionario_turnos['Especialidad'][i]:<20}{diccionario_turnos['Doctor'][i]:<20}{str(diccionario_turnos['Fecha'][i]):<30}")

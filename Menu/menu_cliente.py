@@ -19,6 +19,8 @@ def menu_usuario():
                   print(cambio)
             elif eleccion == 3:
                   borrar_turnos(turnos)
+            elif eleccion == 4:
+                  mostrar_turnos_cliente(diccionario_turnos)
 
             elif eleccion == 9:
                   print ("Cerrando cliente")
