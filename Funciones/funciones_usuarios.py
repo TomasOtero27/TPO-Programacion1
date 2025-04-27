@@ -9,8 +9,12 @@ fecha_actual = datetime.today()
 def separador():
     print("-"*50)
 
-def ordenar_lista_usuarios(fila):
-    datos_usuarios[fila].sort()
+def ordenar_usuarios_por_campo(ordenar):
+    usuarios = list(zip(*datos_usuarios))
+    usuarios.sort(key=lambda usuario: usuario[ordenar])           #lambda
+    for i in range(len(datos_usuarios)):
+        datos_usuarios[i] = [usuario[i] for usuario in usuarios]
+
 
 def enmascarar_contraseña(contraseña):
     contraseña_enmascarada =  re.sub(r'.',"*", contraseña)

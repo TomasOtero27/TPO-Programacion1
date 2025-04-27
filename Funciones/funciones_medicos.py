@@ -12,8 +12,12 @@ def mostrar_tabla_medicos(diccionario_medicos):
     for i in range(len(lista_dni)):
         print(f"{str(lista_nombre[i]):<20}{lista_dni[i]:<12}{str(lista_especialidad[i]):<20}{lista_sucursal[i]:<15}{lista_correo[i]:<30}")
         
-def ordenar_lista_medicos(fila):
-    datos_medicos[fila].sort()
+def ordenar_usuarios_por_campo(ordenar):
+    medicos = list(zip(*datos_medicos))
+    medicos.sort(key=lambda medicos: medicos[ordenar])           #lambda
+    for i in range(len(datos_medicos)):
+        datos_medicos[i] = [medicos[i] for medicos in medicos]
+
 
 def mostrar_matriz(matriz):
     print("Matriz actualizada:")

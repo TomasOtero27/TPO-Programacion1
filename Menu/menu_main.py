@@ -48,14 +48,14 @@ def menu_main():
             print("0 - Cerrar menú")
             bandera_ordenada= True
             while bandera_ordenada :
-                eleccion_ordenada = int(input("Ingrese la opción: "))
+                eleccion_ordenada = int(input("\nIngrese la opción: "))
                 # Ordenar usuarios
                 if eleccion_ordenada == 1:
                     print(datos_usuarios)  
                     fila = int(input("\nIngrese el número de la fila que desea ordenar (0 a 3): "))
                     # Validamos la fila
                     if 0 <= fila and fila < len(datos_usuarios):  
-                        ordenar_lista_usuarios(fila) 
+                        ordenar_usuarios_por_campo(fila)
                         print("Fila ordenada con éxito.")
                         mostrar_matriz(datos_usuarios)  
                     else:
@@ -67,7 +67,7 @@ def menu_main():
                     fila = int(input("\nIngrese el número de la fila que desea ordenar (0 a 3): "))
                     # Validamos la fila
                     if 0 <= fila and fila < len(datos_medicos):  
-                        ordenar_lista_medicos(fila) 
+                        ordenar_usuarios_por_campo(fila)
                         print("Fila ordenada con éxito.")
                         mostrar_matriz(datos_medicos)  
                     else:
