@@ -8,11 +8,11 @@ def menu_usuario(ingreso):
             titulo = "Bienvenido al Menú de Cliente"
             titulo_decorado = titulo.center(50,"-")
             print(titulo_decorado)
-            print("1 - Para pedir un turno")
-            print("2 - Para cambiar tus datos")
-            print("3 - Para cancelar un turno")
-            print("4 - mostrar mis turnos")
-            print("0 - Para cerrar")
+            print("1 - Pedir un turno")
+            print("2 - Cambiar tus datos")
+            print("3 - Cancelar último turno")
+            print("4 - Mostrar mis turnos")
+            print("0 - Cerrar menú")
             eleccion = int(input("Seleccione una opción: "))
             # Validación de opciónes
             if eleccion == 1: 

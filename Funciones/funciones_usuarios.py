@@ -13,11 +13,11 @@ def ordenar_lista_usuarios(fila):
     datos_usuarios[fila].sort()
 
 def enmascarar_contraseña(contraseña):
-    contraseña_enmascarada =  re.sub(r'.','*', contraseña)
+    contraseña_enmascarada =  re.sub(r'.',"*", contraseña)
     return contraseña_enmascarada
 
 def enmascarar_gmail(gmail):
-    gmail_enmascarado = re.sub(r'^[^@]+', '*' * 10, gmail)
+    gmail_enmascarado = re.sub(r'^[^@]+', "*" * 10, gmail)
     return gmail_enmascarado
         
     
@@ -29,32 +29,35 @@ def mostrar_matriz(matriz):
 def agregar_usuarios (datos_usuarios):
     bandera = True
     while bandera:
-        extender = int(input("Ingrese DNI: "))
-        if extender == -1:
-            print("Cerrando menú")
-            bandera = False
-        elif extender < 11111111 or extender > 99999999:#----------Validacion para que realmente sea un DNI
+        dni = int(input("Ingrese DNI: "))
+        # Validamos el largo del DNI
+        if dni < 11111111 or dni > 99999999:
             print("Numero invalido")
         else:
-            datos_usuarios[0].append(extender)
+            # Agregamos DNI
+            datos_usuarios[0].append(dni)
             print("DNI agregado")
+            # Agregamos Nombre
             nombre = input("Ingrese el nombre y apellido: ")
             datos_usuarios[1].append(nombre.title())       
             print("Nombre agregado")
+            # Agregamos Contraseña
             contraseña_agregar=input("Ingrese la contraseña: ")
             datos_usuarios[2].append(contraseña_agregar)
-            print("Contraseña agregado")
-            gmail = input("Ingrese su gmail: ")
-            datos_usuarios[3].append(gmail)
-            print()
+            print("Contraseña agregada")
+            # Agregamos Correo
+            correo = input("Ingrese su correo: ")
+            datos_usuarios[3].append(correo)
 
-            return datos_usuarios 
+            print("Usuario creado con éxito")
+            bandera = False
+
 
 
 def realizar_turnos (turnos,datos_medicos,datos_usuarios):
     bandera_turnos = True
     while bandera_turnos:
-            dni = int(input("Ingrese el DNI(-1 para terminar): "))
+            dni = int(input("Ingrese su DNI: "))
             if dni in datos_usuarios[0]:
             # Separamos especialidad de su matriz
                 especialidad_disponible = datos_medicos[2]
@@ -90,6 +93,12 @@ def realizar_turnos (turnos,datos_medicos,datos_usuarios):
 
                                 print(" Turno registrado con éxito.")
                                 separador()
+                                # Mostrar último turno
+                                print(f"DNI: {turnos[0][-1]}")
+                                print(f"Especialidad: {turnos[1][-1]}")
+                                print(f"Doctor: {turnos[2][-1]}")
+                                print(f"Fecha del turno: {turnos[3][-1]}")
+                                print(f"Sede del turno: {turnos[4][-1]}")
                                 bandera_turnos = False
                             else:
                                 print(" No se pueden elegir fechas anteriores a hoy.")
@@ -99,8 +108,6 @@ def realizar_turnos (turnos,datos_medicos,datos_usuarios):
                             print(" Formato de fecha incorrecto.") 
                 else:
                     print(" Especialidad no encontrada.")
-            elif dni == -1:
-                bandera_turnos == False
             else:
                 print("DNI no encontrado")        
 
@@ -108,69 +115,79 @@ def realizar_turnos (turnos,datos_medicos,datos_usuarios):
 
 
 def borrar_datos_usuarios(datos_usuarios):
-    print(datos_usuarios[0])
-    dni = int(input("Indique el DNI: "))
+    # Mostrar DNIs cargados
+    for datos in datos_usuarios[0]:
+        print(datos, end=" ")
+    # Solicitamos DNI a eliminar
+    dni = int(input("\nIndique el DNI a eliminar: "))
+    # Validamos que exista dentro de la matriz y buscamos su posición con index
     if dni in datos_usuarios[0]:
-        indice = datos_usuarios[0].index(dni) #con el index buscamos su ubicacion de la matriz
-        
-        for sublistas in datos_usuarios:        #usando metodo de listas, con for in
-            sublistas.pop(indice)                #el pop(indice) borra todos los datos de la ubicacion 
+        indice = datos_usuarios[0].index(dni) 
+        # Recorremos las sublistas de la matriz y eliminamos el indice con pop       
+        for sublistas in datos_usuarios:      
+            sublistas.pop(indice)          
         print(f"Usuario eliminado con éxito: {dni}")
     else:
         print("DNI no encontrado.")
     
     return datos_usuarios
-    
-    #---------------------------------------- Busco y remplazo los datos del usuario segun su DNI ------------------------------------------------           
-    
+        
 def remplazar_datos_usuarios(datos_usuarios):
-    dni = int(input("Indique DNI: "))
+    dni = int(input("Indique su DNI: "))
+    separador()
+    # Validamos que el DNI se encuentre en la matriz
     if dni in datos_usuarios[0]:
         indice = datos_usuarios[0].index(dni)
-        print("Indique que quiere modificar")
+        # Mostramos los datos, algunos enmasacarados, a cambiar
+        print("Indique el dato a modificar")
         print(f"1 - Nombre: {datos_usuarios[1][indice]}")
         print(f"2 - Contraseña: {enmascarar_contraseña(datos_usuarios[2][indice])}")
         print(f"3 - Gmail: {enmascarar_gmail(datos_usuarios[3][indice])}")
-        print("4 - Para terminar")
-        bandera_remplazar = True
-        while bandera_remplazar:
-            remplazo = int(input("Ingrese la opcion: "))
-            if remplazo == 1:
+        print("0 - Para cerrar el menú")
+        bandera_reemplazar = True
+        while bandera_reemplazar:
+            reemplazo = int(input("Ingrese la opción a cambiar: "))
+            # Cambio de nombre
+            if reemplazo == 1:
                 nuevo_nombre = input("Ingrese el nuevo nombre: ")
+                # Usamos title para ingresar el nombre con mayúsculas automáticas
                 datos_usuarios[1][indice] = nuevo_nombre.title()
-                print(f"Nuevo nombre agregado: {nuevo_nombre.title()}") #title para que ponga mayuscula las palabras
-            elif remplazo == 2:
+                print(f"Nuevo nombre agregado: {nuevo_nombre.title()}")
+            # Cambio de contraseña
+            elif reemplazo == 2:
                 nueva_contraseña = input("Ingrese la nueva contraseña: ")
                 datos_usuarios[2][indice] = nueva_contraseña
-                print("Contraseña cambiada....")                #USAR PARA QUE SEA TDO ##### POR SUB, VALIDAR CON DELIMITACION
-            elif remplazo == 3:
-                nuevo_gmail = input("Ingrese el nuevo gmail: ")
-                datos_usuarios[3][indice]= nuevo_gmail
-                print(f"Gmail cambiado: {nuevo_gmail}")
-            elif remplazo == 4:
-                bandera_remplazar = False
+                print("Contraseña cambiada con éxito")
+            # Cambio de correo
+            elif reemplazo == 3:
+                nuevo_correo = input("Ingrese el nuevo correo: ")
+                datos_usuarios[3][indice]= nuevo_correo
+                print(f"Nuevo correo: {nuevo_correo}")
+            # Cerrar menú
+            elif reemplazo == 0:
+                bandera_reemplazar = False
             else:
-                print("Numero no ncontrado")
+                print("Número no ncontrado")
     else:
-        print("DNI no encontrado...")
-    return 
+        print("DNI no encontrado") 
 
 def borrar_turnos(turnos):
-    print("Ingrese 2 para terminar")
     bandera_borrar_turnos = True
     while bandera_borrar_turnos:
-        borrar_turnos_dni= int(input("Ingrese su dni: "))
+        borrar_turnos_dni = int(input("Ingrese su DNI: "))
+        # Validar que el DNI se encuentre en la matriz
         if borrar_turnos_dni in turnos[0]:
-            indice = turnos[0].index(borrar_turnos_dni)
+            # Usamos el index con paso -1 para usar como índice el ultimo dato encontrado
+            indice = len(turnos[0]) - 1 - datos_usuarios[0][::-1].index(borrar_turnos_dni)
+            # Eliminamos el indice de la sublista.
             for sublistas in turnos:
                 sublistas.pop(indice)
-            print("Turno eliminado con exito")
-        elif borrar_turnos_dni == 2:
+            print("Último turno eliminado con éxito")
             bandera_borrar_turnos = False
         else:
                 print("DNI no econtrado")
 
-
+# Funciones para printear tablas
 
 def mostrar_tabla(diccionario):
     print(f"{'DNI':<12}{'Nombre':<20}{'Clave':<10}{'Correo_electronico':<30}") #rebanadas
@@ -199,7 +216,7 @@ def mostrar_tabla_turnos(diccionario):
         print(f"{str(lista_dni[i]):<12}{lista_especialidad[i]:<20}{lista_nombre[i]:20}{str(lista_fecha[i]):<15}{lista_sede[i]:15}")
 
 def mostrar_turnos_cliente(diccionario_turnos):
-    dni = int(input("Ingrese el dni: "))
+    dni = int(input("Ingrese su DNI: "))
     print(f"{'DNI':<12}{'Especialidad':<20}{'Doctor':<20}{'Fecha':<15}{'Sede':15}") 
     print("-" * 72)
 

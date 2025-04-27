@@ -19,14 +19,12 @@ def mostrar_matriz(matriz):
     print("Matriz actualizada:")
     for fila in matriz:
         print(fila)
+
 def agregar_medicos (datos_medicos):
     bandera = True
     while bandera:
         extender_medicos = int(input("Ingrese DNI: "))
-        if extender_medicos == -1:
-            print("Cerrando agregar....")
-            bandera = False
-        elif extender_medicos < 11111111 or extender_medicos > 99999999:
+        if extender_medicos < 11111111 or extender_medicos > 99999999:
             print("Numero invalido")
         else:
             datos_medicos[1].append(extender_medicos)
@@ -41,51 +39,53 @@ def agregar_medicos (datos_medicos):
             datos_medicos[3].append(sede.title())   
             gmail = input("Ingrese su gmail: ")
             datos_medicos[4].append(gmail)
-
-            return datos_medicos
+            print("Médico creado con éxito")
+            bandera = False
 
 def borrar_datos_medicos(datos_medicos):
-    print(datos_medicos[1])
-    dni = int(input("Indique el DNI: "))
+    for datos in datos_medicos[1]:
+        print(datos, end=" ")
+    dni = int(input("\nIndique el DNI: "))
     if dni in datos_medicos[1]:
         indice = datos_medicos[1].index(dni) #con el index buscamos su ubicacion de la matriz
         
         for sublistas in datos_medicos:        #usando metodo de listas, con for in
             sublistas.pop(indice)                #el pop(indice) borra todos los datos de la ubicacion 
-        print(f"Usuario eliminado con éxito: {dni}")   #parametros reales pasados por nombre F{}
+        print(f"Médico eliminado con éxito: {dni}")   #parametros reales pasados por nombre F{}
     else:
         print("DNI no encontrado.")
-    
-    return datos_medicos
 
 def remplazar_datos_medicos(datos_medicos):
     dni = int(input("Indique DNI: "))
     if dni in datos_medicos[1]:
         indice = datos_medicos[1].index(dni)
-        print("Indique que quiere modificar")
+        print("Indique el dato a modificar")
         print(f"1 - Nombre: {datos_medicos[0][indice]}")
         print(f"2 - Especialidad: {datos_medicos[2][indice]}")
-        print(f"3 - Gmail: {datos_medicos[3][indice]}")
-        print("0 - Para terminar")
+        print(f"3 - Sede: {datos_medicos[3][indice]}")
+        print(f"4 - Correo: {datos_medicos[4][indice]}")
+        print("0 - Cerrar menú")
         bandera_remplazar = True
         while bandera_remplazar:
-            remplazo = int(input("Ingrese la opcion: "))
-            if remplazo == 1:
+            reemplazo = int(input("Ingrese la opción a cambiar: "))
+            if reemplazo == 1:
                 nuevo_nombre = input("Ingrese el nuevo nombre: ")
-                datos_medicos[1][indice] = nuevo_nombre.title()
+                datos_medicos[0][indice] = nuevo_nombre.title()
                 print(f"Nuevo nombre agregado: {nuevo_nombre.title()}") 
-            elif remplazo == 2:
+            elif reemplazo == 2:
                 nueva_especialidad =input("Ingrese la nueva especialidad: ")
                 datos_medicos[2][indice] = nueva_especialidad.title()
-                print(f"Especialidad cambiada: {nueva_especialidad.title()}")                #USAR PARA QUE SEA TDO ##### POR SUB, VALIDAR CON DELIMITACION
-            elif remplazo == 3:
+                print(f"Especialidad cambiada: {nueva_especialidad.title()}")   
+            elif reemplazo == 3:
+                nueva_sede = input("Ingrese la nueva sede: ")
+                datos_medicos[3][indice] = nueva_sede
+            elif reemplazo == 4:
                 nuevo_gmail = input("Ingrese el nuevo gmail: ")
-                datos_medicos[3][indice]= nuevo_gmail
-                print(f"Gmail cambiado: {nuevo_gmail}")
-            elif remplazo == 0:
+                datos_medicos[4][indice]= nuevo_gmail
+                print(f"Correo cambiado: {nuevo_gmail}")
+            elif reemplazo == 0:
                 bandera_remplazar = False
             else:
-                print("Numero no ncontrado")
+                print("Parámetro no encontrado")
     else:
-        print("DNI no encontrado...")
-    return datos_medicos
+        print("DNI no encontrado")
