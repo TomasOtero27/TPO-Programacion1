@@ -178,7 +178,7 @@ def borrar_turnos(turnos):
         # Validar que el DNI se encuentre en la matriz
         if borrar_turnos_dni in turnos[0]:
             # Usamos el index con paso -1 para usar como índice el ultimo dato encontrado
-            indice = len(turnos[0]) - 1 - datos_usuarios[0][::-1].index(borrar_turnos_dni)
+            indice = len(turnos[0]) - 1 - turnos[0][::-1].index(borrar_turnos_dni)
             # Eliminamos el indice de la sublista.
             for sublistas in turnos:
                 sublistas.pop(indice)
