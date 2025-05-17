@@ -2,6 +2,7 @@ from datetime import datetime
 import re
 from datos import *
 
+
 fecha_ingresada = "25/04/2025"
 fecha_usuario = datetime.strptime(fecha_ingresada, "%d/%m/%Y")
 fecha_actual = datetime.today()
@@ -31,90 +32,96 @@ def mostrar_matriz(matriz):
         print(fila)
 
 def agregar_usuarios (datos_usuarios):
-    bandera = True
-    while bandera:
-        dni = int(input("Ingrese DNI: "))
-        # Validamos el largo del DNI
-        if dni < 11111111 or dni > 99999999:
-            print("Numero invalido")
+    while True:
+        try:
+            print("0 para volver")
+            dni = int(input("Ingrese DNI nuevo: "))
+        except ValueError:
+            print("Se espera numeros enteros")
         else:
-            # Agregamos DNI
-            datos_usuarios[0].append(dni)
-            print("DNI agregado")
-            # Agregamos Nombre
-            nombre = input("Ingrese el nombre y apellido: ")
-            datos_usuarios[1].append(nombre.title())       
-            print("Nombre agregado")
-            # Agregamos Contraseña
-            contraseña_agregar=input("Ingrese la contraseña: ")
-            datos_usuarios[2].append(contraseña_agregar)
-            print("Contraseña agregada")
-            # Agregamos Correo
-            correo = input("Ingrese su correo: ")
-            datos_usuarios[3].append(correo)
-
-            print("Usuario creado con éxito")
-            bandera = False
-
-
-
-def realizar_turnos (turnos,datos_medicos,datos_usuarios):
-    bandera_turnos = True
-    while bandera_turnos:
-            dni = int(input("Ingrese su DNI: "))
-            if dni in datos_usuarios[0]:
-            # Separamos especialidad de su matriz
-                especialidad_disponible = datos_medicos[2]
-            # Mostrar especalidades
-                separador()
-                for especialidad in especialidad_disponible:
-                    print(especialidad)
-            # Input especialidad
-                separador()
-                especialidad_turno = input(f"Ingrese la especialidad: ")
-            # Lista por comprensión
-                patron = [especialidad for especialidad in especialidad_disponible if re.search(especialidad_turno,especialidad,re.IGNORECASE)]
-                if len(patron) > 0:
-                    especialidad_turno = patron[0]
-                    print(f"Especialidad elegida: {especialidad_turno}")
-                # Fecha
-                    fecha = input("Ingrese la fecha en formato DD/MM/AAAA: ")
-                # Validacion de la fecha en formato DD/MM/AAAA
-                    if len(fecha) == 10 and fecha[2] == "/" and fecha[5] == "/":
-                    # Slicing
-                        dia = int(fecha[:2])
-                        mes = int(fecha[3:5])
-                        anio = int(fecha[6:])
-                        if (1 <= dia <= 31) and (1 <= mes <= 12):
-                            fecha_valida = datetime(anio, mes, dia)
-                            if fecha_valida >= datetime.today():
-                                turnos[0].append(dni) # DNI Paciente
-                                turnos[1].append(especialidad_turno) # Especialidad
-                                indice = datos_medicos[2].index(especialidad_turno) 
-                                turnos[2].append(datos_medicos[0][indice]) # Nombre médico
-                                turnos[3].append(fecha_valida.strftime("%d/%m/%Y")) # Fecha turno
-                                turnos[4].append(datos_medicos[3][indice]) # Lugar
-
-                                print(" Turno registrado con éxito.")
-                                separador()
-                                # Mostrar último turno
-                                print(f"DNI: {turnos[0][-1]}")
-                                print(f"Especialidad: {turnos[1][-1]}")
-                                print(f"Doctor: {turnos[2][-1]}")
-                                print(f"Fecha del turno: {turnos[3][-1]}")
-                                print(f"Sede del turno: {turnos[4][-1]}")
-                                bandera_turnos = False
-                            else:
-                                print(" No se pueden elegir fechas anteriores a hoy.")
-                        else:
-                                print(" Fecha inválida.") 
-                    else:
-                            print(" Formato de fecha incorrecto.") 
-                else:
-                    print(" Especialidad no encontrada.")
+            if dni == 0:
+                print("Volviendo...")
+                break
+            # Validamos el largo del DNI
+            elif dni < 11111111 or dni > 99999999:
+                print("Numero invalido")
             else:
-                print("DNI no encontrado")        
+                # Agregamos DNI
+                datos_usuarios[0].append(dni)
+                print("DNI agregado")
+                # Agregamos Nombre
+                nombre = input("Ingrese el nombre y apellido: ")
+                datos_usuarios[1].append(nombre.title())       
+                print("Nombre agregado")
+                # Agregamos Contraseña
+                contraseña_agregar=input("Ingrese la contraseña: ")
+                datos_usuarios[2].append(contraseña_agregar)
+                print("Contraseña agregada")
+                # Agregamos Correo
+                correo = input("Ingrese su correo: ")
+                datos_usuarios[3].append(correo)
 
+                print("Usuario creado con éxito")
+                break
+
+
+
+def realizar_turnos (turnos,datos_medicos,datos_usuarios,ingreso):
+    while True:
+            print (f"Entrando al Menu turnos con: {ingreso}")
+            indice_ingreso = datos_usuarios[0].index(ingreso)
+            print(f"Bienvenido al Menu turnos: {indice_ingreso}")
+            # Separamos especialidad de su matriz
+            especialidad_disponible = datos_medicos[2]
+            # Mostrar especalidades
+            separador()
+            for especialidad in especialidad_disponible:
+                print(especialidad)
+            # Input especialidad
+            separador()
+            especialidad_turno = input(f"Ingrese la especialidad: ")
+            # Lista por comprensión
+            patron = [especialidad for especialidad in especialidad_disponible if re.search(especialidad_turno,especialidad,re.IGNORECASE)]
+            if len(patron) > 0:
+                especialidad_turno = patron[0]
+                print(f"Especialidad elegida: {especialidad_turno}")
+                # Fecha
+                fecha = input("Ingrese la fecha en formato DD/MM/AAAA: ")
+                # Validacion de la fecha en formato DD/MM/AAAA
+                if len(fecha) == 10 and fecha[2] == "/" and fecha[5] == "/":
+                    # Slicing
+                    dia = int(fecha[:2])
+                    mes = int(fecha[3:5])
+                    anio = int(fecha[6:])
+                    if (1 <= dia <= 31) and (1 <= mes <= 12):
+                        fecha_valida = datetime(anio, mes, dia)
+                        if fecha_valida >= datetime.today():
+                            turnos[0].append(ingreso) # DNI Paciente
+                            turnos[1].append(indice_ingreso)#Nombre del paciente
+                            turnos[2].append(especialidad_turno) # Especialidad
+                            indice = datos_medicos[2].index(especialidad_turno) 
+                            turnos[3].append(datos_medicos[0][indice]) # Nombre médico
+                            turnos[4].append(fecha_valida.strftime("%d/%m/%Y")) # Fecha turno
+                            turnos[5].append(datos_medicos[3][indice]) # Lugar
+
+                            print(" Turno registrado con éxito.")
+                            separador()
+                            # Mostrar último turno
+                            print(f"DNI: {turnos[0][-1]}")
+                            print(f"Especialidad: {turnos[1][-1]}")
+                            print(f"Doctor: {turnos[2][-1]}")
+                            print(f"Fecha del turno: {turnos[3][-1]}")
+                            print(f"Sede del turno: {turnos[4][-1]}")
+                            break
+                        else:
+                            print(" No se pueden elegir fechas anteriores a hoy.")
+                    else:
+                            print(" Fecha inválida.") 
+                else:
+                        print(" Formato de fecha incorrecto.") 
+            else:
+                print(" Especialidad no encontrada.")
+       
 
 
 
@@ -136,20 +143,18 @@ def borrar_datos_usuarios(datos_usuarios):
     
     return datos_usuarios
         
-def remplazar_datos_usuarios(datos_usuarios):
-    dni = int(input("Indique su DNI: "))
-    separador()
-    # Validamos que el DNI se encuentre en la matriz
-    if dni in datos_usuarios[0]:
-        indice = datos_usuarios[0].index(dni)
+def remplazar_datos_usuarios(datos_usuarios,ingreso):
+        print (f"Entrando a la funcion reemplazo con: {ingreso}")
+        indice_ingreso = datos_usuarios[0].index(ingreso)
+        print(f"Bienvenido: {indice_ingreso}")
+        indice = datos_usuarios[0].index(ingreso)
         # Mostramos los datos, algunos enmasacarados, a cambiar
         print("Indique el dato a modificar")
         print(f"1 - Nombre: {datos_usuarios[1][indice]}")
         print(f"2 - Contraseña: {enmascarar_contraseña(datos_usuarios[2][indice])}")
         print(f"3 - Gmail: {enmascarar_gmail(datos_usuarios[3][indice])}")
         print("0 - Para cerrar el menú")
-        bandera_reemplazar = True
-        while bandera_reemplazar:
+        while True:
             reemplazo = int(input("Ingrese la opción a cambiar: "))
             # Cambio de nombre
             if reemplazo == 1:
@@ -169,16 +174,13 @@ def remplazar_datos_usuarios(datos_usuarios):
                 print(f"Nuevo correo: {nuevo_correo}")
             # Cerrar menú
             elif reemplazo == 0:
-                bandera_reemplazar = False
+                break
             else:
-                print("Número no ncontrado")
-    else:
-        print("DNI no encontrado") 
+                print("Número no ncontrado") 
 
 def borrar_turnos(turnos):
-    bandera_borrar_turnos = True
-    while bandera_borrar_turnos:
-        borrar_turnos_dni = int(input("Ingrese su DNI: "))
+    while True:
+        borrar_turnos_dni = int(input("Ingrese su DNI: "))  #se debe ingresar directo y elegir que turno borrar
         # Validar que el DNI se encuentre en la matriz
         if borrar_turnos_dni in turnos[0]:
             # Usamos el index con paso -1 para usar como índice el ultimo dato encontrado
@@ -187,7 +189,7 @@ def borrar_turnos(turnos):
             for sublistas in turnos:
                 sublistas.pop(indice)
             print("Último turno eliminado con éxito")
-            bandera_borrar_turnos = False
+            break
         else:
                 print("DNI no econtrado")
 
@@ -219,11 +221,10 @@ def mostrar_tabla_turnos(diccionario):
     for i in range(len(lista_dni)):
         print(f"{str(lista_dni[i]):<12}{lista_especialidad[i]:<20}{lista_nombre[i]:20}{str(lista_fecha[i]):<15}{lista_sede[i]:15}")
 
-def mostrar_turnos_cliente(diccionario_turnos):
-    dni = int(input("Ingrese su DNI: "))
-    print(f"{'DNI':<12}{'Especialidad':<20}{'Doctor':<20}{'Fecha':<15}{'Sede':15}") 
+def mostrar_turnos_cliente(diccionario_turnos,ingreso):
+    print(f"{'DNI':<12}{'Nombre':<20}{'Especialidad':<20}{'Doctor':<20}{'Fecha':<15}{'Sede':15}") 
     print("-" * 72)
 
     for i in range(len(diccionario_turnos["DNI"])):
-        if diccionario_turnos["DNI"][i]== dni:
-            print(f"{str(diccionario_turnos["DNI"][i]):<12}{diccionario_turnos["Especialidad"][i]:<20}{diccionario_turnos["Doctor"][i]:<20}{str(diccionario_turnos["Fecha"][i]):<15}{diccionario_turnos["Sede"][i]:<}")
+        if diccionario_turnos["DNI"][i]== ingreso:
+            print(f"{str(diccionario_turnos["DNI"][i]):<12}{diccionario_turnos["Nombre"][i]:<20}{diccionario_turnos["Especialidad"][i]:<20}{diccionario_turnos["Doctor"][i]:<20}{str(diccionario_turnos["Fecha"][i]):<15}{diccionario_turnos["Sede"][i]:<}")
