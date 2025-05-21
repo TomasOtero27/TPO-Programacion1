@@ -1,16 +1,16 @@
 from datos import *
 
 def mostrar_tabla_medicos(diccionario_medicos):
-    print(f"{'Nombre':<20}{'DNI':<12}{'Especialidad':<20}{'Sucursal':<15}{'Correo':<30}")
-    print("-" * 72)
+    print(f"{'Nombre':<20}{'DNI':<12}{'Correo':<30}{'Especialidad':<30}{'Precio':<15}")
+    print("-" * 100)
     lista_nombre = diccionario_medicos["Nombre"]
     lista_dni = diccionario_medicos["DNI"]
-    lista_especialidad = diccionario_medicos["Especialidad"]
-    lista_sucursal = diccionario_medicos["Sucursal"]
     lista_correo = diccionario_medicos["Correo"]
+    lista_especialidad = diccionario_medicos["Especialidad"]
+    lista_precio = diccionario_medicos["Precio"]
 
     for i in range(len(lista_dni)):
-        print(f"{str(lista_nombre[i]):<20}{lista_dni[i]:<12}{str(lista_especialidad[i]):<20}{lista_sucursal[i]:<15}{lista_correo[i]:<30}")
+        print(f"{str(lista_nombre[i]):<20}{lista_dni[i]:<12}{lista_correo[i]:<30}{str(lista_especialidad[i]):<30}{lista_precio[i]:<15}")
         
 def ordenar_usuarios_por_campo(ordenar):
     medicos = list(zip(*datos_medicos))

@@ -43,7 +43,7 @@ def agregar_usuarios (datos_usuarios):
                 print("Volviendo...")
                 break
             # Validamos el largo del DNI
-            elif dni < 11111111 or dni > 99999999:
+            elif dni < 00000000 or dni > 99999999:
                 print("Numero invalido")
             else:
                 # Agregamos DNI
@@ -51,7 +51,7 @@ def agregar_usuarios (datos_usuarios):
                 print("DNI agregado")
                 # Agregamos Nombre
                 nombre = input("Ingrese el nombre y apellido: ")
-                datos_usuarios[1].append(nombre.title())       
+                datos_usuarios[1].append(nombre.upper())       
                 print("Nombre agregado")
                 # Agregamos Contraseña
                 contraseña_agregar=input("Ingrese la contraseña: ")
@@ -60,7 +60,21 @@ def agregar_usuarios (datos_usuarios):
                 # Agregamos Correo
                 correo = input("Ingrese su correo: ")
                 datos_usuarios[3].append(correo)
-
+                # Agreagamos Obra Social
+                print("Seleccione su obra social.")
+                print("1 - UwUseguros")
+                print("2 - JijazoSalud")
+                print("3 - Particular")
+                obras = int(input("Seleccione una opción: "))
+                while obras < 1 or obras > 3:
+                    print("Opción incorrecta")
+                    obras = int(input("Seleccione una opción: "))
+                if obras == 1:
+                    datos_usuarios.append("UwUseguros")
+                elif obras == 2:
+                    datos_usuarios.append("JijazoSalud")
+                else:
+                    datos_usuarios.append("Particular")
                 print("Usuario creado con éxito")
                 break
 
@@ -178,13 +192,16 @@ def remplazar_datos_usuarios(datos_usuarios,ingreso):
             else:
                 print("Número no ncontrado") 
 
-def borrar_turnos(turnos):
+def borrar_turnos(turnos,ingreso):
     while True:
         borrar_turnos_dni = int(input("Ingrese su DNI: "))  #se debe ingresar directo y elegir que turno borrar
         # Validar que el DNI se encuentre en la matriz
         if borrar_turnos_dni in turnos[0]:
             # Usamos el index con paso -1 para usar como índice el ultimo dato encontrado
             indice = len(turnos[0]) - 1 - turnos[0][::-1].index(borrar_turnos_dni)
+        if ingreso in turnos[0]:
+            # Usamos el index con paso -1 para usar como índice el ultimo dato encontrado
+            indice = len(turnos[0]) - 1 - turnos[0][::-1].index(ingreso)
             # Eliminamos el indice de la sublista.
             for sublistas in turnos:
                 sublistas.pop(indice)
@@ -196,35 +213,36 @@ def borrar_turnos(turnos):
 # Funciones para printear tablas
 
 def mostrar_tabla(diccionario):
-    print(f"{'DNI':<12}{'Nombre':<20}{'Clave':<10}{'Correo_electronico':<30}") #rebanadas
+    print(f"{'DNI':<12}{'Nombre':<20}{'Clave':<10}{'Correo_electronico':<30}{'Obra_social':<30}") #rebanadas
     print("-" * 72)
     
     lista_dni = diccionario["DNI"]
     lista_nombre = diccionario["Nombre"]
     lista_clave = diccionario["Clave"]
     lista_correo = diccionario["Correo_electronico"]
+    lista_obra_social = diccionario["Obra_social"]
 
     for i in range(len(lista_dni)):
-        print(f"{str(lista_dni[i]):<12}{lista_nombre[i]:<20}{str(lista_clave[i]):<10}{lista_correo[i]:<30}")
+        print(f"{str(lista_dni[i]):<12}{lista_nombre[i]:<20}{str(lista_clave[i]):<10}{lista_correo[i]:<30}{lista_obra_social[i]:<30}")
     return print()
 
 def mostrar_tabla_turnos(diccionario):
-    print(f"{'DNI':<12}{'Especialidad':<20}{'Doctor':<20}{'Fecha':<15}{'Sede':15}") 
+    print(f"{'DNI':<12}{'Especialidad':<20}{'Doctor':<20}{'Fecha':<15}{'Precio':15}") 
     print("-" * 72)
 
     lista_dni = diccionario["DNI"]
     lista_especialidad = diccionario["Especialidad"]
     lista_nombre = diccionario["Doctor"]
     lista_fecha = diccionario["Fecha"]
-    lista_sede = diccionario["Sede"]
+    lista_precio = diccionario["Precio"]
 
     for i in range(len(lista_dni)):
-        print(f"{str(lista_dni[i]):<12}{lista_especialidad[i]:<20}{lista_nombre[i]:20}{str(lista_fecha[i]):<15}{lista_sede[i]:15}")
+        print(f"{str(lista_dni[i]):<12}{lista_especialidad[i]:<20}{lista_nombre[i]:20}{str(lista_fecha[i]):<15}{lista_precio[i]:15}")
 
 def mostrar_turnos_cliente(diccionario_turnos,ingreso):
-    print(f"{'DNI':<12}{'Nombre':<20}{'Especialidad':<20}{'Doctor':<20}{'Fecha':<15}{'Sede':15}") 
+    print(f"{'DNI':<12}{'Nombre':<20}{'Especialidad':<20}{'Doctor':<20}{'Fecha':<15}{'Precio':15}") 
     print("-" * 72)
 
     for i in range(len(diccionario_turnos["DNI"])):
         if diccionario_turnos["DNI"][i]== ingreso:
-            print(f"{str(diccionario_turnos["DNI"][i]):<12}{diccionario_turnos["Nombre"][i]:<20}{diccionario_turnos["Especialidad"][i]:<20}{diccionario_turnos["Doctor"][i]:<20}{str(diccionario_turnos["Fecha"][i]):<15}{diccionario_turnos["Sede"][i]:<}")
+            print(f"{str(diccionario_turnos["DNI"][i]):<12}{diccionario_turnos["Nombre"][i]:<20}{diccionario_turnos["Especialidad"][i]:<20}{diccionario_turnos["Doctor"][i]:<20}{str(diccionario_turnos["Fecha"][i]):<15}{diccionario_turnos["Precio"][i]:<}")

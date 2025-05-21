@@ -1,3 +1,4 @@
+import time
 from Funciones import *
 from datos import *
 def menu_main(ingreso):
@@ -11,7 +12,7 @@ def menu_main(ingreso):
         print("4 - Remover datos")
         print("5 - Modificar datos")
         print("6 - Crear o mostrar turnos")
-        print("0 - Cerrar menú")
+        print("0 - Volver al menu principal")
         
         eleccion = input("Ingrese la opción: ")
         print("-"*50)
@@ -21,7 +22,7 @@ def menu_main(ingreso):
             print("Datos a mostrar:")
             print("1 - Datos usuarios")
             print("2 - Datos médicos")
-            print("0 - Cerrar menú")
+            print("0 - Cerrar menu")
             while True :
                 eleccion_opcion_1 = input("Ingrese la opción: ")
                 # Mostrar datos clientes
@@ -35,6 +36,7 @@ def menu_main(ingreso):
                 # Cerrar menú      
                 elif eleccion_opcion_1 == "0":
                     print("Cerrando menú de mostrar diccionarios")
+                    time.sleep(1)
                     break
                 else:
                     print("Parámetro no encontrado")
@@ -72,6 +74,7 @@ def menu_main(ingreso):
                 # Cerrar menú
                 elif eleccion_ordenada == 0:
                     print("Cerrando menú")
+                    time.sleep(1)
                     break
                 else:
                     print("Numero invalido")
@@ -91,6 +94,7 @@ def menu_main(ingreso):
                     agregar_medicos(datos_medicos)
                 elif eleccion_agregar == "0":
                     print("Cerrando menú")
+                    time.sleep(1)
                     break
                 else:
                     print("Numero invalido")
@@ -114,6 +118,8 @@ def menu_main(ingreso):
                     borrar_turnos(turnos)
                 # Cerrar menú
                 elif eleccion_borrar == "0":
+                    print("Cerrando menu...")
+                    time.sleep(1)
                     break
                 else:
                     print("Parámetro incorrecto")
@@ -133,6 +139,8 @@ def menu_main(ingreso):
                     remplazar_datos_medicos(datos_medicos)
                 # Cerrar menú
                 elif eleccion_reemplazar == 0:
+                    print("Cerrando menu...")
+                    time.sleep(1)
                     break
                 else:
                     print("Parámetro incorrecto")
@@ -158,12 +166,15 @@ def menu_main(ingreso):
                     borrar_turnos(turnos)
                 # Cerrar menú
                 elif eleccion_turnos == 0:
+                    print("Cerrando menu...")
+                    time.sleep(1)
                     break
                 else:
                     print("Numero incorrecto")
         # Cerrar menú
         elif eleccion == "0":
-            print("Cerrando menú")
+            print("Volviendo al login")
+            time.sleep(1)
             break
 
         else:

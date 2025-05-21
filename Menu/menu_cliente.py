@@ -11,7 +11,7 @@ def menu_usuario(ingreso):
             print("2 - Cambiar tus datos")
             print("3 - Cancelar último turno")
             print("4 - Mostrar mis turnos")
-            print("0 - Cerrar menú")
+            print("0 - Volver al menú principal")
             eleccion = input("Seleccione una opción: ")
             # Validación de opciónes
             if eleccion == "1": 
