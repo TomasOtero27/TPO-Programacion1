@@ -2,6 +2,9 @@ import time
 from Menu.menu_main import *
 from Menu.menu_cliente import *
 
+def separador():
+    print("-"*50)
+
 # Menú de inicio del programa
 def menu():
      while True:
@@ -12,9 +15,10 @@ def menu():
           print("1 - Ingresar")
           print("2 - Crear usuario")
           print("0 - Cerrar menú")
-          opcion = input("Ingrese la opcion: ")
+          opcion = input("Ingrese la opción: ")
           # Ingreso al programa
-          if opcion == "1":   
+          if opcion == "1": 
+               separador()  
                try:
                     print("0 para volver")
                     ingreso = int(input("Ingrese su DNI:"))
@@ -42,6 +46,7 @@ def menu():
                          print("DNI no encontrado")
           # Agregar usuarios nuevos
           elif opcion == "2":
+               separador()
                agregar_usuarios(datos_usuarios)
           # Cerrar menú
           elif opcion == "0":
@@ -49,7 +54,7 @@ def menu():
                time.sleep(1)
                break
           else:
-               print("Numero no encontrado")
+               print("Opción no encontrada")
 
 # Main
 menu()
