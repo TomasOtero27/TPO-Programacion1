@@ -97,61 +97,65 @@ def agregar_usuarios (datos_usuarios):
 
 def realizar_turnos (turnos,datos_medicos,datos_usuarios,ingreso):
     while True:
-            print (f"Entrando al Menú turnos con: {ingreso}")
-            indice_ingreso = datos_usuarios[0].index(ingreso)
-            print(f"Bienvenido al Menu turnos: {indice_ingreso}")
-            # Separamos especialidad de su matriz
-            especialidad_disponible = datos_medicos[2]
-            # Mostrar especalidades
-            separador()
-            for especialidad in especialidad_disponible:
-                print(especialidad)
-            # Input especialidad
-            separador()
-            especialidad_turno = input(f"Ingrese la especialidad: ")
-            # Lista por comprensión
-            patron = [especialidad for especialidad in especialidad_disponible if re.search(especialidad_turno,especialidad,re.IGNORECASE)]
-            if len(patron) > 0:
-                especialidad_turno = patron[0]
-                print(f"Especialidad elegida: {especialidad_turno}")
-                # Fecha
-                fecha = input("Ingrese la fecha en formato DD/MM/AAAA: ")
-                # Validacion de la fecha en formato DD/MM/AAAA
-                if len(fecha) == 10 and fecha[2] == "/" and fecha[5] == "/":
-                    # Slicing
-                    dia = int(fecha[:2])
-                    mes = int(fecha[3:5])
-                    anio = int(fecha[6:])
-                    if (1 <= dia <= 31) and (1 <= mes <= 12):
-                        try: 
-                            fecha_valida = datetime(anio, mes, dia)
-                            if fecha_valida >= datetime.today():
-                                turnos[0].append(ingreso) # DNI Paciente
-                                turnos[1].append(indice_ingreso)#Nombre del paciente
-                                turnos[2].append(especialidad_turno) # Especialidad
-                                indice = datos_medicos[2].index(especialidad_turno) 
-                                turnos[3].append(datos_medicos[0][indice]) # Nombre médico
-                                turnos[4].append(fecha_valida.strftime("%d/%m/%Y")) # Fecha turno
-                                turnos[5].append(datos_medicos[3][indice]) # Lugar
+        print(f"Entrando al Menú turnos con: {ingreso}")
+        indice_ingreso = datos_usuarios[0].index(ingreso)
+        print(f"Bienvenido al Menu turnos: {indice_ingreso}")
 
-                                print(" Turno registrado con éxito.")
-                                separador()
-                                # Mostrar último turno
-                                print(f"DNI: {turnos[0][-1]}")
-                                print(f"Especialidad: {turnos[1][-1]}")
-                                print(f"Doctor: {turnos[2][-1]}")
-                                print(f"Fecha del turno: {turnos[3][-1]}")
-                                break
-                            else:
-                                print("No se pueden elegir fechas anteriores a hoy.")
-                        except:
-                            print("Error de fecha.")
-                    else:
-                            print("Fecha inválida.") 
+        especialidad_disponible = datos_medicos[3]
+
+        # Mostrar especialidades
+        print("Especialidades disponibles:")
+        separador()
+        for especialidad in especialidad_disponible:
+            print(especialidad)
+        separador()
+        # Input especialidad
+        especialidad_turno = input("Ingrese la especialidad: ")
+        patron = [especialidad for especialidad in especialidad_disponible if re.search(especialidad_turno, especialidad, re.IGNORECASE)]
+
+        if patron:
+            especialidad_turno = patron[0]
+            print(f"Especialidad elegida: {especialidad_turno}")
+
+            while True:
+                fecha = input("Ingrese la fecha en formato DD/MM/AAAA: ")
+
+                if len(fecha) == 10 and fecha[2] == "/" and fecha[5] == "/":
+                    try:
+                        dia = int(fecha[:2])
+                        mes = int(fecha[3:5])
+                        anio = int(fecha[6:])
+                        fecha_valida = datetime(anio, mes, dia) 
+
+                        if fecha_valida >= datetime.today():
+                            # Guardar turno
+                            turnos[0].append(ingreso)
+                            turnos[1].append(indice_ingreso)
+                            turnos[2].append(especialidad_turno)
+
+                            indice = datos_medicos[3].index(especialidad_turno)
+                            turnos[3].append(datos_medicos[0][indice])  # Doctor
+                            turnos[4].append(fecha_valida.strftime("%d/%m/%Y"))
+                            turnos[5].append(datos_medicos[4][indice])  # Costo
+
+                            print("Turno registrado con éxito.")
+                            print(f"DNI: {turnos[0][-1]}")
+                            print(f"Paciente: {datos_usuarios[1][indice_ingreso]}")
+                            print(f"Especialidad: {turnos[2][-1]}")
+                            print(f"Doctor: {turnos[3][-1]}")
+                            print(f"Fecha: {turnos[4][-1]}")
+                            print(f"Costo: {turnos[5][-1]}")
+                            break
+                        else:
+                            print("No se pueden elegir fechas anteriores a hoy")
+                    except ValueError:
+                        print("Error de fecha inexistente")
                 else:
-                        print("Formato de fecha incorrecto.") 
-            else:
-                print("Especialidad no encontrada.")
+                    print("Formato de fecha incorrecto. Ingresar como DD/MM/AAAA")
+            break
+        else:
+            print("Especialidad no encontrada")
+
        
 
 
