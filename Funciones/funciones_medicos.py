@@ -1,4 +1,4 @@
-from datos import *
+from datos.datos import *
 
 def mostrar_tabla_medicos(diccionario_medicos):
     print(f"{'Nombre':<20}{'DNI':<12}{'Correo':<30}{'Especialidad':<30}{'Precio':<15}")
@@ -24,28 +24,29 @@ def mostrar_matriz(matriz):
     for fila in matriz:
         print(fila)
 
-def agregar_medicos (datos_medicos):
-    bandera = True
-    while bandera:
-        extender_medicos = int(input("Ingrese DNI: "))
-        if extender_medicos < 11111111 or extender_medicos > 99999999:
-            print("Numero invalido")
-        else:
-            datos_medicos[1].append(extender_medicos)
-            print("DNI agregado")
-            nombre = input("Ingrese el nombre y apellido: ")
-            datos_medicos[0].append(nombre.title())
-            print("Nombre agregado")
-            especialidad = input("Ingrese especialidad: ")
-            datos_medicos[2].append(especialidad.title()) 
-            print("Especialidad agregada")   
-            sede = input("Ingrese la sede: ")
-            datos_medicos[3].append(sede.title())   
-            gmail = input("Ingrese su gmail: ")
-            datos_medicos[4].append(gmail)
-            print("Médico creado con éxito")
-            bandera = False
-
+def agregar_medicos (archivo):
+    try:
+        arch = open(archivo,"a", encoding="UTF-8")
+        print("0 para terminar")
+        dni = input("Ingrese el dni nuevo: ")
+        while dni !="0":
+            nombre_agregado = input("Nombre y Apellido: ")
+            gmail = input("Gmail: ")
+            especialidad_agregado = input("Especialidad: ")
+            precio = input("Precio")
+            nombre = nombre_agregado
+            especialidad = especialidad_agregado
+            arch.write("\n" + dni + ";" + nombre + ";"   + gmail + "gmail.com" + ";"  + especialidad + ";"  + precio)
+            dni = input("Ingrese el dni nuevo: ")
+        print("Agregado correctamente")
+    except OSError as mensaje:
+        print("Fallo todo")
+    finally:
+        try:
+            arch.close()
+        except NameError:
+            pass
+        
 def borrar_datos_medicos(datos_medicos):
     for datos in datos_medicos[1]:
         print(datos, end=" ")

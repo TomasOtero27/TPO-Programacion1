@@ -1,6 +1,6 @@
 import time
 from Funciones import *
-from datos import *
+from datos.datos import *
 def menu_main(ingreso):
     while True:
         titulo = "Bienvenido al Menú de administrador"
@@ -28,7 +28,8 @@ def menu_main(ingreso):
                 # Mostrar datos clientes
                 if eleccion_opcion_1 == "1":
                     print("Mostrando los datos de los clientes")
-                    mostrar_tabla(diccionario_usuarios)
+                    "mostrar_tabla(diccionario_usuarios)"
+                    abrir_archivo("datos_usuario.txt")
                 # Mostrar datos médicos
                 elif eleccion_opcion_1 == "2":
                     print("Mostrando los datos médicos: ")
@@ -91,7 +92,7 @@ def menu_main(ingreso):
                     agregar_usuarios(datos_usuarios)
                 # Agregar médico
                 elif eleccion_agregar == "2":
-                    agregar_medicos(datos_medicos)
+                    agregar_medicos("datos_medico.txt")
                 elif eleccion_agregar == "0":
                     print("Cerrando menú")
                     time.sleep(1)

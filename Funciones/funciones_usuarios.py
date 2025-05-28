@@ -1,7 +1,6 @@
 from datetime import datetime
 import re
-from datos import *
-
+from datos.datos import *
 
 fecha_ingresada = "25/04/2025"
 fecha_usuario = datetime.strptime(fecha_ingresada, "%d/%m/%Y")
@@ -24,7 +23,27 @@ def enmascarar_contraseña(contraseña):
 def enmascarar_gmail(gmail):
     gmail_enmascarado = re.sub(r'^[^@]+', "*" * 10, gmail)
     return gmail_enmascarado
-        
+
+def abrir_archivo(archivo):
+    try:
+        contenido = open(archivo, "r", encoding="UTF-8")
+        for linea in contenido:
+            print(linea.strip())
+            print(f'{"dni": 10}{"nombres": 20}{"contraseña":10}{"gmail": 20}{"seguro": 20}')
+        while linea:
+            dni, nombres, contraseña, gmail, seguro = linea.split(";")
+            if dni > 1:
+                print(f'{dni: 10}{nombres: 20}{contraseña:10}{gmail: 20}{seguro: 20}')
+            linea = contenido.readline().strip()
+    except FileNotFoundError:
+        print("Archivo no encontrado")
+    except OSError as mensaje:
+        print("Fallo todo")
+    finally:
+        try:
+            contenido.close()
+        except:
+            print("Fallo")
     
 def mostrar_matriz(matriz):
     print("Matriz actualizada:")
@@ -35,16 +54,20 @@ def agregar_usuarios (datos_usuarios):
     while True:
         try:
             print("0 para volver")
-            dni = int(input("Ingrese DNI nuevo: "))
+            dni = int(input("Ingrese su DNI: "))
         except ValueError:
             print("Se espera numeros enteros")
+            continue # Reinicia el bucle
         else:
             if dni == 0:
                 print("Volviendo...")
                 break
             # Validamos el largo del DNI
-            elif dni < 00000000 or dni > 99999999:
-                print("Numero invalido")
+            elif (dni < 1000000 or dni > 99999999):
+                print("DNI inválido")
+            elif dni in datos_usuarios[0]:
+                print("Este DNI ya se encuentra registrado")
+                continue
             else:
                 # Agregamos DNI
                 datos_usuarios[0].append(dni)
@@ -61,80 +84,97 @@ def agregar_usuarios (datos_usuarios):
                 correo = input("Ingrese su correo: ")
                 datos_usuarios[3].append(correo)
                 # Agreagamos Obra Social
-                print("Seleccione su obra social.")
-                print("1 - UwUseguros")
-                print("2 - JijazoSalud")
-                print("3 - Particular")
-                obras = int(input("Seleccione una opción: "))
-                while obras < 1 or obras > 3:
-                    print("Opción incorrecta")
-                    obras = int(input("Seleccione una opción: "))
-                if obras == 1:
-                    datos_usuarios.append("UwUseguros")
-                elif obras == 2:
-                    datos_usuarios.append("JijazoSalud")
-                else:
-                    datos_usuarios.append("Particular")
+                while True:
+                    print("Seleccione su obra social.")
+                    print("1 - UwUseguros")
+                    print("2 - JijazoSalud")
+                    print("3 - Particular")
+
+                    try:
+                        obras = int(input("Seleccione una opción: "))
+                        while obras < 1 or obras > 3:
+                            print("Opción incorrecta")
+                            obras = int(input("Seleccione una opción: "))
+                        if obras == 1:
+                            datos_usuarios[4].append("UwUseguros")
+                            break
+                        elif obras == 2:
+                            datos_usuarios[4].append("JijazoSalud")
+                            break
+                        elif obras == 3:
+                            datos_usuarios[4].append("Particular")
+                            break
+                        else:
+                            print("Opción inválida")
+                    except ValueError:
+                        print("Se esperaba números enteros entre 1 y 3")
                 print("Usuario creado con éxito")
                 break
+                
 
 
 
 def realizar_turnos (turnos,datos_medicos,datos_usuarios,ingreso):
     while True:
-            print (f"Entrando al Menu turnos con: {ingreso}")
-            indice_ingreso = datos_usuarios[0].index(ingreso)
-            print(f"Bienvenido al Menu turnos: {indice_ingreso}")
-            # Separamos especialidad de su matriz
-            especialidad_disponible = datos_medicos[2]
-            # Mostrar especalidades
-            separador()
-            for especialidad in especialidad_disponible:
-                print(especialidad)
-            # Input especialidad
-            separador()
-            especialidad_turno = input(f"Ingrese la especialidad: ")
-            # Lista por comprensión
-            patron = [especialidad for especialidad in especialidad_disponible if re.search(especialidad_turno,especialidad,re.IGNORECASE)]
-            if len(patron) > 0:
-                especialidad_turno = patron[0]
-                print(f"Especialidad elegida: {especialidad_turno}")
-                # Fecha
-                fecha = input("Ingrese la fecha en formato DD/MM/AAAA: ")
-                # Validacion de la fecha en formato DD/MM/AAAA
-                if len(fecha) == 10 and fecha[2] == "/" and fecha[5] == "/":
-                    # Slicing
-                    dia = int(fecha[:2])
-                    mes = int(fecha[3:5])
-                    anio = int(fecha[6:])
-                    if (1 <= dia <= 31) and (1 <= mes <= 12):
-                        fecha_valida = datetime(anio, mes, dia)
-                        if fecha_valida >= datetime.today():
-                            turnos[0].append(ingreso) # DNI Paciente
-                            turnos[1].append(indice_ingreso)#Nombre del paciente
-                            turnos[2].append(especialidad_turno) # Especialidad
-                            indice = datos_medicos[2].index(especialidad_turno) 
-                            turnos[3].append(datos_medicos[0][indice]) # Nombre médico
-                            turnos[4].append(fecha_valida.strftime("%d/%m/%Y")) # Fecha turno
-                            turnos[5].append(datos_medicos[3][indice]) # Lugar
+        print(f"Entrando al Menú turnos con: {ingreso}")
+        indice_ingreso = datos_usuarios[0].index(ingreso)
+        print(f"Bienvenido al Menu turnos: {indice_ingreso}")
 
-                            print(" Turno registrado con éxito.")
-                            separador()
-                            # Mostrar último turno
+        especialidad_disponible = datos_medicos[3]
+
+        # Mostrar especialidades
+        print("Especialidades disponibles:")
+        separador()
+        for especialidad in especialidad_disponible:
+            print(especialidad)
+        separador()
+        # Input especialidad
+        especialidad_turno = input("Ingrese la especialidad: ")
+        patron = [especialidad for especialidad in especialidad_disponible if re.search(especialidad_turno, especialidad, re.IGNORECASE)]
+
+        if patron:
+            especialidad_turno = patron[0]
+            print(f"Especialidad elegida: {especialidad_turno}")
+
+            while True:
+                fecha = input("Ingrese la fecha en formato DD/MM/AAAA: ")
+
+                if len(fecha) == 10 and fecha[2] == "/" and fecha[5] == "/":
+                    try:
+                        dia = int(fecha[:2])
+                        mes = int(fecha[3:5])
+                        anio = int(fecha[6:])
+                        fecha_valida = datetime(anio, mes, dia) 
+
+                        if fecha_valida >= datetime.today():
+                            # Guardar turno
+                            turnos[0].append(ingreso)
+                            turnos[1].append(indice_ingreso)
+                            turnos[2].append(especialidad_turno)
+
+                            indice = datos_medicos[3].index(especialidad_turno)
+                            turnos[3].append(datos_medicos[0][indice])  # Doctor
+                            turnos[4].append(fecha_valida.strftime("%d/%m/%Y"))
+                            turnos[5].append(datos_medicos[4][indice])  # Costo
+
+                            print("Turno registrado con éxito.")
                             print(f"DNI: {turnos[0][-1]}")
-                            print(f"Especialidad: {turnos[1][-1]}")
-                            print(f"Doctor: {turnos[2][-1]}")
-                            print(f"Fecha del turno: {turnos[3][-1]}")
-                            print(f"Sede del turno: {turnos[4][-1]}")
+                            print(f"Paciente: {datos_usuarios[1][indice_ingreso]}")
+                            print(f"Especialidad: {turnos[2][-1]}")
+                            print(f"Doctor: {turnos[3][-1]}")
+                            print(f"Fecha: {turnos[4][-1]}")
+                            print(f"Costo: {turnos[5][-1]}")
                             break
                         else:
-                            print(" No se pueden elegir fechas anteriores a hoy.")
-                    else:
-                            print(" Fecha inválida.") 
+                            print("No se pueden elegir fechas anteriores a hoy")
+                    except ValueError:
+                        print("Error de fecha inexistente")
                 else:
-                        print(" Formato de fecha incorrecto.") 
-            else:
-                print(" Especialidad no encontrada.")
+                    print("Formato de fecha incorrecto. Ingresar como DD/MM/AAAA")
+            break
+        else:
+            print("Especialidad no encontrada")
+
        
 
 
@@ -213,14 +253,14 @@ def borrar_turnos(turnos,ingreso):
 # Funciones para printear tablas
 
 def mostrar_tabla(diccionario):
-    print(f"{'DNI':<12}{'Nombre':<20}{'Clave':<10}{'Correo_electronico':<30}{'Obra_social':<30}") #rebanadas
-    print("-" * 72)
+    print(f"{'DNI':<12}{'Nombre':<20}{'Clave':<10}{'Correo':<30}{'Obra':<30}") #rebanadas
+    print("-" * 90)
     
     lista_dni = diccionario["DNI"]
     lista_nombre = diccionario["Nombre"]
     lista_clave = diccionario["Clave"]
-    lista_correo = diccionario["Correo_electronico"]
-    lista_obra_social = diccionario["Obra_social"]
+    lista_correo = diccionario["Correo"]
+    lista_obra_social = diccionario["Obra"]
 
     for i in range(len(lista_dni)):
         print(f"{str(lista_dni[i]):<12}{lista_nombre[i]:<20}{str(lista_clave[i]):<10}{lista_correo[i]:<30}{lista_obra_social[i]:<30}")

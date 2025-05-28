@@ -10,7 +10,7 @@ datos_usuarios = [
     ]
 
 # Convertir matriz usuarios a diccionario
-encabezado=["DNI","Nombre","Clave", "Correo_electronico", "Obra_social"]
+encabezado=["DNI","Nombre","Clave", "Correo", "Obra"]
 diccionario_usuarios=dict(zip(encabezado, datos_usuarios))
 
 # Matriz médicos
@@ -29,18 +29,18 @@ diccionarios_medicos = dict(zip(encabezado_medicos, datos_medicos))
 # Matriz de turnos
 turnos = [
     [43091220,46754741,45871266,44788110,45928020], # DNI del paciente
-    ["Jijero tomas","Nicolad Fresca","Cirielli Luciano","Rada Gabriela","Herbas Adrian"], #Nombres de los pacientes
+    ["JIJERO TOMAS","FRESCA NICOLÁS","CIRIELLI LUCIANO","RADA GABRIELA","HERBAS ADRIAN"], #Nombres de los pacientes
     ["GINECOLOGIA","ODONTOLOGIA","TRAUMATOLOGIA","CARDIOLOGIA","NEUROLOGIA"], # Especialidad
     ["ALVAREZ PETER","FLORES JUAN","PAREDES CARLOS","GARCIA MAXIMO","TORRES DANTE"], #Nombres del doc
     ["20/09/2025","06/5/2025","15/08/2025","26/07/2025","30/10/2025"], # Fecha del turno
-    [10000,20000,30000,40000,50000], # costo
+    [10000,20000,30000,40000,50000], # Costo
     ]
 
 # Convertir matriz turnos a diccionario
 encabezado_turnos=["DNI","Nombre","Especialidad","Doctor", "Fecha","Precio"]
 diccionario_turnos = dict(zip(encabezado_turnos,turnos))
 
-admin = [[43404608],
-         ["Tomas Otero"],
-         ["912"],
-         ["tomasotero499@gmail.com"]]
+admin = [[43404608, 222],
+         ["Tomas Otero", "admin"],
+         ["912", "222"],
+         ["tomasotero499@gmail.com", "correo"]]
