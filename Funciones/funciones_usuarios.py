@@ -26,30 +26,31 @@ def enmascarar_gmail(gmail):
 
 def abrir_archivo(archivo):
     try:
-        contenido = open(archivo, "r", encoding="UTF-8")
-        for linea in contenido:
-            print(linea.strip())
-            print(f'{"dni": 10}{"nombres": 20}{"contraseña":10}{"gmail": 20}{"seguro": 20}')
-        while linea:
-            dni, nombres, contraseña, gmail, seguro = linea.split(";")
-            if dni > 1:
-                print(f'{dni: 10}{nombres: 20}{contraseña:10}{gmail: 20}{seguro: 20}')
-            linea = contenido.readline().strip()
+        with open(archivo, "r", encoding="UTF-8") as contenido:
+            print("Mostrando los datos de los clientes")
+            print(f'{"dni":<10}{"nombres":<20}{"contraseña":<12}{"gmail":<25}{"seguro":<20}')
+            print("-" * 87)
+
+            for linea in contenido:
+                linea = linea.strip()
+                if not linea:   #si linea esta vacia (datos_usuario.txt) parar
+                    continue #si encuentra una linea vacia pasa al bucle
+                try:
+                    dni, nombres, contraseña, gmail, seguro = linea.split(";")
+                    print(f'{dni.strip():<10}{nombres.strip():<20}{contraseña.strip():<12}{gmail.strip():<25}{seguro.strip():<20}')
+                except ValueError:
+                    print("Línea con formato incorrecto:", linea)
     except FileNotFoundError:
         print("Archivo no encontrado")
     except OSError as mensaje:
-        print("Fallo todo")
-    finally:
-        try:
-            contenido.close()
-        except:
-            print("Fallo")
+        print("Fallo todo:", mensaje)
+
     
 def mostrar_matriz(matriz):
     print("Matriz actualizada:")
     for fila in matriz:
         print(fila)
-
+"""
 def agregar_usuarios (datos_usuarios):
     while True:
         try:
@@ -109,9 +110,65 @@ def agregar_usuarios (datos_usuarios):
                     except ValueError:
                         print("Se esperaba números enteros entre 1 y 3")
                 print("Usuario creado con éxito")
-                break
+                break """
                 
 
+def agregar_usuarios (archivo):
+    try:
+        arch = open(archivo,"a", encoding="UTF-8")
+    except OSError as mensaje:
+        print("Fallo todo")
+    else:
+        print("0 para terminar")
+        while True:
+            try:
+                dni = int(input("Ingrese su DNI: "))
+            except ValueError:
+                print("Se espera numeros enteros")
+                continue # Reinicia el bucle
+            else:
+                if dni == 0:
+                    print("Volviendo...")
+                    break
+            # Validamos el largo del DNI
+                elif (dni < 1000000 or dni > 99999999):
+                    print("DNI inválido") 
+                #elif dni in dato_medicos.txt:
+                    #print("DNI ya se encuentra registrado...")
+                    #continue
+                else:
+                    nombre_agregado = input("Nombre y Apellido: ")
+                    contraseña = input("Ingrese la contraseña: ")
+                    gmail = input("Gmail: ")
+                    while True:
+                        print("1- KukardoSeguros")
+                        print("2- PolentaPrestoPronta")
+                        print("3- Particular")
+                        try:
+                            obras = int(input("Seleccione obra social: "))
+                            while obras < 1 or obras > 3:
+                                print("Opción incorrecta")
+                                obras = int(input("Seleccione una opción: "))
+                            if obras == 1:
+                                prepaga = "KukardoSeguros"
+                                break
+                            elif obras == 2:
+                                prepaga = "PolentaPrestoPronta"
+                                break
+                            elif obras == 3:
+                                prepaga = "Particular"
+                                break
+                        except ValueError:
+                            print("Se espera numeros")
+                    obra_social = prepaga
+                    nombre = nombre_agregado.upper()
+                    arch.write("\n" + str(dni) + ";" + nombre + ";" + contraseña + ";"  + gmail + ";"  + obra_social)
+                    print("Agregado correctamente") 
+    finally:
+        try:
+            arch.close()
+        except NameError:
+            pass
 
 
 def realizar_turnos (turnos,datos_medicos,datos_usuarios,ingreso):

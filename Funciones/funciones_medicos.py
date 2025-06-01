@@ -1,5 +1,5 @@
 from datos.datos import *
-
+"""
 def mostrar_tabla_medicos(diccionario_medicos):
     print(f"{'Nombre':<20}{'DNI':<12}{'Correo':<30}{'Especialidad':<30}{'Precio':<15}")
     print("-" * 100)
@@ -11,7 +11,7 @@ def mostrar_tabla_medicos(diccionario_medicos):
 
     for i in range(len(lista_dni)):
         print(f"{str(lista_nombre[i]):<20}{lista_dni[i]:<12}{lista_correo[i]:<30}{str(lista_especialidad[i]):<30}{lista_precio[i]:<15}")
-        
+        """
 def ordenar_usuarios_por_campo(ordenar):
     medicos = list(zip(*datos_medicos))
     medicos.sort(key=lambda medicos: medicos[ordenar])           #lambda
@@ -24,23 +24,62 @@ def mostrar_matriz(matriz):
     for fila in matriz:
         print(fila)
 
+def abrir_archivo_medicos(archivo):
+    try:
+        with open(archivo, "r", encoding="UTF-8") as contenido:
+            print(f'{"dni":<10}{"nombres":<20}{"Gmail":<25}{"Especialidad":<25}{"Costo":<20}')
+            print("-" * 87)
+
+            for linea in contenido:
+                linea = linea.strip()
+                if not linea:   #si linea esta vacia (datos_usuario.txt) parar
+                    continue #si encuentra una linea vacia pasa directo al bucle
+                try:
+                    dni, nombres, gmail, especialidad, costo = linea.split(";")
+                    print(f'{dni.strip():<10}{nombres.strip():<20}{gmail.strip():<25}{especialidad.strip():<25}{costo.strip():<20}')
+                except ValueError:
+                    print("Línea con formato incorrecto:", linea)
+    except FileNotFoundError:
+        print("Archivo no encontrado")
+    except OSError as mensaje:
+        print("Fallo todo:", mensaje)
+
+#------------------------------------------------------------------------ 
+#------------------------------------------------------------------------ 
+#------------------------------------------------------------------------ 
+
 def agregar_medicos (archivo):
     try:
         arch = open(archivo,"a", encoding="UTF-8")
-        print("0 para terminar")
-        dni = input("Ingrese el dni nuevo: ")
-        while dni !="0":
-            nombre_agregado = input("Nombre y Apellido: ")
-            gmail = input("Gmail: ")
-            especialidad_agregado = input("Especialidad: ")
-            precio = input("Precio")
-            nombre = nombre_agregado
-            especialidad = especialidad_agregado
-            arch.write("\n" + dni + ";" + nombre + ";"   + gmail + "gmail.com" + ";"  + especialidad + ";"  + precio)
-            dni = input("Ingrese el dni nuevo: ")
-        print("Agregado correctamente")
     except OSError as mensaje:
         print("Fallo todo")
+    else:
+        print("0 para terminar")
+        while True:
+            try:
+                dni = int(input("Ingrese su DNI: "))
+            except ValueError:
+                print("Se espera numeros enteros")
+                continue # Reinicia el bucle
+            else:
+                if dni == 0:
+                    print("Volviendo...")
+                    break
+            # Validamos el largo del DNI
+                elif (dni < 1000000 or dni > 99999999):
+                    print("DNI inválido") 
+                #elif dni in dato_medicos.txt:
+                    #print("DNI ya se encuentra registrado...")
+                    #continue
+                else:
+                    nombre_agregado = input("Nombre y Apellido: ")
+                    gmail = input("Gmail: ")
+                    especialidad_agregado = input("Especialidad: ")
+                    precio = input("Costo: ")
+                    nombre = nombre_agregado.upper()
+                    especialidad = especialidad_agregado.upper()
+                    arch.write("\n" + str(dni) + ";" + nombre + ";"   + gmail + "@gmail.com" + ";"  + especialidad + ";"  + precio)
+                    print("Agregado correctamente") 
     finally:
         try:
             arch.close()

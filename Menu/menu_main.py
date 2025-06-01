@@ -32,8 +32,9 @@ def menu_main(ingreso):
                     abrir_archivo("datos_usuario.txt")
                 # Mostrar datos médicos
                 elif eleccion_opcion_1 == "2":
-                    print("Mostrando los datos médicos: ")
-                    mostrar_tabla_medicos(diccionarios_medicos)    
+                    print("Mostrando los datos médicos")
+                    #mostrar_tabla_medicos(diccionarios_medicos)
+                    abrir_archivo_medicos("datos_medico.txt")    
                 # Cerrar menú      
                 elif eleccion_opcion_1 == "0":
                     print("Cerrando menú de mostrar diccionarios")
@@ -89,7 +90,7 @@ def menu_main(ingreso):
                 eleccion_agregar = input("Seleccione una opción: ")
                 # Agregar usuario
                 if eleccion_agregar == "1":
-                    agregar_usuarios(datos_usuarios)
+                    agregar_usuarios("datos_usuario.txt")
                 # Agregar médico
                 elif eleccion_agregar == "2":
                     agregar_medicos("datos_medico.txt")

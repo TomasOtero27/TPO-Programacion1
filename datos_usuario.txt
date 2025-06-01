@@ -1,5 +1,6 @@
-43091220; JIJERO TOMAS; 270; tomasjijero@jijo.com; UWUseguros
-46754741, FRESCA NICOLÁS; 115; nfresca@gmail.com; Particular
-45871266; CIRIELLI LUCIANO; 458; lcirielli@gmail.com; UWUseguros
-44788110; RADA GABRIELA; 441; "grada@gmail.com; JijazoSalud
-45928020; HERBAS ADRIAN; 696; geraldcarazani@gmail.com; JijazoSalud
+43091220; JIJERO TOMAS; 270; tomasjijero@jijo.com; KukardoSeguros
+46754741; FRESCA NICOLÁS; 115; nfresca@gmail.com; Particular
+45871266; CIRIELLI LUCIANO; 458; lcirielli@gmail.com; KukardoSeguros
+44788110; RADA GABRIELA; 441; "grada@gmail.com; PolentaPrestoPronta
+45928020; HERBAS ADRIAN; 696; geraldcarazani@gmail.com; PolentaPrestoPronta
+43466789;THIAGO CABRERA;777;thiagocabrera@gmail.com;KukardoSeguros
