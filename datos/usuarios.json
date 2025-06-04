@@ -1,0 +1,44 @@
+[
+    {
+        "dni": 43404608,
+        "contraseña": "270",
+        "Nombre": "JIJERO TOMAS",
+        "Gmail": "tomasjijero@jijo.com",
+        "Seguros": "KukardosSeguros"
+    },
+    {
+        "dni": 46754741,
+        "contraseña": "115",
+        "Nombre": "FRESCA NICOLÁS",
+        "Gmai": "nfresca@gmail.com",
+        "Seguros": "Particular"
+    },
+    {
+        "dni": 45871266,
+        "contraseña": "458",
+        "Nombre": "CIRIELLI LUCIANO",
+        "Gmail": "lcirielli@gmail.com",
+        "Seguros": "KukardosSeguros"
+    },
+    {
+        "dni": 44788110,
+        "contraseña": "441",
+        "Nombre": "RADA GABRIELA",
+        "Gmail": "grada@gmail.com",
+        "Seguros": "ConsejoMate"
+    },
+    {
+        "dni": 45928020,
+        "contraseña": "696",
+        "Nombre": "HERBAS ADRIAN",
+        "Gmail": "geraldcarazani@gmail.com",
+        "Seguros": "ConsejoMate"
+    },
+    {
+        "dni": 45666777,
+        "contraseña": "765",
+        "Nombre": "JUAN NARDONE",
+        "Gmail": "nardone@gmail.com",
+        "Seguros": "ConsejoMate"
+    }
+]

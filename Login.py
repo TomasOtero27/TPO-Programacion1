@@ -1,6 +1,12 @@
 import time
 from Menu.menu_main import *
 from Menu.menu_cliente import *
+import json
+
+def cargar_json():
+     with open("datos/admin.json", "r", encoding="UTF-8") as datos:
+          admin = json.load(datos)
+          return admin
 
 def separador():
     print("-"*50)
@@ -25,25 +31,22 @@ def menu():
                except ValueError:
                     print("Se espera numeros enteros")
                else:
+                    admin = cargar_json()
                     if ingreso == 0:
                          print("Volviendo...")
                          time.sleep(1) 
-                    elif ingreso in admin[0]:
-                         indice = admin[0].index(ingreso)
-                         contraseña_admin = input("Ingrese la contraseña: ")
-                         if contraseña_admin== admin[2][indice]: # Contraseña administrador
-                              menu_main(ingreso)
-                         else:
-                              print("Contraseña incorrecta")
-                    elif ingreso in datos_usuarios[0]:
-                         indice = datos_usuarios[0].index(ingreso)
-                         contraseña_usuario = input("Ingrese la contraseña: ")
-                         if contraseña_usuario == datos_usuarios[2][indice]: # Contraseña usuario
-                              menu_usuario(ingreso)
-                         else:
-                              print("Contraseña incorrecta")
                     else:
-                         print("DNI no encontrado")
+                        for usuario in admin:
+                            if usuario["dni"] == ingreso:
+                                print("Encontrado")
+                                contraseña_admin = input("Ingrese la contraseña: ")
+                                if str(contraseña_admin) == str(usuario["contraseña"]):
+                                    menu_main(ingreso)
+                                else:
+                                    print("Contraseña incorrecta")
+                                break
+                        else:
+                            print("DNI no encontrado")
           # Agregar usuarios nuevos
           elif opcion == "2":
                separador()

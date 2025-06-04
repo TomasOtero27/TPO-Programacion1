@@ -1,17 +1,38 @@
 # Base de datos
-GINECOLOGIA = 10000 
-# Matriz usuarios
-datos_usuarios = [
-    [43091220,46754741,45871266,44788110,45928020],
-    ["JIJERO TOMAS", "FRESCA NICOLÁS","CIRIELLI LUCIANO","RADA GABRIELA","HERBAS ADRIAN"],
-    ["270","115","458","441","696"],
-    ["tomasjijero@jijo.com","nfresca@gmail.com","lcirielli@gmail.com","grada@gmail.com","geraldcarazani@gmail.com"],
-    ["UWUseguros","Particular","UWUseguros","JijazoSalud","JijazoSalud"]
-    ]
-
-# Convertir matriz usuarios a diccionario
-encabezado=["DNI","Nombre","Clave", "Correo", "Obra"]
-diccionario_usuarios=dict(zip(encabezado, datos_usuarios))
+# Diccionario de usuarios
+"""datos_usuarios = {
+    43091220: {
+        'contraseña': "270",
+        'Nombre': "JIJERO TOMAS",
+        'Gmail': "tomasjijero@jijo.com",
+        'Seguros': "KukardosSeguros"
+    },
+    46754741: {
+        'contraseña': "115",
+        'Nombre': "FRESCA NICOLÁS",
+        'Gmail': "nfresca@gmail.com",
+        'Seguros': "Particular"
+    },
+    45871266: {
+        'contraseña': "458",
+        'Nombre': "CIRIELLI LUCIANO",
+        'Gmail': "lcirielli@gmail.com",
+        'Seguros': "KukardosSeguros"
+    },
+    44788110: {
+        'contraseña': "441",
+        'Nombre': "RADA GABRIELA",
+        'Gmail': "grada@gmail.com",
+        'Seguros': "ConsejoMate"
+    },
+    45928020:{
+        'contraseña': "696",
+        'Nombre': "HERBAS ADRIAN",
+        'Gmail': "geraldcarazani@gmail.com",
+        'Seguros': "ConsejoMate"
+    }
+}
+"""
 
 # Matriz médicos
 datos_medicos = [
@@ -40,7 +61,30 @@ turnos = [
 encabezado_turnos=["DNI","Nombre","Especialidad","Doctor", "Fecha","Precio"]
 diccionario_turnos = dict(zip(encabezado_turnos,turnos))
 
-admin = [[43404608, 222],
+
+admin = {
+    43404608: "912", 
+    222: "222"
+}
+
+
+
+
+"""admin = [[43404608, 222],
          ["Tomas Otero", "admin"],
          ["912", "222"],
-         ["tomasotero499@gmail.com", "correo"]]
+         ["tomasotero499@gmail.com", "correo"]]"""
+
+
+"""
+# Convertir matriz usuarios a diccionario
+encabezado=["DNI","Nombre","Clave", "Correo", "Obra"]
+diccionario_usuarios=dict(zip(encabezado, datos_usuarios))"""
+
+datos_usuarios = [
+    [43091220,46754741,45871266,44788110,45928020],
+    ["JIJERO TOMAS", "FRESCA NICOLÁS","CIRIELLI LUCIANO","RADA GABRIELA","HERBAS ADRIAN"],
+    ["270","115","458","441","696"],
+    ["tomasjijero@jijo.com","nfresca@gmail.com","lcirielli@gmail.com","grada@gmail.com","geraldcarazani@gmail.com"],
+    ["UWUseguros","Particular","UWUseguros","JijazoSalud","JijazoSalud"]
+    ]

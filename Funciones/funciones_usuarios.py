@@ -1,6 +1,7 @@
 from datetime import datetime
 import re
 from datos.datos import *
+import json
 
 fecha_ingresada = "25/04/2025"
 fecha_usuario = datetime.strptime(fecha_ingresada, "%d/%m/%Y")
@@ -24,6 +25,10 @@ def enmascarar_gmail(gmail):
     gmail_enmascarado = re.sub(r'^[^@]+', "*" * 10, gmail)
     return gmail_enmascarado
 
+
+#def mostrar_usuarios ()
+
+
 def abrir_archivo(archivo):
     try:
         with open(archivo, "r", encoding="UTF-8") as contenido:
@@ -45,77 +50,11 @@ def abrir_archivo(archivo):
     except OSError as mensaje:
         print("Fallo todo:", mensaje)
 
-    
-def mostrar_matriz(matriz):
-    print("Matriz actualizada:")
-    for fila in matriz:
-        print(fila)
-"""
-def agregar_usuarios (datos_usuarios):
-    while True:
-        try:
-            print("0 para volver")
-            dni = int(input("Ingrese su DNI: "))
-        except ValueError:
-            print("Se espera numeros enteros")
-            continue # Reinicia el bucle
-        else:
-            if dni == 0:
-                print("Volviendo...")
-                break
-            # Validamos el largo del DNI
-            elif (dni < 1000000 or dni > 99999999):
-                print("DNI inválido")
-            elif dni in datos_usuarios[0]:
-                print("Este DNI ya se encuentra registrado")
-                continue
-            else:
-                # Agregamos DNI
-                datos_usuarios[0].append(dni)
-                print("DNI agregado")
-                # Agregamos Nombre
-                nombre = input("Ingrese el nombre y apellido: ")
-                datos_usuarios[1].append(nombre.upper())       
-                print("Nombre agregado")
-                # Agregamos Contraseña
-                contraseña_agregar=input("Ingrese la contraseña: ")
-                datos_usuarios[2].append(contraseña_agregar)
-                print("Contraseña agregada")
-                # Agregamos Correo
-                correo = input("Ingrese su correo: ")
-                datos_usuarios[3].append(correo)
-                # Agreagamos Obra Social
-                while True:
-                    print("Seleccione su obra social.")
-                    print("1 - UwUseguros")
-                    print("2 - JijazoSalud")
-                    print("3 - Particular")
-
-                    try:
-                        obras = int(input("Seleccione una opción: "))
-                        while obras < 1 or obras > 3:
-                            print("Opción incorrecta")
-                            obras = int(input("Seleccione una opción: "))
-                        if obras == 1:
-                            datos_usuarios[4].append("UwUseguros")
-                            break
-                        elif obras == 2:
-                            datos_usuarios[4].append("JijazoSalud")
-                            break
-                        elif obras == 3:
-                            datos_usuarios[4].append("Particular")
-                            break
-                        else:
-                            print("Opción inválida")
-                    except ValueError:
-                        print("Se esperaba números enteros entre 1 y 3")
-                print("Usuario creado con éxito")
-                break """
                 
-
+"""
 def agregar_usuarios (archivo):
     try:
-        arch = open(archivo,"a", encoding="UTF-8")
+        arch = open(archivo,"a", encoding="UTF-8") # as usuarios
     except OSError as mensaje:
         print("Fallo todo")
     else:
@@ -153,7 +92,7 @@ def agregar_usuarios (archivo):
                                 prepaga = "KukardoSeguros"
                                 break
                             elif obras == 2:
-                                prepaga = "PolentaPrestoPronta"
+                                prepaga = "ConsejoMate"
                                 break
                             elif obras == 3:
                                 prepaga = "Particular"
@@ -168,8 +107,60 @@ def agregar_usuarios (archivo):
         try:
             arch.close()
         except NameError:
-            pass
+            pass"""
 
+def agregar_usuarios(archivo):
+    try:
+        with open (archivo,'r', encoding="UTF-8") as datos:
+            usuarios = json.load(datos)
+
+        if usuarios:
+                while True:
+                    try:
+                        dni = int(input("Ingrese el DNI: "))
+                        break
+                    except ValueError:
+                        print("Se espera numeros")
+                nombre=input("Ingrese su nombre: ").strip().upper()
+                apellido=input("Ingrese su apellido: ").strip().upper()
+                gmail=input("Ingrese su gmail: ")
+                contraseña=input("Ingrese su contraseña: ")
+                while True:
+                        print("1- KukardoSeguros")
+                        print("2- PolentaPrestoPronta")
+                        print("3- Particular")
+                        try:
+                            obras = int(input("Seleccione obra social: "))
+                            while obras < 1 or obras > 3:
+                                print("Opción incorrecta")
+                                obras = int(input("Seleccione una opción: "))
+                            if obras == 1:
+                                prepaga = "KukardoSeguros"
+                                break
+                            elif obras == 2:
+                                prepaga = "ConsejoMate"
+                                break
+                            elif obras == 3:
+                                prepaga = "Particular"
+                                break
+                        except ValueError:
+                            print("Se espera numeros")
+                obra_social = prepaga
+
+                nuevo_usuario= {
+                    "dni": dni,
+                    "contraseña": contraseña,
+                    "Nombre": nombre + " " + apellido,
+                    "Gmail": gmail,
+                    "Seguros": obra_social
+                    }
+                usuarios.append(nuevo_usuario)
+
+                with open(archivo,'w',encoding="UTF-8") as datos:
+                    json.dump(usuarios,datos,ensure_ascii=False,indent=4)
+                print(f"Se agrego {nombre + " " +  apellido}")          
+    except(FileNotFoundError,OSError) as error:
+        print(f"fallo todo: {error}")
 
 def realizar_turnos (turnos,datos_medicos,datos_usuarios,ingreso):
     while True:

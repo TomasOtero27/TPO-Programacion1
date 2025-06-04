@@ -90,7 +90,7 @@ def menu_main(ingreso):
                 eleccion_agregar = input("Seleccione una opción: ")
                 # Agregar usuario
                 if eleccion_agregar == "1":
-                    agregar_usuarios("datos_usuario.txt")
+                    agregar_usuarios("datos/usuarios.json")
                 # Agregar médico
                 elif eleccion_agregar == "2":
                     agregar_medicos("datos_medico.txt")
