@@ -119,7 +119,13 @@ def menu_main(ingreso):
                 eleccion_borrar = input("Ingrese una opción: ")
                 # Borrar usuario
                 if eleccion_borrar == "1":
-                    borrar_datos_usuarios(datos_usuarios)
+                    try:    
+                        abrir_archivo("datos/datos_usuario.txt")
+                        busqueda = int(input("Ingrese el DNI del usuario para eliminar: "))
+                    except ValueError:
+                        print(f"Se espera numeros... {busqueda}")
+                    eliminar_usuario("datos/usuarios.json",busqueda)
+                    
                 # Borrar médico
                 elif eleccion_borrar == "2":
                     borrar_datos_medicos (datos_medicos)

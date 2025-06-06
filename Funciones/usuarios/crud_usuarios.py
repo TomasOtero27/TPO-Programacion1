@@ -10,26 +10,6 @@ def enmascarar_gmail(gmail):
     gmail_enmascarado = re.sub(r'^[^@]+', "*" * 10, gmail)
     return gmail_enmascarado
 
-#------------------------------------------ Terminar borrar datos
-
-def borrar_datos_usuarios(datos_usuarios):
-    # Mostrar DNIs cargados
-    for datos in datos_usuarios[0]:
-        print(datos, end=" ")
-    # Solicitamos DNI a eliminar
-    dni = int(input("\nIndique el DNI a eliminar: "))
-    # Validamos que exista dentro de la matriz y buscamos su posición con index
-    if dni in datos_usuarios[0]:
-        indice = datos_usuarios[0].index(dni) 
-        # Recorremos las sublistas de la matriz y eliminamos el indice con pop       
-        for sublistas in datos_usuarios:      
-            sublistas.pop(indice)          
-        print(f"Usuario eliminado con éxito: {dni}")
-    else:
-        print("DNI no encontrado.")
-    
-    return datos_usuarios
-
 #-------------------------------- MODIFICAR DATOS------------------------------
 
 
@@ -219,21 +199,25 @@ def agregar_usuarios(archivo):
 
 #--------------------------------------------------- ELIMINAR USUARIOS -------------
 
-def eliminar_por_legajo(archivo, legajo):
+def eliminar_usuario(archivo, busqueda):
     try:
         with open(archivo, 'r', encoding="UTF-8") as datos:
-            empleados = json.load(datos)
+            usuarios = json.load(datos)
 
-        legajos = [emp["legajo"] for emp in empleados]
-        if legajo in legajos:
-            indice = legajos.index(legajo)
-            empleados.pop(indice)  # Elimina el empleado por índice
+        dni = [emp["dni"] for emp in usuarios]
+        if busqueda in dni:
+            indice = dni.index(busqueda)
+            usuarios.pop(indice)  # Elimina el empleado por índice
 
             with open(archivo, 'w', encoding="UTF-8") as datos:
-                json.dump(empleados, datos, ensure_ascii=False, indent=4)
-            print(f"Empleado con legajo {legajo} eliminado.")
+                json.dump(usuarios, datos, ensure_ascii=False, indent=4)
+            print(f"Usuario con DNI: {busqueda} eliminado.")
         else:
-            print(f"Empleado con legajo {legajo} no encontrado.")
+            print(f"Usuario con DNI: {dni} no encontrado.")
 
     except (FileNotFoundError, OSError) as error:
         print(f'Error! {error}')
+    
+
+#---------------------------------------------- "eliminar"---------------------------------
+

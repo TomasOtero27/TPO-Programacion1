@@ -4,41 +4,47 @@
         "contraseña": "270",
         "nombre": "Tomas  Otero",
         "gmail": "tomasjijero@jijo.com",
-        "seguros": "ConsejoMate"
+        "seguros": "ConsejoMate",
+        "activo": true
     },
     {
         "dni": 46754741,
         "contraseña": "115",
         "nombre": "FRESCA NICOLÁS",
         "gmail": "nfresca@gmail.com",
-        "Seguros": "Particular"
+        "Seguros": "Particular",
+        "activo": true
     },
     {
         "dni": 45871266,
         "contraseña": "458",
         "nombre": "CIRIELLI LUCIANO",
         "gmail": "lcirielli@gmail.com",
-        "seguros": "ConsejoMate"
+        "seguros": "ConsejoMate",
+        "activo": true
     },
     {
         "dni": 44788110,
         "contraseña": "441",
         "nombre": "RADA GABRIELA",
         "gmail": "grada@gmail.com",
-        "seguros": "ConsejoMate"
+        "seguros": "ConsejoMate",
+        "activo": true
     },
     {
         "dni": 45928020,
         "contraseña": "696",
         "nombre": "HERBAS ADRIAN",
         "gmail": "geraldcarazani@gmail.com",
-        "seguros": "ConsejoMate"
+        "seguros": "ConsejoMate",
+        "activo": true
     },
     {
         "dni": 45666777,
         "contraseña": "765",
         "nombre": "JUAN NARDONE",
         "gmail": "nardone@gmail.com",
-        "seguros": "ConsejoMate"
+        "seguros": "ConsejoMate",
+        "activo": true
     }
 ]
