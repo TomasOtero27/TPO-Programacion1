@@ -1,4 +1,6 @@
-from Funciones import *
+from Funciones.usuarios.mostrar_tabla import *
+from Funciones.usuarios.crud_usuarios import *
+from Funciones.usuarios.turnos import *
 from datos.datos import *
 
 # Menú de usuario
@@ -47,6 +49,13 @@ def menu_usuario(ingreso):
                               break
                         else:
                               print("Opción inválida")
+                  elif eleccion == "2":
+                        print("1- Mostrar mis datos")
+                        print("2- Modificar mis datos")
+                        opcion_datos = input("Indique la opcion deseada: ")
+                        if opcion_datos == "2":
+                              modificar_datos_usuarios("datos/usuarios.json",ingreso)
+
                   elif opcion == 0:
                         break
                   else:

@@ -1,38 +1,4 @@
 # Base de datos
-# Diccionario de usuarios
-"""datos_usuarios = {
-    43091220: {
-        'contraseña': "270",
-        'Nombre': "JIJERO TOMAS",
-        'Gmail': "tomasjijero@jijo.com",
-        'Seguros': "KukardosSeguros"
-    },
-    46754741: {
-        'contraseña': "115",
-        'Nombre': "FRESCA NICOLÁS",
-        'Gmail': "nfresca@gmail.com",
-        'Seguros': "Particular"
-    },
-    45871266: {
-        'contraseña': "458",
-        'Nombre': "CIRIELLI LUCIANO",
-        'Gmail': "lcirielli@gmail.com",
-        'Seguros': "KukardosSeguros"
-    },
-    44788110: {
-        'contraseña': "441",
-        'Nombre': "RADA GABRIELA",
-        'Gmail': "grada@gmail.com",
-        'Seguros': "ConsejoMate"
-    },
-    45928020:{
-        'contraseña': "696",
-        'Nombre': "HERBAS ADRIAN",
-        'Gmail': "geraldcarazani@gmail.com",
-        'Seguros': "ConsejoMate"
-    }
-}
-"""
 
 # Matriz médicos
 datos_medicos = [

@@ -1,34 +1,6 @@
-"""from datos.datos import *
+from datos.datos import *
 
-def mostrar_tabla_medicos(diccionario_medicos):
-    print(f"{'Nombre':<20}{'DNI':<12}{'Correo':<30}{'Especialidad':<30}{'Precio':<15}")
-    print("-" * 100)
-    lista_nombre = diccionario_medicos["Nombre"]
-    lista_dni = diccionario_medicos["DNI"]
-    lista_correo = diccionario_medicos["Correo"]
-    lista_especialidad = diccionario_medicos["Especialidad"]
-    lista_precio = diccionario_medicos["Precio"]
-
-    for i in range(len(lista_dni)):
-        print(f"{str(lista_nombre[i]):<20}{lista_dni[i]:<12}{lista_correo[i]:<30}{str(lista_especialidad[i]):<30}{lista_precio[i]:<15}")
-        
-def ordenar_usuarios_por_campo(ordenar):
-    medicos = list(zip(*datos_medicos))
-    medicos.sort(key=lambda medicos: medicos[ordenar])           #lambda
-    for i in range(len(datos_medicos)):
-        datos_medicos[i] = [medicos[i] for medicos in medicos]
-
-
-def mostrar_matriz(matriz):
-    print("Matriz actualizada:")
-    for fila in matriz:
-        print(fila)
-
-
-
-#------------------------------------------------------------------------ 
-#------------------------------------------------------------------------ 
-#------------------------------------------------------------------------ 
+#------------------------------------- 
 
 def agregar_medicos (archivo):
     try:
@@ -67,6 +39,8 @@ def agregar_medicos (archivo):
             arch.close()
         except NameError:
             pass
+
+#---------------------------------------- funcion borrar pendiente
         
 def borrar_datos_medicos(datos_medicos):
     for datos in datos_medicos[1]:
@@ -80,6 +54,8 @@ def borrar_datos_medicos(datos_medicos):
         print(f"Médico eliminado con éxito: {dni}")   #parametros reales pasados por nombre F{}
     else:
         print("DNI no encontrado.")
+
+#------------------------------------ funcion reemplazar pendiente
 
 def remplazar_datos_medicos(datos_medicos):
     dni = int(input("Indique DNI: "))
@@ -114,4 +90,4 @@ def remplazar_datos_medicos(datos_medicos):
             else:
                 print("Parámetro no encontrado")
     else:
-        print("DNI no encontrado")"""
+        print("DNI no encontrado")

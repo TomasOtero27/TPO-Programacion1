@@ -1,4 +1,4 @@
-from datetime import datetime
+"""from datetime import datetime
 import re
 from datos.datos import *
 import json
@@ -51,7 +51,7 @@ def abrir_archivo(archivo):
         print("Fallo todo:", mensaje)
 
                 
-"""
+
 def agregar_usuarios (archivo):
     try:
         arch = open(archivo,"a", encoding="UTF-8") # as usuarios
@@ -107,7 +107,7 @@ def agregar_usuarios (archivo):
         try:
             arch.close()
         except NameError:
-            pass"""
+            pass
 
 def agregar_usuarios(archivo):
     try:
@@ -334,3 +334,4 @@ def mostrar_turnos_cliente(diccionario_turnos,ingreso):
     for i in range(len(diccionario_turnos["DNI"])):
         if diccionario_turnos["DNI"][i]== ingreso:
             print(f"{str(diccionario_turnos["DNI"][i]):<12}{diccionario_turnos["Nombre"][i]:<20}{diccionario_turnos["Especialidad"][i]:<20}{diccionario_turnos["Doctor"][i]:<20}{str(diccionario_turnos["Fecha"][i]):<15}{diccionario_turnos["Precio"][i]:<}")
+            """

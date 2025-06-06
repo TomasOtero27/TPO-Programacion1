@@ -1,6 +1,14 @@
+#--------------------------------IMPORT-------------------------
 import time
-from Funciones import *
+from Funciones.medicos.mostrar_tabla_medicos import *
+from Funciones.medicos.crud_medicos import *
+from Funciones.usuarios.mostrar_tabla import *
+from Funciones.usuarios.crud_usuarios import *
+from Funciones.usuarios.turnos import *
 from datos.datos import *
+#---------------------------------------------------------------------
+
+
 def menu_main(ingreso):
     while True:
         titulo = "Bienvenido al Menú de administrador"
@@ -29,12 +37,12 @@ def menu_main(ingreso):
                 if eleccion_opcion_1 == "1":
                     print("Mostrando los datos de los clientes")
                     "mostrar_tabla(diccionario_usuarios)"
-                    abrir_archivo("datos_usuario.txt")
+                    abrir_archivo("datos/datos_usuario.txt")
                 # Mostrar datos médicos
                 elif eleccion_opcion_1 == "2":
                     print("Mostrando los datos médicos")
                     #mostrar_tabla_medicos(diccionarios_medicos)
-                    abrir_archivo_medicos("datos_medico.txt")    
+                    abrir_archivo_medicos("datos/datos_medico.txt")    
                 # Cerrar menú      
                 elif eleccion_opcion_1 == "0":
                     print("Cerrando menú de mostrar diccionarios")
@@ -132,15 +140,19 @@ def menu_main(ingreso):
             print("2 - Modificar datos de médicos")
             print("0 - Cerrar menú")
             while True:
-                eleccion_reemplazar = int(input("Ingrese una opción: "))
+                eleccion_reemplazar = input("Ingrese una opción: ")
                 # Modificar usuario
-                if eleccion_reemplazar == 1:
-                    remplazar_datos_usuarios(datos_usuarios,ingreso)
+                if eleccion_reemplazar == "1":
+                    try:    
+                        busqueda = int(input("Ingrese el DNI a modificar: "))
+                    except ValueError:
+                        print(f"Se espera numeros... {busqueda}")
+                    modificar_datos_usuarios_admin("datos/usuarios.json",busqueda)
                 # Modificar médico
-                if eleccion_reemplazar == 2:
+                if eleccion_reemplazar == "2":
                     remplazar_datos_medicos(datos_medicos)
                 # Cerrar menú
-                elif eleccion_reemplazar == 0:
+                elif eleccion_reemplazar == "0":
                     print("Cerrando menu...")
                     time.sleep(1)
                     break

@@ -2,43 +2,43 @@
     {
         "dni": 43404608,
         "contraseña": "270",
-        "Nombre": "JIJERO TOMAS",
-        "Gmail": "tomasjijero@jijo.com",
-        "Seguros": "KukardosSeguros"
+        "nombre": "Tomas  Otero",
+        "gmail": "tomasjijero@jijo.com",
+        "seguros": "ConsejoMate"
     },
     {
         "dni": 46754741,
         "contraseña": "115",
-        "Nombre": "FRESCA NICOLÁS",
-        "Gmai": "nfresca@gmail.com",
+        "nombre": "FRESCA NICOLÁS",
+        "gmail": "nfresca@gmail.com",
         "Seguros": "Particular"
     },
     {
         "dni": 45871266,
         "contraseña": "458",
-        "Nombre": "CIRIELLI LUCIANO",
-        "Gmail": "lcirielli@gmail.com",
-        "Seguros": "KukardosSeguros"
+        "nombre": "CIRIELLI LUCIANO",
+        "gmail": "lcirielli@gmail.com",
+        "seguros": "ConsejoMate"
     },
     {
         "dni": 44788110,
         "contraseña": "441",
-        "Nombre": "RADA GABRIELA",
-        "Gmail": "grada@gmail.com",
-        "Seguros": "ConsejoMate"
+        "nombre": "RADA GABRIELA",
+        "gmail": "grada@gmail.com",
+        "seguros": "ConsejoMate"
     },
     {
         "dni": 45928020,
         "contraseña": "696",
-        "Nombre": "HERBAS ADRIAN",
-        "Gmail": "geraldcarazani@gmail.com",
-        "Seguros": "ConsejoMate"
+        "nombre": "HERBAS ADRIAN",
+        "gmail": "geraldcarazani@gmail.com",
+        "seguros": "ConsejoMate"
     },
     {
         "dni": 45666777,
         "contraseña": "765",
-        "Nombre": "JUAN NARDONE",
-        "Gmail": "nardone@gmail.com",
-        "Seguros": "ConsejoMate"
+        "nombre": "JUAN NARDONE",
+        "gmail": "nardone@gmail.com",
+        "seguros": "ConsejoMate"
     }
 ]
