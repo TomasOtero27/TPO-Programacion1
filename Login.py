@@ -30,7 +30,7 @@ def menu():
           if opcion == "1": 
                separador()  
                try:
-                    print("0 para volver")
+                    print("0 - Cerrar menú")
                     ingreso = int(input("Ingrese su DNI:"))
                except ValueError:
                     print("Se espera numeros enteros")
@@ -41,27 +41,30 @@ def menu():
                          print("Volviendo...")
                          time.sleep(1) 
                     else:
-                        for usuario in admin:
+                         encontrado = False
+                         for usuario in admin:
                               if usuario["dni"] == ingreso:
-                                print("Encontrado")
-                                contraseña_admin = input("Ingrese la contraseña: ")
-                                if str(contraseña_admin) == str(usuario["contraseña"]):
-                                    menu_main(ingreso)
-                                else:
-                                    print("Contraseña incorrecta")
-                                break
-                                                        
-                              else:
-                                   for usuario in usuarios:
-                                        if usuario["dni"] == ingreso:
-                                             print("Encontrado")
-                                             contraseña_usuario = input("Ingrese la contraseña: ")
-                                             if str(contraseña_usuario) == str(usuario["contraseña"]):
-                                                  menu_usuario(ingreso)
-                                             else:
-                                                  print("Contraseña incorrecta")
+                                   print("Encontrado")
+                                   contraseña_admin = input("Ingrese la contraseña: ")
+                                   if str(contraseña_admin) == str(usuario["contraseña"]):
+                                        menu_main()
+                                   else:
+                                        print("Contraseña incorrecta")
+                                   encontrado = True
+                                   break
+                         if not encontrado:
+                              for usuario in usuarios:
+                                   if usuario["dni"] == ingreso:
+                                        print("Encontrado")
+                                        contraseña_usuario = input("Ingrese la contraseña: ")
+                                        if str(contraseña_usuario) == str(usuario["contraseña"]):
+                                             menu_usuario(ingreso)
                                         else:
-                                             print("DNI no encontrado")       
+                                             print("Contraseña incorrecta")
+                                        encontrado = True
+                                        break
+                         if not encontrado:
+                              print("DNI no encontrado")
           # Agregar usuarios nuevos
           elif opcion == "2":
                separador()
@@ -73,6 +76,5 @@ def menu():
                break
           else:
                print("Opción no encontrada")
-
 # Main
 menu()
