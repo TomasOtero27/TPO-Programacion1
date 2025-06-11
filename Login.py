@@ -68,7 +68,7 @@ def menu():
           # Agregar usuarios nuevos
           elif opcion == "2":
                separador()
-               agregar_usuarios(datos_usuarios)
+               agregar_usuarios("datos/usuarios.json")
           # Cerrar menú
           elif opcion == "0":
                print("Cerrando el menu")

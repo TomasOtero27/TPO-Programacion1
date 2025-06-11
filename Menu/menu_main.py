@@ -1,6 +1,5 @@
 #--------------------------------IMPORT-------------------------
 import time
-import json
 from Funciones.medicos.mostrar_tabla_medicos import *
 from Funciones.medicos.crud_medicos import *
 from Funciones.usuarios.mostrar_tabla import *
@@ -10,22 +9,7 @@ from Funciones.admin.turnos_admin import *
 from datos.datos import *
 #---------------------------------------------------------------------
 #---------------------------------------------------------------------
-# Json y txt
-def cargar_json_usuarios():
-    with open("datos/usuarios.json", "r", encoding="UTF-8") as archivo:
-        usuarios = json.load(archivo)
-        return usuarios
-    
-def cargar_txt_medicos():
-    with open("datos/medicos.txt", "r", encoding="UTF-8") as archivo:
-        medicos = archivo.readlines()
-        return [medico.strip() for medico in medicos]
-    
-def cargar_json_turnos():
-    with open("datos/turnos.json", "r", encoding="UTF-8") as archivo:
-        turnos = json.load(archivo)
-        return turnos
-    
+
 def menu_main():
     while True:
         titulo = "Bienvenido al Menú de administrador"
@@ -53,23 +37,25 @@ def menu_main():
             while True:
                 print("-"*50)
                 try:
-                    usuarios = cargar_json_usuarios()
-                except FileNotFoundError:
-                    print("El archivo de usuarios no existe.")
-                    break
-                try:
                     eleccion_opcion_1 = int(input("Ingrese la opción: "))
                 except ValueError:
                     print("Se espera un número...")
                 # Mostrar datos usuarios
                 if eleccion_opcion_1 == 1:
-                    print("Mostrando datos de usuarios")
+                    print("Mostrando los datos de los clientes")
+                    abrir_archivo("datos/usuarios.json")
                 # Agregar usuarios
                 elif eleccion_opcion_1 == 2:
-                    print("Agregar usuarios")
+                    agregar_usuarios("datos/usuarios.json")
+                    abrir_archivo("datos/usuarios.json")
                 # Remover usuarios
                 elif eleccion_opcion_1 == 3:
-                    print("Remover usuarios")
+                    try:    
+                        abrir_archivo("datos/usuarios.json")
+                        busqueda = int(input("Ingrese el DNI del usuario para eliminar: "))
+                    except ValueError:
+                        print(f"Se espera numeros... {busqueda}")
+                    eliminar_usuario("datos/usuarios.json",busqueda)
                 # Cerrar menú      
                 elif eleccion_opcion_1 == 0:
                     print("Cerrando menú")
@@ -80,11 +66,6 @@ def menu_main():
 
         # Datos de médicos
         elif eleccion == 2:
-            try:   
-                medicos = cargar_txt_medicos()
-            except FileNotFoundError:
-                print("El archivo de médicos no existe.")
-                break
             print("1 - Mostrar médicos")
             print("2 - Agregar médicos") 
             print("3 - Remover médicos")  
@@ -98,12 +79,13 @@ def menu_main():
                 # Mostrar médicos
                 if eleccion_opcion_2 == 1:
                     print("Mostrando datos de médicos")
+                    abrir_archivo_medicos("datos/medicos.txt") 
                 # Agregar médicos
                 elif eleccion_opcion_2 == 2:
-                    print("Agregar médicos")
+                    agregar_medicos("datos_medico.txt")
                 # Remover médicos
                 elif eleccion_opcion_2 == 3:
-                    print("Remover médicos")
+                    print("Remover médicos") #TERMINAR
                 # Cerrar menú
                 elif eleccion_opcion_2 == 0:
                     print("Cerrando menú")
@@ -113,11 +95,6 @@ def menu_main():
                     print("Opción inválida")
         # Menú de turnos
         elif eleccion == 3:
-            try:
-                turnos = cargar_json_turnos()
-            except FileNotFoundError:
-                print("El archivo de turnos no existe.")
-                break
             print("1 - Mostrar turnos")
             print("2 - Agregar turnos")
             print("3 - Borrar turnos")
@@ -133,10 +110,16 @@ def menu_main():
                     print("Mostrando turnos")
                 # Agregar turnos
                 elif eleccion_opcion_3 == 2:
-                    print("Agregar turnos")
+                    print("Cargando funcion para agregar turnos")
+                    time.sleep(3)
+                    abrir_archivo("datos/usuarios.json")
+                    time.sleep(2)
+                    realizar_turnos("datos/turnos.json","datos/turnos_disponibles.json","datos/usuarios.json")
                 # Borrar turnos
                 elif eleccion_opcion_3 == 3:
-                    print("Borrar turnos")
+                    print("Cargando funcion para borrar turnos")
+                    abrir_archivo("datos/usuarios.json")
+                    borrar_turnos_admin("datos/turnos.json","datos/turnos_disponibles.json","datos/usuarios.json")
                 elif eleccion_opcion_3 == 0:
                     print("Cerrando menú")
                     time.sleep(1)

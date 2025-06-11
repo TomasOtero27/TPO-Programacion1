@@ -106,7 +106,7 @@ def realizar_turnos(archivo_turnos, archivo_turnos_disponibles, archivo_usuarios
         print(f"⏰ Hora: {turno_seleccionado['hora']}")
     
 #---------------------------------------------------------------------------------------------
-#----------------------------BORRAR DATOS COMO ADMIN------------------------------------------
+#----------------------------BORRAR TURNOS COMO ADMIN------------------------------------------
 #---------------------------------------------------------------------------------------------
  
 def borrar_turnos_admin(archivo_turnos, archivo_turnos_disponibles, archivo_usuarios):
@@ -161,13 +161,12 @@ def borrar_turnos_admin(archivo_turnos, archivo_turnos_disponibles, archivo_usua
     indice_turno = turnos_usuario[seleccion]
     turno_a_borrar = turnos[indice_turno]
 
-    # Restaurar el estado en turnos_disponibles
-    for j in range(len(turnos_disponibles)):
-        turno_disp = turnos_disponibles[j]
-        if (turno_disp["especialidad"] == turno_a_borrar["especialidad"] and
-            turno_disp["medico"] == turno_a_borrar["medico"] and
-            turno_disp["dia"] == turno_a_borrar["dia"] and
-            turno_disp["hora"] == turno_a_borrar["fecha"]):
+    # Restaurar el estado en turnos_disponibles usando comparación con tuplas
+    for turno_disp in turnos_disponibles:
+        if (
+            (turno_disp["especialidad"], turno_disp["medico"], turno_disp["dia"], turno_disp["hora"]) ==
+            (turno_a_borrar["especialidad"], turno_a_borrar["medico"], turno_a_borrar["dia"], turno_a_borrar["fecha"])
+        ):
             turno_disp["estado"] = "disponible"
             break
 

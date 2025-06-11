@@ -22,6 +22,7 @@ def menu_usuario(ingreso):
                   print(titulo_decorado)
                   print("1 - Solicitar turno")
                   print("2 - Mostrar mis turnos")
+                  print("3- Eliminar mi turno")
                   print("0 - Salir")
                   try:
                         opcion = int(input("Seleccione una opción: "))
@@ -36,19 +37,12 @@ def menu_usuario(ingreso):
                   elif opcion == 2:
                         # Mostrar y eliminar turnos
                         mostrar_turnos_cliente(diccionario_turnos,ingreso)
-                        print("1 - Eliminar turno")
-                        print("0 - Salir")
-                        try: 
-                              opcion = int(input("Seleccione una opción: "))
-                        except ValueError:                             
-                              print("Solo números enteros")
-                              continue
-                        if opcion == 1:
-                               borrar_turnos(turnos, ingreso, turnos_disponibles)
-                        elif opcion == 0:
-                              break
-                        else:
-                              print("Opción inválida")
+                  elif opcion == 3:
+                         borrar_turnos("datos/turnos.json","datos/turnos_disponibles.json","datos/usuarios.json",ingreso)
+                  
+                  elif opcion == 0:
+                         print("Saliendo...")
+                         break
             elif eleccion == "2":
                         print("1- Mostrar mis datos")
                         print("2- Modificar mis datos")

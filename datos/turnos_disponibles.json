@@ -5,7 +5,7 @@
         "hora": "08:00",
         "medico": "ALVAREZ PETER",
         "especialidad": "GINECOLOGIA",
-        "estado": "ocupado"
+        "estado": "disponible"
     },
     {
         "id": 2,
@@ -85,7 +85,7 @@
         "hora": "09:30",
         "medico": "GARCIA MAXIMO",
         "especialidad": "CARDIOLOGIA",
-        "estado": "ocupado"
+        "estado": "disponible"
     },
     {
         "id": 12,
@@ -101,7 +101,7 @@
         "hora": "08:00",
         "medico": "TORRES DANTE",
         "especialidad": "NEUROLOGIA",
-        "estado": "ocupado"
+        "estado": "disponible"
     },
     {
         "id": 14,
