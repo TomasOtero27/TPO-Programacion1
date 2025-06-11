@@ -3,10 +3,14 @@ from Menu.menu_main import *
 from Menu.menu_cliente import *
 import json
 
-def cargar_json():
+def cargar_json_admin():
      with open("datos/admin.json", "r", encoding="UTF-8") as datos:
           admin = json.load(datos)
           return admin
+def cargar_json_usuario():
+     with open("datos/usuarios.json", "r", encoding="UTF-8") as datos:
+          usuarios = json.load(datos)
+          return usuarios
 
 def separador():
     print("-"*50)
@@ -31,13 +35,14 @@ def menu():
                except ValueError:
                     print("Se espera numeros enteros")
                else:
-                    admin = cargar_json()
+                    admin = cargar_json_admin()
+                    usuarios= cargar_json_usuario()
                     if ingreso == 0:
                          print("Volviendo...")
                          time.sleep(1) 
                     else:
                         for usuario in admin:
-                            if usuario["dni"] == ingreso:
+                              if usuario["dni"] == ingreso:
                                 print("Encontrado")
                                 contraseña_admin = input("Ingrese la contraseña: ")
                                 if str(contraseña_admin) == str(usuario["contraseña"]):
@@ -45,8 +50,18 @@ def menu():
                                 else:
                                     print("Contraseña incorrecta")
                                 break
-                        else:
-                            print("DNI no encontrado")
+                                                        
+                              else:
+                                   for usuario in usuarios:
+                                        if usuario["dni"] == ingreso:
+                                             print("Encontrado")
+                                             contraseña_usuario = input("Ingrese la contraseña: ")
+                                             if str(contraseña_usuario) == str(usuario["contraseña"]):
+                                                  menu_usuario(ingreso)
+                                             else:
+                                                  print("Contraseña incorrecta")
+                                        else:
+                                             print("DNI no encontrado")       
           # Agregar usuarios nuevos
           elif opcion == "2":
                separador()

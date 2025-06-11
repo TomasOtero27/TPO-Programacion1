@@ -1,20 +1,46 @@
+from datos.datos import *
+import json
+
 def abrir_archivo(archivo):
     try:
-        with open(archivo, "r", encoding="UTF-8") as contenido:
+        with open (archivo,'r', encoding="UTF-8") as datos:
+            usuarios = json.load(datos)
             print("Mostrando los datos de los clientes")
-            print(f'{"dni":<10}{"nombres":<20}{"contraseña":<12}{"gmail":<25}{"seguro":<20}')
+            print(f'{"dni":<10}{"nombres":<20}{"contraseña":<12}{"gmail":<25}{"seguro":<20}{"activo":<20}')
             print("-" * 87)
 
-            for linea in contenido:
-                linea = linea.strip()
-                if not linea:   #si linea esta vacia (datos_usuario.txt) parar
-                    continue #si encuentra una linea vacia pasa al bucle
+            for usuario in usuarios:
                 try:
-                    dni, nombres, contraseña, gmail, seguro = linea.split(";")
-                    print(f'{dni.strip():<10}{nombres.strip():<20}{contraseña.strip():<12}{gmail.strip():<25}{seguro.strip():<20}')
+                    dni = usuario["dni"]
+                    nombre = usuario["nombre"]
+                    contraseña = usuario["contraseña"]
+                    gmail = usuario["gmail"]
+                    seguro = usuario["seguros"]
+                    if usuario["activo"] == True:
+                        activo ="si"
+                    else:
+                        activo ="no"
+
+                    print(f'{str(dni):<10}{nombre:<20}{contraseña:<12}{gmail:<25}{seguro:<20}{activo:<20}')
                 except ValueError:
-                    print("Línea con formato incorrecto:", linea)
-    except FileNotFoundError:
-        print("Archivo no encontrado")
-    except OSError as mensaje:
+                    print("Línea con formato incorrecto")
+    except (OSError,FileNotFoundError) as mensaje:
         print("Fallo todo:", mensaje)
+
+
+#---------------------------------MOSTRAR MIS DATOS---------------------------
+def mostrar_datos_usuarios(archivo,ingreso):
+    try:
+        with open (archivo,'r', encoding="UTF-8") as datos:
+            usuarios = json.load(datos)
+        dni = [emp["dni"] for emp in usuarios]
+        indice = dni.index(ingreso)
+        print("Sus datos:")
+        print()
+        print(f"Su Nombre y apellido: {usuarios[indice]["nombre"]}")
+        print(f"Contraseña: {usuarios[indice]["contraseña"]}")
+        print(f"Gmail: {usuarios[indice]["gmail"]}")
+        print(f"Seguro medico: {usuarios[indice]["seguros"]}")
+
+    except(FileNotFoundError,OSError) as error:
+        print(f"fallo todo: {error}")

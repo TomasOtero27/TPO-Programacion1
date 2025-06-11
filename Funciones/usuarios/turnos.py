@@ -3,97 +3,217 @@ import re
 from datos.datos import *
 import json
 
-def separador():
-    print("-"*50)
+def mostrar_turnos_por_especialidad(turnos_disp, especialidad):
+    print(f"\nTurnos disponibles para {especialidad.upper()}:")
+    print(f"{'ID':<5}{'Fecha':<15}{'Hora':<10}{'Doctor':<20}")
+    print("-" * 50)
+    for i in range(len(turnos_disp[0])):
+        if turnos_disp[4][i].upper() == especialidad.upper():
+            print(f"{turnos_disp[0][i]:<5}{turnos_disp[1][i]:<15}{turnos_disp[2][i]:<10}{turnos_disp[3][i]:<20}")
+ 
 
-def realizar_turnos (turnos,datos_medicos,datos_usuarios,ingreso):
-    while True:
-        print(f"Entrando al Menú turnos con: {ingreso}")
-        indice_ingreso = datos_usuarios[0].index(ingreso)
-        print(f"Bienvenido al Menu turnos: {indice_ingreso}")
+def realizar_turnos_usuarios(archivo_turnos, archivo_turnos_disponibles, archivo_usuarios, ingreso):
 
-        especialidad_disponible = datos_medicos[3]
+    # Cargar datos
+    with open(archivo_usuarios, 'r', encoding='utf-8') as f:
+        usuarios = json.load(f)
+    with open(archivo_turnos_disponibles, 'r', encoding='utf-8') as f:
+        turnos_disponibles = json.load(f)
+    with open(archivo_turnos, 'r', encoding='utf-8') as f:
+        turnos = json.load(f)
 
-        # Mostrar especialidades
-        print("Especialidades disponibles:")
-        separador()
-        for especialidad in especialidad_disponible:
-            print(especialidad)
-        separador()
-        # Input especialidad
-        especialidad_turno = input("Ingrese la especialidad: ")
-        patron = [especialidad for especialidad in especialidad_disponible if re.search(especialidad_turno, especialidad, re.IGNORECASE)]
-
-        if patron:
-            especialidad_turno = patron[0]
-            print(f"Especialidad elegida: {especialidad_turno}")
-
-            while True:
-                fecha = input("Ingrese la fecha en formato DD/MM/AAAA: ")
-
-                if len(fecha) == 10 and fecha[2] == "/" and fecha[5] == "/":
-                    try:
-                        dia = int(fecha[:2])
-                        mes = int(fecha[3:5])
-                        anio = int(fecha[6:])
-                        fecha_valida = datetime(anio, mes, dia) 
-
-                        if fecha_valida >= datetime.today():
-                            # Guardar turno
-                            turnos[0].append(ingreso)
-                            turnos[1].append(indice_ingreso)
-                            turnos[2].append(especialidad_turno)
-
-                            indice = datos_medicos[3].index(especialidad_turno)
-                            turnos[3].append(datos_medicos[0][indice])  # Doctor
-                            turnos[4].append(fecha_valida.strftime("%d/%m/%Y"))
-                            turnos[5].append(datos_medicos[4][indice])  # Costo
-
-                            print("Turno registrado con éxito.")
-                            print(f"DNI: {turnos[0][-1]}")
-                            print(f"Paciente: {datos_usuarios[1][indice_ingreso]}")
-                            print(f"Especialidad: {turnos[2][-1]}")
-                            print(f"Doctor: {turnos[3][-1]}")
-                            print(f"Fecha: {turnos[4][-1]}")
-                            print(f"Costo: {turnos[5][-1]}")
-                            break
-                        else:
-                            print("No se pueden elegir fechas anteriores a hoy")
-                    except ValueError:
-                        print("Error de fecha inexistente")
-                else:
-                    print("Formato de fecha incorrecto. Ingresar como DD/MM/AAAA")
+    # Buscar usuario
+    usuario = ""
+    for u in usuarios:
+        if u["dni"] == ingreso:
+            usuario = u
             break
-        else:
-            print("Especialidad no encontrada")
+
+    if usuario == "":
+        print("Usuario no encontrado")
+        return
+
+    print(f"Bienvenido/a {usuario['nombre']}")
+
+    # Mostrar especialidades disponibles
+    especialidades = []
+    for turno in turnos_disponibles:
+        if turno["estado"] == "disponible" and turno["especialidad"] not in especialidades:
+            especialidades.append(turno["especialidad"])
+
+    print("\nEspecialidades disponibles:")
+    for esp in especialidades:
+        print(f"- {esp}")
+
+    especialidad = input("Ingrese la especialidad deseada: ").strip().upper()
+
+    # Filtrar turnos disponibles por especialidad
+    turnos_filtrados = []
+    for turno in turnos_disponibles:
+        if turno["estado"] == "disponible" and turno["especialidad"].upper() == especialidad:
+            turnos_filtrados.append(turno)
+
+    if not turnos_filtrados:
+        print("No hay turnos disponibles")
+        return
+
+    print(f"\nTurnos disponibles para {especialidad}:")
+    for turno in turnos_filtrados:
+        print(f"ID: {turno['id']}, Día: {turno['dia']}, Hora: {turno['hora']}, Médico: {turno['medico']}")
+
+    try:
+        id_turno = int(input("Seleccione el ID del turno a asignar: "))
+    except ValueError:
+        print("Debe ingresar un número válido.")
+        return
+
+    # Verificar que el ID sea válido
+    turno_seleccionado = ""
+    for turno in turnos_filtrados:
+        if turno["id"] == id_turno:
+            turno_seleccionado = turno
+            break
+
+    if turno_seleccionado == "":
+        print("ID no válido.")
+        return
+
+    # Marcar turno como ocupado en turnos_disponibles
+    for turno in turnos_disponibles:
+        if turno["id"] == id_turno:
+            turno["estado"] = "ocupado"
+            break
+
+    # Crear nuevo turno y agregarlo
+    nuevo_turno = {
+        "dni": usuario["dni"],
+        "contraseña": usuario["contraseña"],
+        "nombre": usuario["nombre"],
+        "especialidad": turno_seleccionado["especialidad"],
+        "medico": turno_seleccionado["medico"],
+        "dia": turno_seleccionado["dia"],
+        "fecha": turno_seleccionado["hora"]
+    }
+
+    turnos.append(nuevo_turno)
+
+    # Guardar cambios
+    with open(archivo_turnos_disponibles, 'w', encoding='utf-8') as f:
+        json.dump(turnos_disponibles, f, ensure_ascii=False, indent=4)
+    with open(archivo_turnos, 'w', encoding='utf-8') as f:
+        json.dump(turnos, f, ensure_ascii=False, indent=4)
+
+    print("\n✅ Turno registrado con éxito:")
+    print(f"🧾 DNI: {usuario['dni']}")
+    print(f"👤 Paciente: {usuario['nombre']}")
+    print(f"🩺 Especialidad: {turno_seleccionado['especialidad']}")
+    print(f"👨‍⚕️ Doctor: {turno_seleccionado['medico']}")
+    print(f"📅 Fecha: {turno_seleccionado['dia']}")
+    print(f"⏰ Hora: {turno_seleccionado['hora']}")
+
+#----------------------------BORRAR DATOS COMO ADMIN------------------------------------------
+ 
+def borrar_turnos_admin(turnos, ingreso, turnos_disponibles):
+    borrar_turnos_dni = int(input("Ingrese su DNI: "))
+ 
+    # Validar que el DNI esté en la lista de turnos
+    if borrar_turnos_dni not in turnos[0]:
+        print("DNI no encontrado en la lista de turnos.")
+        
+ 
+    # Mostrar todos los turnos registrados por ese DNI
+    print(f"\n Turnos registrados para el DNI {borrar_turnos_dni}:")
+    turnos_usuario = []
+    for i in range(len(turnos[0])):
+        if turnos[0][i] == borrar_turnos_dni:
+            print(f"{len(turnos_usuario)} - Fecha: {turnos[4][i]}, Especialidad: {turnos[2][i]}, Doctor: {turnos[3][i]}")
+            turnos_usuario.append(i)
+ 
+    # Validar si tiene turnos
+    if not turnos_usuario:
+        print("No se encontraron turnos para ese DNI.")
+        return
+ 
+    # Elegir qué turno borrar
+    try:
+        eleccion = int(input("Ingrese el número del turno que desea eliminar: "))
+        if eleccion < 0 or eleccion >= len(turnos_usuario):
+            print("Selección inválida.")
+            return
+ 
+        indice = turnos_usuario[eleccion]
+        doctor = turnos[3][indice]
+        fecha = turnos[4][indice]
+        especialidad = turnos[2][indice]
+ 
+        # Buscar la hora en los turnos disponibles para identificar el turno a restaurar
+        id_turno_recuperado = None
+        for i in range(len(turnos_disponibles[0])):
+            if (turnos_disponibles[3][i] == doctor and
+                turnos_disponibles[1][i] == fecha and
+                turnos_disponibles[4][i] == especialidad):
+                id_turno_recuperado = i
+                break
+ 
+        # Restaurar el estado del turno a "disponible"
+        if id_turno_recuperado is not None:
+            turnos_disponibles[5][id_turno_recuperado] = "disponible"
+ 
+        # Eliminar los datos del turno del paciente
+        for sublista in turnos:
+            sublista.pop(indice)
+ 
+        print("✅ Turno eliminado y marcado como disponible.")
+    except ValueError:
+        print("Debe ingresar un número válido.")
 
 
-
-
-
-def borrar_turnos(turnos,ingreso):
+#------------------------------------BORRAR TURNOS COMO USUARIO---------------------------------
+ 
+def borrar_turnos(turnos, ingreso, turnos_disponibles):
     while True:
-        borrar_turnos_dni = int(input("Ingrese su DNI: "))  #se debe ingresar directo y elegir que turno borrar
-        # Validar que el DNI se encuentre en la matriz
+        borrar_turnos_dni = input("Ingrese su DNI: ").strip()
+ 
+        # Validar que el DNI esté en la lista
         if borrar_turnos_dni in turnos[0]:
-            # Usamos el index con paso -1 para usar como índice el ultimo dato encontrado
+            # Buscar el índice del último turno registrado con ese DNI
             indice = len(turnos[0]) - 1 - turnos[0][::-1].index(borrar_turnos_dni)
-        if ingreso in turnos[0]:
-            # Usamos el index con paso -1 para usar como índice el ultimo dato encontrado
-            indice = len(turnos[0]) - 1 - turnos[0][::-1].index(ingreso)
-            # Eliminamos el indice de la sublista.
-            for sublistas in turnos:
-                sublistas.pop(indice)
-            print("Último turno eliminado con éxito")
+ 
+            # Obtener datos del turno a eliminar
+            doctor = turnos[3][indice]
+            fecha = turnos[4][indice]
+            especialidad = turnos[2][indice]
+ 
+            # Obtener hora del turno a eliminar buscando en turnos_disponibles
+            hora = None
+            for i in range(len(turnos_disponibles[0])):
+                if (turnos_disponibles[3][i] == doctor and
+                    turnos_disponibles[1][i] == fecha and
+                    turnos_disponibles[4][i] == especialidad and
+                    turnos_disponibles[5][i] == "ocupado"):  # Asegura que solo restaure lo que estaba ocupado
+                    hora = turnos_disponibles[2][i]
+                    break
+ 
+            # Ahora buscar el índice exacto con doctor + fecha + hora
+            id_turno_recuperado = None
+            for i in range(len(turnos_disponibles[0])):
+                if (turnos_disponibles[3][i] == doctor and
+                    turnos_disponibles[1][i] == fecha and
+                    turnos_disponibles[2][i] == hora and
+                    turnos_disponibles[4][i] == especialidad):
+                    id_turno_recuperado = i
+                    break
+ 
+            # Restaurar estado del turno como disponible
+            if id_turno_recuperado is not None:
+                turnos_disponibles[5][id_turno_recuperado] = "disponible"
+ 
+            # Eliminar los datos del turno del paciente
+            for sublista in turnos:
+                sublista.pop(indice)
+ 
+            print("Último turno eliminado con éxito y marcado como disponible.")
             break
+ 
         else:
-                print("DNI no econtrado")
-
-
-def mostrar_turnos_cliente(diccionario_turnos,ingreso):
-    print(f"{'DNI':<12}{'Nombre':<20}{'Especialidad':<20}{'Doctor':<20}{'Fecha':<15}{'Precio':15}") 
-    print("-" * 72)
-
-    for i in range(len(diccionario_turnos["DNI"])):
-        if diccionario_turnos["DNI"][i]== ingreso:
-            print(f"{str(diccionario_turnos["DNI"][i]):<12}{diccionario_turnos["Nombre"][i]:<20}{diccionario_turnos["Especialidad"][i]:<20}{diccionario_turnos["Doctor"][i]:<20}{str(diccionario_turnos["Fecha"][i]):<15}{diccionario_turnos["Precio"][i]:<}")
+            print("DNI no encontrado.")

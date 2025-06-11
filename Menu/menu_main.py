@@ -5,7 +5,9 @@ from Funciones.medicos.crud_medicos import *
 from Funciones.usuarios.mostrar_tabla import *
 from Funciones.usuarios.crud_usuarios import *
 from Funciones.usuarios.turnos import *
+from Funciones.admin.turnos_admin import *
 from datos.datos import *
+#---------------------------------------------------------------------
 #---------------------------------------------------------------------
 
 
@@ -14,7 +16,7 @@ def menu_main(ingreso):
         titulo = "Bienvenido al Menú de administrador"
         titulo_decorado = titulo.center(50,"-")
         print(titulo_decorado)
-        print("1 - Mostrar matriz de usuarios o médicos")
+        print("1 - Mostrar datos de usuarios o médicos")
         print("2 - Ordenar por fila específica")
         print("3 - Agregar datos de paciente o médico")
         print("4 - Remover datos")
@@ -36,8 +38,7 @@ def menu_main(ingreso):
                 # Mostrar datos clientes
                 if eleccion_opcion_1 == "1":
                     print("Mostrando los datos de los clientes")
-                    "mostrar_tabla(diccionario_usuarios)"
-                    abrir_archivo("datos/datos_usuario.txt")
+                    abrir_archivo("datos/usuarios.json")
                 # Mostrar datos médicos
                 elif eleccion_opcion_1 == "2":
                     print("Mostrando los datos médicos")
@@ -52,6 +53,7 @@ def menu_main(ingreso):
                     print("Parámetro no encontrado")
 
         # Ordenar por fila específica
+        
         elif eleccion == "2":
             print("1 - Ordenar la matriz de usuarios")
             print("2 - Ordenar la matriz de médicos")
@@ -99,6 +101,7 @@ def menu_main(ingreso):
                 # Agregar usuario
                 if eleccion_agregar == "1":
                     agregar_usuarios("datos/usuarios.json")
+                    abrir_archivo("datos/usuarios.json")
                 # Agregar médico
                 elif eleccion_agregar == "2":
                     agregar_medicos("datos_medico.txt")
@@ -120,7 +123,7 @@ def menu_main(ingreso):
                 # Borrar usuario
                 if eleccion_borrar == "1":
                     try:    
-                        abrir_archivo("datos/datos_usuario.txt")
+                        abrir_archivo("datos/usuarios.json")
                         busqueda = int(input("Ingrese el DNI del usuario para eliminar: "))
                     except ValueError:
                         print(f"Se espera numeros... {busqueda}")
@@ -150,13 +153,14 @@ def menu_main(ingreso):
                 # Modificar usuario
                 if eleccion_reemplazar == "1":
                     try:    
+                        abrir_archivo("datos/usuarios.json")
                         busqueda = int(input("Ingrese el DNI a modificar: "))
                     except ValueError:
                         print(f"Se espera numeros... {busqueda}")
                     modificar_datos_usuarios_admin("datos/usuarios.json",busqueda)
                 # Modificar médico
                 if eleccion_reemplazar == "2":
-                    remplazar_datos_medicos(datos_medicos)
+                    remplazar_datos_medicos("datos/")#TERMINAR
                 # Cerrar menú
                 elif eleccion_reemplazar == "0":
                     print("Cerrando menu...")
@@ -176,14 +180,14 @@ def menu_main(ingreso):
                 eleccion_turnos = int(input("Ingrese la opcion: "))
                 # Crear turnos
                 if eleccion_turnos == 1:
-                    realizar_turnos(turnos,datos_medicos,datos_usuarios,ingreso)
+                    realizar_turnos("datos/turnos.json","datos/turnos_disponibles.json","datos/usuarios.json")
                 # Mostrar turnos
                 elif eleccion_turnos == 2:
                     diccionario_turnos = dict(zip(encabezado_turnos, turnos))
                     mostrar_tabla_turnos(diccionario_turnos)
                 # Borrar turnos
                 elif eleccion_turnos == 3:
-                    borrar_turnos(turnos)
+                    borrar_turnos_admin(turnos, ingreso, turnos_disponibles)
                 # Cerrar menú
                 elif eleccion_turnos == 0:
                     print("Cerrando menu...")

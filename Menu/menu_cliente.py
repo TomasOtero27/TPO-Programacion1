@@ -10,7 +10,7 @@ def menu_usuario(ingreso):
             titulo_decorado = titulo.center(50,"-")
             print(titulo_decorado)
             print("1 - Turnos")
-            print("2 - Datos")
+            print("2 - Mis Datos")
             print("0 - Salir")
             eleccion = input("Seleccione una opción: ")
             # Validación de opciónes
@@ -30,8 +30,8 @@ def menu_usuario(ingreso):
                         continue
                   
                   if opcion == 1:
-                        # Solicitar turno
-                        realizar_turnos(turnos,datos_medicos,datos_usuarios,ingreso)
+                        # Solicitar turno TERMINAR
+                        realizar_turnos_usuarios("datos/turnos.json","datos/turnos_disponibles.json","datos/usuarios.json",ingreso)
                         break 
                   elif opcion == 2:
                         # Mostrar y eliminar turnos
@@ -44,19 +44,21 @@ def menu_usuario(ingreso):
                               print("Solo números enteros")
                               continue
                         if opcion == 1:
-                              borrar_turnos(turnos,ingreso)
+                               borrar_turnos(turnos, ingreso, turnos_disponibles)
                         elif opcion == 0:
                               break
                         else:
                               print("Opción inválida")
-                  elif eleccion == "2":
+            elif eleccion == "2":
                         print("1- Mostrar mis datos")
                         print("2- Modificar mis datos")
                         opcion_datos = input("Indique la opcion deseada: ")
-                        if opcion_datos == "2":
+                        if opcion_datos == "1":
+                              mostrar_datos_usuarios("datos/usuarios.json",ingreso)
+                        elif opcion_datos == "2":
                               modificar_datos_usuarios("datos/usuarios.json",ingreso)
 
-                  elif opcion == 0:
+            elif opcion == "0":
                         break
-                  else:
+            else:
                         print("Opción inválida")

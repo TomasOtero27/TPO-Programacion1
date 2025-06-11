@@ -1,6 +1,6 @@
-22482796; ALVAREZ PETER; alvarezp@gmail.com; GINECOLOGIA; 10000
-36457774; FLORES JUAN; floresj@gmail.com; ODONTOLOGIA; 20000
-15445213; PAREDES CARLOS; carlosp@gmail.com; TRAUMATOLOGIA; 30000
-34456789; GARCIA MAXIMO; maximog@gmail.com; CARDIOLOGIA; 40000
-25444123;TORRES DANTE; torresd@gmail.com ; NEUROLOGIA; 50000
-45667987;Javier alioli;javieralioli@gmail.com;Abogado;10000
+22482796; ALVAREZ PETER; alvarezp@gmail.com; GINECOLOGIA
+36457774; FLORES JUAN; floresj@gmail.com; ODONTOLOGIA
+15445213; PAREDES CARLOS; carlosp@gmail.com; TRAUMATOLOGIA
+34456789; GARCIA MAXIMO; maximog@gmail.com; CARDIOLOGIA
+25444123;TORRES DANTE; torresd@gmail.com ; NEUROLOGIA
+45667987;Javier alioli;javieralioli@gmail.com;Abogado

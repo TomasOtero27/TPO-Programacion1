@@ -1,10 +1,10 @@
 [
     {
-        "dni": 43404608,
-        "contraseña": "270",
-        "nombre": "Tomas  Otero",
+        "dni": 90122018,
+        "contraseña": "301",
+        "nombre": "JIJERO TOMAS",
         "gmail": "tomasjijero@jijo.com",
-        "seguros": "ConsejoMate",
+        "seguros": "KukardosSeguros",
         "activo": true
     },
     {
@@ -12,7 +12,7 @@
         "contraseña": "115",
         "nombre": "FRESCA NICOLÁS",
         "gmail": "nfresca@gmail.com",
-        "Seguros": "Particular",
+        "seguros": "Particular",
         "activo": true
     },
     {
@@ -40,11 +40,11 @@
         "activo": true
     },
     {
-        "dni": 45666777,
-        "contraseña": "765",
-        "nombre": "JUAN NARDONE",
-        "gmail": "nardone@gmail.com",
-        "seguros": "ConsejoMate",
+        "dni": 44567654,
+        "contraseña": "301",
+        "nombre": "THIAGO CABRERA",
+        "gmail": "thiagocabrera@gmail.com",
+        "seguros": "KukardoSeguros",
         "activo": true
     }
 ]
