@@ -40,54 +40,108 @@ def agregar_medicos (archivo):
         except NameError:
             pass
 
-#---------------------------------------- funcion borrar pendiente
+#-----------------------------------------------------------------------------------------------------
+#---------------------------------------- funcion borrar pendiente------------------------------------
+#-----------------------------------------------------------------------------------------------------
         
-def borrar_datos_medicos(datos_medicos):
-    for datos in datos_medicos[1]:
-        print(datos, end=" ")
-    dni = int(input("\nIndique el DNI: "))
-    if dni in datos_medicos[1]:
-        indice = datos_medicos[1].index(dni) #con el index buscamos su ubicacion de la matriz
-        
-        for sublistas in datos_medicos:        #usando metodo de listas, con for in
-            sublistas.pop(indice)                #el pop(indice) borra todos los datos de la ubicacion 
-        print(f"Médico eliminado con éxito: {dni}")   #parametros reales pasados por nombre F{}
-    else:
-        print("DNI no encontrado.")
+def borrar_datos_medicos(archivo):
+    try:
+        # Abrir y leer el archivo
+        with open(archivo, "r", encoding="UTF-8") as f:
+            lineas = f.readlines()
+            datos_medicos = [linea.strip().split(";") for linea in lineas]
+            datos_medicos = [[campo.strip() for campo in fila] for fila in datos_medicos]
 
-#------------------------------------ funcion reemplazar pendiente
+        while True:
+            dni = input("Ingrese su DNI (0 para salir): ").strip()
+            if dni == "0":
+                print("Saliendo de la función...")
+                break
 
-def remplazar_datos_medicos(datos_medicos):
-    dni = int(input("Indique DNI: "))
-    if dni in datos_medicos[1]:
-        indice = datos_medicos[1].index(dni)
-        print("Indique el dato a modificar")
-        print(f"1 - Nombre: {datos_medicos[0][indice]}")
-        print(f"2 - Especialidad: {datos_medicos[2][indice]}")
-        print(f"3 - Sede: {datos_medicos[3][indice]}")
-        print(f"4 - Correo: {datos_medicos[4][indice]}")
-        print("0 - Cerrar menú")
-        bandera_remplazar = True
-        while bandera_remplazar:
-            reemplazo = int(input("Ingrese la opción a cambiar: "))
-            if reemplazo == 1:
-                nuevo_nombre = input("Ingrese el nuevo nombre: ")
-                datos_medicos[0][indice] = nuevo_nombre.title()
-                print(f"Nuevo nombre agregado: {nuevo_nombre.title()}") 
-            elif reemplazo == 2:
-                nueva_especialidad =input("Ingrese la nueva especialidad: ")
-                datos_medicos[2][indice] = nueva_especialidad.title()
-                print(f"Especialidad cambiada: {nueva_especialidad.title()}")   
-            elif reemplazo == 3:
-                nueva_sede = input("Ingrese la nueva sede: ")
-                datos_medicos[3][indice] = nueva_sede
-            elif reemplazo == 4:
-                nuevo_gmail = input("Ingrese el nuevo gmail: ")
-                datos_medicos[4][indice]= nuevo_gmail
-                print(f"Correo cambiado: {nuevo_gmail}")
-            elif reemplazo == 0:
-                bandera_remplazar = False
-            else:
-                print("Parámetro no encontrado")
-    else:
-        print("DNI no encontrado")
+            encontrado = False
+            for fila in datos_medicos:
+                if fila[0] == dni:
+                    encontrado = True
+                    indice = datos_medicos.index(fila)
+                    datos_medicos.pop(indice)
+                    print(f"Médico eliminado con éxito: {dni}")
+                    break  # Importante: parar el bucle para no seguir iterando
+
+            if not encontrado:
+                print(f"DNI {dni} no encontrado.")
+
+        # Guardar cambios en el archivo
+        with open(archivo, "w", encoding="UTF-8") as f:
+            for fila in datos_medicos:
+                f.write("; ".join(fila) + "\n")
+
+    except FileNotFoundError:
+        print("El archivo no existe.")
+    except Exception as error:
+        print(f"Error inesperado: {error}")
+
+
+#------------------------------------------------------------------------------------------------------------
+#------------------------------------ funcion reemplazar-----------------------------------------------------
+#------------------------------------------------------------------------------------------------------------
+
+def remplazar_datos_medicos(archivo):
+    try:
+        # Abre el txt
+        with open(archivo, "r", encoding="UTF-8") as f:
+            lineas = f.readlines()
+            datos_medicos = [linea.strip().split(";") for linea in lineas]
+            datos_medicos = [[campo.strip() for campo in fila] for fila in datos_medicos]
+
+        print("0 para terminar")
+        while True:
+            try:
+                dni = input("Ingrese su DNI: ").strip()
+                if dni == "0":
+                    print("Saliendo de la funcion....")
+                    break
+                encontrado = False
+                for fila in datos_medicos:
+                    if fila[0] == dni:
+                        encontrado = True
+                        print("Indique el dato a modificar")
+                        print(f"1 - Nombre: {fila[1]}")
+                        print(f"2 - Correo: {fila[2]}")
+                        print(f"3 - Especialidad: {fila[3]}")
+                        print("0 - Salir")
+
+                        while True:
+                            opcion = input("Ingrese la opción a cambiar: ").strip()
+                            if opcion == "1":
+                                nuevo = input("Ingrese el nuevo nombre: ").strip().title()
+                                fila[1] = nuevo
+                                print("Nombre actualizado.")
+                            elif opcion == "2":
+                                nuevo = input("Ingrese el nuevo correo: ").strip()
+                                fila[2] = nuevo
+                                print("Correo actualizado.")
+                            elif opcion == "3":
+                                nuevo = input("Ingrese la nueva especialidad: ").strip().title()
+                                fila[3] = nuevo
+                                print("Especialidad actualizada.")
+                            elif opcion == "0":
+                                print("Saliendo..")
+                                break
+                            else:
+                                print("Opción inválida.")
+                        break
+                if not encontrado:
+                    print("DNI no encontrado.")
+
+            except ValueError:
+                print("Se espera numeros")
+
+        # Guardar archivo actualizado
+        with open(archivo, "w", encoding="UTF-8") as f:
+            for fila in datos_medicos:
+                f.write("; ".join(fila) + "\n")
+
+    except FileNotFoundError:
+        print("El archivo no existe.")
+    except Exception as error:
+        print(f"Error inesperado: {error}")

@@ -158,3 +158,41 @@ def eliminar_usuario(archivo, busqueda):
     
 
 #---------------------------------------------- "eliminar"---------------------------------
+
+
+#------------------------------------------------------------------------------------------
+#---------------------------------------------- RECURSIVIDAD ---------------------------------
+#------------------------------------------------------------------------------------------
+
+def recursividad_activos(archivo):
+    try:
+        with open(archivo, 'r', encoding="UTF-8") as datos:
+            usuarios = json.load(datos)
+        
+        contador = 0
+        for usuario in usuarios:
+            if usuario.get("activo"):
+                contador += 1
+        return contador
+
+    except (FileNotFoundError, OSError) as error:
+        print(f'Error! {error}')
+        return 0
+
+
+def recursividad_particular(archivo):
+    try:
+        with open(archivo, 'r', encoding="UTF-8") as datos:
+            usuarios = json.load(datos)
+        
+        contador = 0
+        for usuario in usuarios:
+            if usuario.get("Partiular"):
+                contador += 1
+        return contador
+
+    except (FileNotFoundError, OSError) as error:
+        print(f'Error! {error}')
+        return 0
+    
+    #VERIFICAR, NO APARENTA SER RECURSIVA

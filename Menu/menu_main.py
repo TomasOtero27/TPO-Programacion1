@@ -6,6 +6,8 @@ from Funciones.usuarios.mostrar_tabla import *
 from Funciones.usuarios.crud_usuarios import *
 from Funciones.usuarios.turnos import *
 from Funciones.admin.turnos_admin import *
+from Funciones.admin.crud_usuarios_admin import *
+from Funciones.admin.crud_medicos_admin import *
 from datos.datos import *
 #---------------------------------------------------------------------
 #---------------------------------------------------------------------
@@ -18,6 +20,7 @@ def menu_main():
         print("1 - Datos de usuarios")
         print("2 - Datos de médicos")
         print("3 - Turnos")
+        print("4 - Recursividad")
         print("0 - Cerrar menú")
         print("-"*50)
         
@@ -32,7 +35,8 @@ def menu_main():
         if eleccion == 1:
             print("1 - Mostrar usuarios")
             print("2 - Agregar usuarios")
-            print("3 - Remover usuarios")
+            print("3 - Cambiar datos de usuarios")
+            print("4 - Remover usuarios")
             print("0 - Cerrar menu")
             while True:
                 print("-"*50)
@@ -48,8 +52,16 @@ def menu_main():
                 elif eleccion_opcion_1 == 2:
                     agregar_usuarios("datos/usuarios.json")
                     abrir_archivo("datos/usuarios.json")
-                # Remover usuarios
                 elif eleccion_opcion_1 == 3:
+                    abrir_archivo("datos/usuarios.json")
+                    try:    
+                        abrir_archivo("datos/usuarios.json")
+                        busqueda = int(input("Ingrese el DNI a modificar: "))
+                    except ValueError:
+                        print(f"Se espera numeros... {busqueda}")
+                    modificar_datos_usuarios_admin("datos/usuarios.json",busqueda)
+                # Remover usuarios
+                elif eleccion_opcion_1 == 4:
                     try:    
                         abrir_archivo("datos/usuarios.json")
                         busqueda = int(input("Ingrese el DNI del usuario para eliminar: "))
@@ -68,7 +80,8 @@ def menu_main():
         elif eleccion == 2:
             print("1 - Mostrar médicos")
             print("2 - Agregar médicos") 
-            print("3 - Remover médicos")  
+            print("3 - Modificar datos medicos")
+            print("4 - Remover médicos")  
             print("0 - Cerrar menú")
             while True :
                 print("-"*50)
@@ -82,9 +95,12 @@ def menu_main():
                     abrir_archivo_medicos("datos/medicos.txt") 
                 # Agregar médicos
                 elif eleccion_opcion_2 == 2:
-                    agregar_medicos("datos_medico.txt")
+                    agregar_medicos("datos/medicos.txt")
                 # Remover médicos
                 elif eleccion_opcion_2 == 3:
+                    abrir_archivo_medicos("datos/medicos.txt")
+                    remplazar_datos_medicos("datos/medicos.txt")
+                elif eleccion_opcion_2 == 4:
                     print("Remover médicos") #TERMINAR
                 # Cerrar menú
                 elif eleccion_opcion_2 == 0:
@@ -126,6 +142,22 @@ def menu_main():
                     break
                 else:
                     print("Opción inválida")
+        elif eleccion == 4:
+            print("1 - Mostrar cantidad de usuarios activos")
+            print("2 - ")
+            print("0 - Cerrar menú")
+
+            eleccion_opcion_4 = input("Ingrese la opcion: ")
+            if eleccion_opcion_4 == "1":
+                activos = recursividad_activos("datos/usuarios.json")
+                print(f"Usuarios activos: {activos}")
+            elif eleccion_opcion_4 == "0":
+                print("Volviendo...")
+                time.sleep(2)
+                break
+            else:
+                print("Numero incorrecto.")
+
             # Cerrar menú
         elif eleccion == 0:
             print("Volviendo al menú principal")

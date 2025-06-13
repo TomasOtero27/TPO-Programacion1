@@ -2,5 +2,5 @@
 36457774; FLORES JUAN; floresj@gmail.com; ODONTOLOGIA
 15445213; PAREDES CARLOS; carlosp@gmail.com; TRAUMATOLOGIA
 34456789; GARCIA MAXIMO; maximog@gmail.com; CARDIOLOGIA
-25444123;TORRES DANTE; torresd@gmail.com ; NEUROLOGIA
-45667987;Javier alioli;javieralioli@gmail.com;Abogado
+25444123; TORRES DANTE; torresd@gmail.com; NEUROLOGIA
+45667987; Jijioli Alioli; javieralioli@gmail.com; Abogado

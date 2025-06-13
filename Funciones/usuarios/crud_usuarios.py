@@ -174,7 +174,7 @@ def agregar_usuarios(archivo):
                                 prepaga = "KukardoSeguros"
                                 break
                             elif obras == 2:
-                                prepaga = "ConsejoMate"
+                                prepaga = "PolentaPrestoPronta"
                                 break
                             elif obras == 3:
                                 prepaga = "Particular"
