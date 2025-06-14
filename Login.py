@@ -25,9 +25,13 @@ def menu():
           print("1 - Ingresar")
           print("2 - Crear usuario")
           print("0 - Cerrar menú")
-          opcion = input("Ingrese la opción: ")
+          try:
+               opcion = int(input("Ingrese la opción: "))
+          except ValueError:
+               print("Se espera un número...")
+               continue
           # Ingreso al programa
-          if opcion == "1": 
+          if opcion == 1: 
                separador()  
                try:
                     print("0 - Cerrar menú")
@@ -66,11 +70,11 @@ def menu():
                          if not encontrado:
                               print("DNI no encontrado")
           # Agregar usuarios nuevos
-          elif opcion == "2":
+          elif opcion == 2:
                separador()
                agregar_usuarios("datos/usuarios.json")
           # Cerrar menú
-          elif opcion == "0":
+          elif opcion == 0:
                print("Cerrando el menu")
                time.sleep(1)
                break
