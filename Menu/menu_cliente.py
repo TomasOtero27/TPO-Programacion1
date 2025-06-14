@@ -36,7 +36,7 @@ def menu_usuario(ingreso):
                         break 
                   elif opcion == 2:
                         # Mostrar y eliminar turnos
-                        mostrar_turnos_cliente(diccionario_turnos,ingreso)
+                        mostrar_turnos("datos/turnos.json","datos/usuarios.json",ingreso)
                   elif opcion == 3:
                          borrar_turnos("datos/turnos.json","datos/turnos_disponibles.json","datos/usuarios.json",ingreso)
                   

@@ -25,7 +25,7 @@ def modificar_datos_usuarios_admin(archivo, busqueda):
             print(f"1 - Su Nombre y apellido: {usuarios[indice]["nombre"]}")
             print(f"2 - Contraseña: {enmascarar_contraseña(usuarios[indice]["contraseña"])}")
             print(f"3 - Gmail: {enmascarar_gmail(usuarios[indice]["gmail"])}")
-            print(f"4- Seguro medico: {usuarios[indice]["seguros"]}")
+            print(f"4 - Seguro medico: {usuarios[indice]["seguros"]}")
             print("0 - Para cerrar el menú")
             while True:
                 opcion = input("Indique el dato a modificar: ")
@@ -157,42 +157,43 @@ def eliminar_usuario(archivo, busqueda):
         print(f'Error! {error}')
     
 
-#---------------------------------------------- "eliminar"---------------------------------
+#---------------------------------------------- "ELIMINAR"---------------------------------
+
 
 
 #------------------------------------------------------------------------------------------
 #---------------------------------------------- RECURSIVIDAD ---------------------------------
 #------------------------------------------------------------------------------------------
 
-def recursividad_activos(archivo):
+def recursividad_activos(archivo, f = 0):
     try:
         with open(archivo, 'r', encoding="UTF-8") as datos:
             usuarios = json.load(datos)
-        
-        contador = 0
-        for usuario in usuarios:
-            if usuario.get("activo"):
-                contador += 1
-        return contador
+        if f == len(usuarios):
+            return 0
+        else:
+            if usuarios[f]["activo"]:
+                contador = 1
+            else:
+                contador = 0
+            return contador + recursividad_activos(archivo, f + 1)
 
     except (FileNotFoundError, OSError) as error:
         print(f'Error! {error}')
-        return 0
 
 
-def recursividad_particular(archivo):
+def recursividad_seguros(archivo, f = 0):
     try:
         with open(archivo, 'r', encoding="UTF-8") as datos:
             usuarios = json.load(datos)
-        
-        contador = 0
-        for usuario in usuarios:
-            if usuario.get("Partiular"):
-                contador += 1
-        return contador
+        if f == len(usuarios):
+            return 0
+        else:
+            if usuarios[f]["KukardosSeguros"]:
+                contador = 1
+            else:
+                contador = 0
+            return contador + recursividad_activos(archivo, f + 1)
 
     except (FileNotFoundError, OSError) as error:
         print(f'Error! {error}')
-        return 0
-    
-    #VERIFICAR, NO APARENTA SER RECURSIVA

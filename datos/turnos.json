@@ -25,5 +25,14 @@
         "medico": "PAREDES CARLOS",
         "dia": "15/08/2025",
         "fecha": "15:00"
+    },
+    {
+        "dni": 90122018,
+        "contraseña": "301",
+        "nombre": "JIJERO TOMAS",
+        "especialidad": "TRAUMATOLOGIA",
+        "medico": "PAREDES CARLOS",
+        "dia": "03/06/2025",
+        "fecha": "09:30"
     }
 ]

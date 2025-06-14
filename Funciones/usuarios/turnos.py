@@ -1,15 +1,7 @@
-from datetime import datetime
 import re
 from datos.datos import *
 import json
 
-def mostrar_turnos_por_especialidad(turnos_disp, especialidad):
-    print(f"\nTurnos disponibles para {especialidad.upper()}:")
-    print(f"{'ID':<5}{'Fecha':<15}{'Hora':<10}{'Doctor':<20}")
-    print("-" * 50)
-    for i in range(len(turnos_disp[0])):
-        if turnos_disp[4][i].upper() == especialidad.upper():
-            print(f"{turnos_disp[0][i]:<5}{turnos_disp[1][i]:<15}{turnos_disp[2][i]:<10}{turnos_disp[3][i]:<20}")
  #----------------------------------------TURNOS COMO USUARIO--------------------------------------
 
 def realizar_turnos_usuarios(archivo_turnos, archivo_turnos_disponibles, archivo_usuarios, ingreso):
@@ -42,11 +34,20 @@ def realizar_turnos_usuarios(archivo_turnos, archivo_turnos_disponibles, archivo
             especialidades.append(turno["especialidad"])
 
     print("\nEspecialidades disponibles:")
+    numero = 1
     for esp in especialidades:
-        print(f"- {esp}")
-
-    especialidad = input("Ingrese la especialidad deseada: ").strip().upper()
-
+        print(f"- {numero} {esp}")
+        numero += 1
+    try:
+        opcion = int(input("Ingrese el número de la especialidad deseada: "))
+        if opcion < 1 or opcion > len(especialidades):
+            print("Número inválido.")
+            return
+    except ValueError:
+        print("Debe ingresar un número válido.")
+        
+    especialidad = especialidades[opcion - 1]
+        
     # Filtrar turnos disponibles por especialidad
     turnos_filtrados = []
     for turno in turnos_disponibles:
@@ -103,13 +104,13 @@ def realizar_turnos_usuarios(archivo_turnos, archivo_turnos_disponibles, archivo
     with open(archivo_turnos, 'w', encoding='utf-8') as f:
         json.dump(turnos, f, ensure_ascii=False, indent=4)
 
-    print("\n✅ Turno registrado con éxito:")
-    print(f"🧾 DNI: {usuario['dni']}")
-    print(f"👤 Paciente: {usuario['nombre']}")
-    print(f"🩺 Especialidad: {turno_seleccionado['especialidad']}")
-    print(f"👨‍⚕️ Doctor: {turno_seleccionado['medico']}")
-    print(f"📅 Fecha: {turno_seleccionado['dia']}")
-    print(f"⏰ Hora: {turno_seleccionado['hora']}")
+    print("\nTurno registrado con éxito:")
+    print(f"DNI: {usuario['dni']}")
+    print(f"Paciente: {usuario['nombre']}")
+    print(f"Especialidad: {turno_seleccionado['especialidad']}")
+    print(f"Doctor: {turno_seleccionado['medico']}")
+    print(f"Fecha: {turno_seleccionado['dia']}")
+    print(f"Hora: {turno_seleccionado['hora']}")
 
 
 
@@ -178,9 +179,9 @@ def borrar_turnos(archivo_turnos, archivo_turnos_disponibles, archivo_usuarios,i
     turnos.pop(indice_turno)
 
     # Guardar cambios
-    with open(archivo_turnos, 'w', encoding='utf-8') as f:
+    with open(archivo_turnos, "w", encoding="utf-8") as f:
         json.dump(turnos, f, ensure_ascii=False, indent=4)
-    with open(archivo_turnos_disponibles, 'w', encoding='utf-8') as f:
+    with open(archivo_turnos_disponibles, "w", encoding="utf-8") as f:
         json.dump(turnos_disponibles, f, ensure_ascii=False, indent=4)
 
-    print("✅ Turno eliminado y horario marcado como disponible.")
+    print("Turno eliminado y horario marcado como disponible.")

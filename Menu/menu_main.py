@@ -7,7 +7,7 @@ from Funciones.usuarios.crud_usuarios import *
 from Funciones.usuarios.turnos import *
 from Funciones.admin.turnos_admin import *
 from Funciones.admin.crud_usuarios_admin import *
-from Funciones.admin.crud_medicos_admin import *
+from Funciones.admin.respadocrudmedico import *
 from datos.datos import *
 #---------------------------------------------------------------------
 #---------------------------------------------------------------------
@@ -20,7 +20,7 @@ def menu_main():
         print("1 - Datos de usuarios")
         print("2 - Datos de médicos")
         print("3 - Turnos")
-        print("4 - Recursividad")
+        print("4 - Seguros médicos")
         print("0 - Cerrar menú")
         print("-"*50)
         
@@ -142,26 +142,33 @@ def menu_main():
                     break
                 else:
                     print("Opción inválida")
+        # Menú de seguros médicos
         elif eleccion == 4:
             print("1 - Mostrar cantidad de usuarios activos")
-            print("2 - ")
+            print("2 - Mostrar la cantidad de seguros medicos")
             print("0 - Cerrar menú")
-
-            eleccion_opcion_4 = input("Ingrese la opcion: ")
-            if eleccion_opcion_4 == "1":
+            try:
+                eleccion_opcion_4 = int(input("Ingrese la opcion: "))
+            except ValueError:
+                print("Se espera un número...")
+                continue
+            if eleccion_opcion_4 == 1:
                 activos = recursividad_activos("datos/usuarios.json")
                 print(f"Usuarios activos: {activos}")
-            elif eleccion_opcion_4 == "0":
+            elif eleccion_opcion_4 == 2:
+                activos = recursividad_seguros("datos/usuarios.json")
+                print(f"Usuarios con seguro kukardo: {activos}")
+            elif eleccion_opcion_4 == 0:
                 print("Volviendo...")
                 time.sleep(2)
                 break
             else:
-                print("Numero incorrecto.")
+                print("Número incorrecto.")
 
             # Cerrar menú
         elif eleccion == 0:
             print("Volviendo al menú principal")
-            time.sleep(1)
+            time.sleep(3)
             break
         else:
             print("Opción no encontrada")
