@@ -36,10 +36,26 @@ def realizar_turnos(archivo_turnos, archivo_turnos_disponibles, archivo_usuarios
                 especialidades.append(turno["especialidad"])
 
         print("\nEspecialidades disponibles:")
+        numero = 1
         for esp in especialidades:
-            print(f"- {esp}")
-
-        especialidad = input("Ingrese la especialidad deseada: ").strip().upper()
+            print(f"- {numero} {esp}")
+            numero += 1
+        
+        print("\nEspecialidades disponibles:")
+        numero = 1
+        for esp in especialidades:
+            print(f"- {numero} {esp}")
+            numero += 1
+        try:
+            opcion = int(input("Ingrese el número de la especialidad deseada: "))
+            if opcion < 1 or opcion > len(especialidades):
+                print("Número inválido.")
+                return
+        except ValueError:
+            print("Debe ingresar un número válido.")
+            
+        especialidad = especialidades[opcion - 1]
+           
 
     # Filtrar turnos disponibles por especialidad
         turnos_filtrados = []
@@ -97,13 +113,13 @@ def realizar_turnos(archivo_turnos, archivo_turnos_disponibles, archivo_usuarios
         with open(archivo_turnos, 'w', encoding='utf-8') as f:
             json.dump(turnos, f, ensure_ascii=False, indent=4)
 
-        print("\n✅ Turno registrado con éxito:")
-        print(f"🧾 DNI: {usuario['dni']}")
-        print(f"👤 Paciente: {usuario['nombre']}")
-        print(f"🩺 Especialidad: {turno_seleccionado['especialidad']}")
-        print(f"👨‍⚕️ Doctor: {turno_seleccionado['medico']}")
-        print(f"📅 Fecha: {turno_seleccionado['dia']}")
-        print(f"⏰ Hora: {turno_seleccionado['hora']}")
+        print("\nTurno registrado con éxito:")
+        print(f"DNI: {usuario['dni']}")
+        print(f"Paciente: {usuario['nombre']}")
+        print(f"Especialidad: {turno_seleccionado['especialidad']}")
+        print(f"Doctor: {turno_seleccionado['medico']}")
+        print(f"Fecha: {turno_seleccionado['dia']}")
+        print(f"Hora: {turno_seleccionado['hora']}")
     
 #---------------------------------------------------------------------------------------------
 #----------------------------BORRAR TURNOS COMO ADMIN------------------------------------------

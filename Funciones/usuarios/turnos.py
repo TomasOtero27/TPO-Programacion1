@@ -88,7 +88,6 @@ def realizar_turnos_usuarios(archivo_turnos, archivo_turnos_disponibles, archivo
     # Crear nuevo turno y agregarlo
     nuevo_turno = {
         "dni": usuario["dni"],
-        "contraseña": usuario["contraseña"],
         "nombre": usuario["nombre"],
         "especialidad": turno_seleccionado["especialidad"],
         "medico": turno_seleccionado["medico"],
@@ -185,3 +184,19 @@ def borrar_turnos(archivo_turnos, archivo_turnos_disponibles, archivo_usuarios,i
         json.dump(turnos_disponibles, f, ensure_ascii=False, indent=4)
 
     print("Turno eliminado y horario marcado como disponible.")
+
+#Mostrar turnos
+def mostrar_turnos_ordenados(archivo_turnos):
+    with open(archivo_turnos, "r", encoding="utf-8") as archivo:
+        turnos = json.load(archivo)
+        contador = 1
+        for turno in turnos:
+            print(f"Turno #{contador}")
+            print(f"  DNI:           {turno['dni']}")
+            print(f"  Nombre:        {turno['nombre']}")
+            print(f"  Especialidad:  {turno['especialidad']}")
+            print(f"  Médico:        {turno['medico']}")
+            print(f"  Día:           {turno['dia']}")
+            print(f"  Hora:          {turno['fecha']}")
+            print("-" * 40)
+            contador += 1

@@ -123,7 +123,7 @@ def menu_main():
                     print("Se espera un número...")
                 # Mostrar turnos
                 if eleccion_opcion_3 == 1:
-                    print("Mostrando turnos")
+                    mostrar_turnos_ordenados("datos/turnos.json")
                 # Agregar turnos
                 elif eleccion_opcion_3 == 2:
                     print("Cargando funcion para agregar turnos")
@@ -164,8 +164,7 @@ def menu_main():
                 break
             else:
                 print("Número incorrecto.")
-
-            # Cerrar menú
+        # Cerrar menú
         elif eleccion == 0:
             print("Volviendo al menú principal")
             time.sleep(3)

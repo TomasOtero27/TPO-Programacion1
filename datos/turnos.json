@@ -1,7 +1,6 @@
 [
     {
         "dni": 90122018,
-        "contraseña": "301",
         "nombre": "JIJERO TOMAS",
         "especialidad": "GINECOLOGIA",
         "medico": "ALVAREZ PETER",
@@ -10,7 +9,6 @@
     },
     {
         "dni": 46754741,
-        "contraseña": "115",
         "nombre": "FRESCA NICOLÁS",
         "especialidad": "ODONTOLOGIA",
         "medico": "FLORES JUAN",
@@ -19,7 +17,6 @@
     },
     {
         "dni": 45871266,
-        "contraseña": "458",
         "nombre": "CIRIELLI LUCIANO",
         "especialidad": "TRAUATOLOGIA",
         "medico": "PAREDES CARLOS",
@@ -28,11 +25,19 @@
     },
     {
         "dni": 90122018,
-        "contraseña": "301",
         "nombre": "JIJERO TOMAS",
         "especialidad": "TRAUMATOLOGIA",
         "medico": "PAREDES CARLOS",
         "dia": "03/06/2025",
         "fecha": "09:30"
+    },
+    {
+        "dni": 46754741,
+        "contraseña": "115",
+        "nombre": "FRESCA NICOLÁS",
+        "especialidad": "NEUROLOGIA",
+        "medico": "TORRES DANTE",
+        "dia": "05/06/2025",
+        "fecha": "08:00"
     }
 ]

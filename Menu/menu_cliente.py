@@ -12,9 +12,13 @@ def menu_usuario(ingreso):
             print("1 - Turnos")
             print("2 - Mis Datos")
             print("0 - Salir")
-            eleccion = input("Seleccione una opción: ")
+            try:
+                  eleccion = int(input("Seleccione una opción: "))
+            except ValueError:
+                  print("Solo números enteros")
+                  continue
             # Validación de opciónes
-            if eleccion == "1": 
+            if eleccion == 1: 
                 # Menú turnos
                 while True:
                   titulo = "Bienvenido al menú de turnos"
@@ -22,7 +26,7 @@ def menu_usuario(ingreso):
                   print(titulo_decorado)
                   print("1 - Solicitar turno")
                   print("2 - Mostrar mis turnos")
-                  print("3- Eliminar mi turno")
+                  print("3 - Eliminar mi turno")
                   print("0 - Salir")
                   try:
                         opcion = int(input("Seleccione una opción: "))
@@ -38,21 +42,21 @@ def menu_usuario(ingreso):
                         # Mostrar y eliminar turnos
                         mostrar_turnos("datos/turnos.json","datos/usuarios.json",ingreso)
                   elif opcion == 3:
-                         borrar_turnos("datos/turnos.json","datos/turnos_disponibles.json","datos/usuarios.json",ingreso)
+                        borrar_turnos("datos/turnos.json","datos/turnos_disponibles.json","datos/usuarios.json",ingreso)
                   
                   elif opcion == 0:
-                         print("Saliendo...")
-                         break
-            elif eleccion == "2":
-                        print("1- Mostrar mis datos")
-                        print("2- Modificar mis datos")
-                        opcion_datos = input("Indique la opcion deseada: ")
-                        if opcion_datos == "1":
-                              mostrar_datos_usuarios("datos/usuarios.json",ingreso)
-                        elif opcion_datos == "2":
-                              modificar_datos_usuarios("datos/usuarios.json",ingreso)
-
-            elif opcion == "0":
+                        print("Saliendo...")
                         break
+            elif eleccion == 2:
+                  print("1 - Mostrar mis datos")
+                  print("2 - Modificar mis datos")
+                  opcion_datos = input("Indique la opcion deseada: ")
+                  if opcion_datos == 1:
+                        mostrar_datos_usuarios("datos/usuarios.json",ingreso)
+                  elif opcion_datos == 2:
+                        modificar_datos_usuarios("datos/usuarios.json",ingreso)
+
+            elif eleccion == 0:
+                  break
             else:
-                        print("Opción inválida")
+                  print("Opción inválida")

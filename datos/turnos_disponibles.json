@@ -101,7 +101,7 @@
         "hora": "08:00",
         "medico": "TORRES DANTE",
         "especialidad": "NEUROLOGIA",
-        "estado": "disponible"
+        "estado": "ocupado"
     },
     {
         "id": 14,
