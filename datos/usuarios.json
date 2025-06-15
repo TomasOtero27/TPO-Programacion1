@@ -62,5 +62,13 @@
         "gmail": "pepe@gmail.com",
         "seguros": "Particular",
         "activo": true
+    },
+    {
+        "dni": 40111222,
+        "contraseña": "113",
+        "nombre": "PEPE GUITERREZ",
+        "gmail": "pepeg@pepe.ar",
+        "seguros": "KukardosSeguros",
+        "activo": true
     }
 ]

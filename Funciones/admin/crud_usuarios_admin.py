@@ -117,24 +117,32 @@ def agregar_usuarios(archivo):
             nombre = input("Ingrese su nombre: ").strip().upper()
             if nombre == "":
                 print("El nombre no puede estar vacío. Intente nuevamente.")
+            elif not nombre.isalpha():
+                print("El nombre solo puede contener letras. Intente nuevamente.")
             else:
                 break
         while True:
             apellido = input("Ingrese su apellido: ").strip().upper()
             if apellido == "":
                 print("El apellido no puede estar vacío. Intente nuevamente.")
+            elif not apellido.isalpha():
+                print("El apellido solo puede contener letras. Intente nuevamente.")
             else:
                 break
         while True:
             gmail = input("Ingrese su correo: ")
-            if not re.match(r"[^@]+@[^@]+\.[^@]+", gmail) or gmail == "":
-                print("Correo inválido. Debe contener '@'. Intente nuevamente.")
+            if not re.match(r"[^@]+@[^@]+\.[^@]+", gmail):
+                print("Correo inválido. Debe contener '@' y finalizar con un dominio. Intente nuevamente.")
+            elif gmail == "":
+                print("El correo no puede estar vacío. Intente nuevamente.")
             else:
                 break
         while True:
             contraseña = input("Ingrese su contraseña: ")
             if contraseña == "":
                 print("La contraseña no puede estar vacía. Intente nuevamente.")
+            elif len(contraseña) < 3:
+                print("La contraseña debe tener al menos 3 caracteres. Intente nuevamente.")
             else:
                 break
         activo = True
@@ -194,7 +202,7 @@ def eliminar_usuario(archivo, busqueda):
                 json.dump(usuarios, datos, ensure_ascii=False, indent=4)
             print(f"Usuario con DNI: {busqueda} eliminado.")
         else:
-            print(f"Usuario con DNI: {dni} no encontrado.")
+            print(f"Usuario con DNI: {busqueda} no encontrado.")
 
     except (FileNotFoundError, OSError) as error:
         print(f'Error! {error}')
