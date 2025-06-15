@@ -113,17 +113,36 @@ def agregar_usuarios(archivo):
                 print("Usuario con ese DNI ya existe. Intente con otro.")
             else:
                 break
-
-        nombre = input("Ingrese su nombre: ").strip().upper()
-        apellido = input("Ingrese su apellido: ").strip().upper()
-        gmail = input("Ingrese su gmail: ")
-        contraseña = input("Ingrese su contraseña: ")
+        while True:
+            nombre = input("Ingrese su nombre: ").strip().upper()
+            if nombre == "":
+                print("El nombre no puede estar vacío. Intente nuevamente.")
+            else:
+                break
+        while True:
+            apellido = input("Ingrese su apellido: ").strip().upper()
+            if apellido == "":
+                print("El apellido no puede estar vacío. Intente nuevamente.")
+            else:
+                break
+        while True:
+            gmail = input("Ingrese su correo: ")
+            if not re.match(r"[^@]+@[^@]+\.[^@]+", gmail) or gmail == "":
+                print("Correo inválido. Debe contener '@'. Intente nuevamente.")
+            else:
+                break
+        while True:
+            contraseña = input("Ingrese su contraseña: ")
+            if contraseña == "":
+                print("La contraseña no puede estar vacía. Intente nuevamente.")
+            else:
+                break
         activo = True
 
         while True:
-            print("1- KukardosSeguros")
-            print("2- ConsejoMate")
-            print("3- Particular")
+            print("1 - KukardosSeguros")
+            print("2 - ConsejoMate")
+            print("3 - Particular")
             try:
                 obras = int(input("Seleccione obra social: "))
                 if obras < 1 or obras > 3:

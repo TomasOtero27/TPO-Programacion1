@@ -54,5 +54,13 @@
         "gmail": "thiago@gmail.com",
         "seguros": "KukardosSeguros",
         "activo": true
+    },
+    {
+        "dni": 22222222,
+        "contraseña": "123",
+        "nombre": "PEPE PEPOSO",
+        "gmail": "pepe@gmail.com",
+        "seguros": "Particular",
+        "activo": true
     }
 ]
