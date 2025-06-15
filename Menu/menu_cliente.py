@@ -50,7 +50,11 @@ def menu_usuario(ingreso):
             elif eleccion == 2:
                   print("1 - Mostrar mis datos")
                   print("2 - Modificar mis datos")
-                  opcion_datos = input("Indique la opcion deseada: ")
+                  try:
+                        opcion_datos = int(input("Seleccione una opción: "))
+                  except ValueError:                             
+                        print("Solo números enteros")
+                        continue
                   if opcion_datos == 1:
                         mostrar_datos_usuarios("datos/usuarios.json",ingreso)
                   elif opcion_datos == 2:

@@ -16,17 +16,24 @@ def realizar_turnos(archivo_turnos, archivo_turnos_disponibles, archivo_usuarios
             turnos_disponibles = json.load(f)
         with open(archivo_turnos, 'r', encoding='utf-8') as f:
             turnos = json.load(f)
-        ingreso = int(input("Ingrese su DNI: "))
+        
+        try:
+            ingreso = int(input("Ingrese su DNI: "))
+        except ValueError:
+            print("Se esper numeros")
     # Buscar usuario
         usuario = ingreso
+        if ingreso == 0:
+            print("Saliendo...")
+            return 
         for u in usuarios:
             if u["dni"] == ingreso:
                 usuario = u
                 break
-
-        if usuario == "":
+        else:
             print("Usuario no encontrado")
             return
+            
 
 
     # Mostrar especialidades disponibles
@@ -35,12 +42,6 @@ def realizar_turnos(archivo_turnos, archivo_turnos_disponibles, archivo_usuarios
             if turno["estado"] == "disponible" and turno["especialidad"] not in especialidades:
                 especialidades.append(turno["especialidad"])
 
-        print("\nEspecialidades disponibles:")
-        numero = 1
-        for esp in especialidades:
-            print(f"- {numero} {esp}")
-            numero += 1
-        
         print("\nEspecialidades disponibles:")
         numero = 1
         for esp in especialidades:
@@ -97,7 +98,6 @@ def realizar_turnos(archivo_turnos, archivo_turnos_disponibles, archivo_usuarios
     # Crear nuevo turno y agregarlo
         nuevo_turno = {
             "dni": usuario["dni"],
-            "contraseña": usuario["contraseña"],
             "nombre": usuario["nombre"],
             "especialidad": turno_seleccionado["especialidad"],
             "medico": turno_seleccionado["medico"],

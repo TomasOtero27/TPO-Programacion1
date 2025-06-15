@@ -25,6 +25,7 @@ def abrir_archivo(archivo):
                     print(f'{str(dni):<10}{nombre:<20}{contraseña:<12}{gmail:<25}{seguro:<20}{activo:<20}')
                 except ValueError:
                     print("Línea con formato incorrecto")
+                    continue
     except (OSError,FileNotFoundError) as mensaje:
         print("Fallo todo:", mensaje)
 

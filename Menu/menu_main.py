@@ -7,7 +7,6 @@ from Funciones.usuarios.crud_usuarios import *
 from Funciones.usuarios.turnos import *
 from Funciones.admin.turnos_admin import *
 from Funciones.admin.crud_usuarios_admin import *
-from Funciones.admin.respadocrudmedico import *
 from datos.datos import *
 #---------------------------------------------------------------------
 #---------------------------------------------------------------------
@@ -37,6 +36,8 @@ def menu_main():
             print("2 - Agregar usuarios")
             print("3 - Cambiar datos de usuarios")
             print("4 - Remover usuarios")
+            print("5 - Dar de baja un usuario")
+            print("6 - Reactivar un usuario")
             print("0 - Cerrar menu")
             while True:
                 print("-"*50)
@@ -69,6 +70,12 @@ def menu_main():
                         print(f"Se espera numeros... {busqueda}")
                     eliminar_usuario("datos/usuarios.json",busqueda)
                 # Cerrar menú      
+                elif eleccion_opcion_1 == 5:
+                    abrir_archivo("datos/usuarios.json")
+                    desactivar_usuario("datos/usuarios.json")
+                elif eleccion_opcion_1 == 6:
+                    abrir_archivo("datos/usuarios.json")
+                    reactivar_usuario("datos/usuarios.json")
                 elif eleccion_opcion_1 == 0:
                     print("Cerrando menú")
                     time.sleep(1)
@@ -101,7 +108,8 @@ def menu_main():
                     abrir_archivo_medicos("datos/medicos.txt")
                     remplazar_datos_medicos("datos/medicos.txt")
                 elif eleccion_opcion_2 == 4:
-                    print("Remover médicos") #TERMINAR
+                    abrir_archivo_medicos("datos/medicos.txt")
+                    borrar_datos_medicos("datos/medicos.txt")
                 # Cerrar menú
                 elif eleccion_opcion_2 == 0:
                     print("Cerrando menú")
@@ -156,8 +164,12 @@ def menu_main():
                 activos = recursividad_activos("datos/usuarios.json")
                 print(f"Usuarios activos: {activos}")
             elif eleccion_opcion_4 == 2:
-                activos = recursividad_seguros("datos/usuarios.json")
+                activos = recursividad_seguros_kukardo("datos/usuarios.json")
                 print(f"Usuarios con seguro kukardo: {activos}")
+                mate = recursividad_seguros_consejo("datos/usuarios.json")
+                print(f"Usuarios con seguro ConsejoMate: {mate}")
+                particular = recursividad_particular("datos/usuarios.json")
+                print(f"Usuarios particular: {particular}")
             elif eleccion_opcion_4 == 0:
                 print("Volviendo...")
                 time.sleep(2)

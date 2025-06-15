@@ -27,6 +27,7 @@ def modificar_datos_usuarios(archivo,ingreso):
         print(f"4- Seguro medico: {usuarios[indice]["seguros"]}")
         print("0 - Para cerrar el menú")
         while True:
+            print("0 para terminar")
             opcion = input("Indique el dato a modificar: ")
             if opcion == "1":
                 nuevo_nombre = input("Ingrese el nuevo nombre: ")
@@ -73,65 +74,3 @@ def modificar_datos_usuarios(archivo,ingreso):
 
    except(FileNotFoundError,OSError) as error:
         print(f"fallo todo: {error}")
-
-#------------------------------------------------------------------------------------------
-#--------------------------------------------------- AGREGAR USUARIOS -------------
-#------------------------------------------------------------------------------
-
-def agregar_usuarios(archivo):
-    try:
-        with open (archivo,'r', encoding="UTF-8") as datos:
-            usuarios = json.load(datos)
-
-        if usuarios:
-                while True:
-                    try:
-                        dni = int(input("Ingrese el DNI: "))
-                        break
-                    except ValueError:
-                        print("Se espera numeros")
-                nombre=input("Ingrese su nombre: ").strip().upper()
-                apellido=input("Ingrese su apellido: ").strip().upper()
-                gmail=input("Ingrese su gmail: ")
-                contraseña=input("Ingrese su contraseña: ")
-                activo = True
-                while True:
-                        print("1- KukardoSeguros")
-                        print("2- PolentaPrestoPronta")
-                        print("3- Particular")
-                        try:
-                            obras = int(input("Seleccione obra social: "))
-                            while obras < 1 or obras > 3:
-                                print("Opción incorrecta")
-                                obras = int(input("Seleccione una opción: "))
-                            if obras == 1:
-                                prepaga = "KukardoSeguros"
-                                break
-                            elif obras == 2:
-                                prepaga = "PolentaPrestoPronta"
-                                break
-                            elif obras == 3:
-                                prepaga = "Particular"
-                                break
-                        except ValueError:
-                            print("Se espera numeros")
-                obra_social = prepaga
-
-                nuevo_usuario= {
-                    "dni": dni,
-                    "contraseña": contraseña,
-                    "nombre": nombre + " " + apellido,
-                    "gmail": gmail,
-                    "seguros": obra_social,
-                    "activo": activo
-                    }
-                usuarios.append(nuevo_usuario)
-
-                with open(archivo,'w',encoding="UTF-8") as datos:
-                    json.dump(usuarios,datos,ensure_ascii=False,indent=4)
-                print(f"Se agrego {nombre + " " +  apellido}")          
-    except(FileNotFoundError,OSError) as error:
-        print(f"fallo todo: {error}")
-
-
-#---------------------------------------------- "eliminar"---------------------------------

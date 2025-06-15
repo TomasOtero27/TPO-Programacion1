@@ -40,11 +40,19 @@
         "activo": true
     },
     {
-        "dni": 44567654,
-        "contraseña": "301",
+        "dni": 44567765,
+        "contraseña": "999",
+        "nombre": "OLAF MACHADO",
+        "gmail": "olaf@gmail.com",
+        "seguros": "ConsejoMate",
+        "activo": true
+    },
+    {
+        "dni": 44567890,
+        "contraseña": "777",
         "nombre": "THIAGO CABRERA",
-        "gmail": "thiagocabrera@gmail.com",
-        "seguros": "KukardoSeguros",
+        "gmail": "thiago@gmail.com",
+        "seguros": "KukardosSeguros",
         "activo": true
     }
 ]

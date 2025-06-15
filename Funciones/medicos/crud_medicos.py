@@ -29,10 +29,9 @@ def agregar_medicos (archivo):
                     nombre_agregado = input("Nombre y Apellido: ")
                     gmail = input("Gmail: ")
                     especialidad_agregado = input("Especialidad: ")
-                    precio = input("Costo: ")
                     nombre = nombre_agregado.upper()
                     especialidad = especialidad_agregado.upper()
-                    arch.write("\n" + str(dni) + ";" + nombre + ";"   + gmail + "@gmail.com" + ";"  + especialidad + ";"  + precio)
+                    arch.write("\n" + str(dni) + ";" + nombre + ";"   + gmail  + ";"  + especialidad)
                     print("Agregado correctamente") 
     finally:
         try:
@@ -41,7 +40,7 @@ def agregar_medicos (archivo):
             pass
 
 #-----------------------------------------------------------------------------------------------------
-#---------------------------------------- funcion borrar pendiente------------------------------------
+#---------------------------------------- funcion borrar------------------------------------
 #-----------------------------------------------------------------------------------------------------
         
 def borrar_datos_medicos(archivo):
@@ -53,6 +52,7 @@ def borrar_datos_medicos(archivo):
             datos_medicos = [[campo.strip() for campo in fila] for fila in datos_medicos]
 
         while True:
+            print("Ingrese 0 para terminar")
             dni = input("Ingrese su DNI (0 para salir): ").strip()
             if dni == "0":
                 print("Saliendo de la función...")
