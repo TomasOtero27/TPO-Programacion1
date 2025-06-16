@@ -16,7 +16,7 @@ def separador():
     print("-"*50)
 
 # Menú de inicio del programa
-def menu():
+def main():
      while True:
           titulo = "Bienvenido al Menú"
           titulo_decorado = titulo.center(50,"-")
@@ -81,4 +81,4 @@ def menu():
           else:
                print("Opción no encontrada")
 # Main
-menu()
+main()

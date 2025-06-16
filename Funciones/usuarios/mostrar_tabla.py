@@ -42,7 +42,7 @@ def mostrar_datos_usuarios(archivo,ingreso):
         print(f"1 - Su Nombre y apellido: {usuarios[indice]["nombre"]}")
         print(f"2 - Contraseña: {enmascarar_contraseña(usuarios[indice]["contraseña"])}")
         print(f"3 - Gmail: {enmascarar_gmail(usuarios[indice]["gmail"])}")
-        print(f"4- Seguro medico: {usuarios[indice]["seguros"]}")
+        print(f"4 - Seguro medico: {usuarios[indice]["seguros"]}")
         print("0 - Para cerrar el menú")
 
     except(FileNotFoundError,OSError) as error:
