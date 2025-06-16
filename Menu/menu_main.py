@@ -10,7 +10,8 @@ from Funciones.admin.crud_usuarios_admin import *
 from datos.datos import *
 #---------------------------------------------------------------------
 #---------------------------------------------------------------------
-
+def separador():
+    print("-"*50)
 def menu_main():
     while True:
         titulo = "Bienvenido al Menú de administrador"
@@ -28,19 +29,20 @@ def menu_main():
         except ValueError:
             print("Se espera un número...")
             continue
-        print("-"*50)
+        separador
 
         # Mostrar matriz de usuarios o médicos
         if eleccion == 1:
-            print("1 - Mostrar usuarios")
-            print("2 - Agregar usuarios")
-            print("3 - Cambiar datos de usuarios")
-            print("4 - Remover usuarios")
-            print("5 - Dar de baja un usuario")
-            print("6 - Reactivar un usuario")
-            print("0 - Cerrar menu")
             while True:
-                print("-"*50)
+                separador()
+                print("1 - Mostrar usuarios")
+                print("2 - Agregar usuarios")
+                print("3 - Cambiar datos de usuarios")
+                print("4 - Remover usuarios")
+                print("5 - Dar de baja un usuario")
+                print("6 - Reactivar un usuario")
+                print("0 - Cerrar menu")
+                separador()
                 try:
                     eleccion_opcion_1 = int(input("Ingrese la opción: "))
                 except ValueError:
@@ -85,13 +87,14 @@ def menu_main():
 
         # Datos de médicos
         elif eleccion == 2:
-            print("1 - Mostrar médicos")
-            print("2 - Agregar médicos") 
-            print("3 - Modificar datos medicos")
-            print("4 - Remover médicos")  
-            print("0 - Cerrar menú")
-            while True :
-                print("-"*50)
+            while True:
+                separador()
+                print("1 - Mostrar médicos")
+                print("2 - Agregar médicos") 
+                print("3 - Modificar datos medicos")
+                print("4 - Remover médicos")  
+                print("0 - Cerrar menú")
+                separador()
                 try:
                     eleccion_opcion_2 = int(input("Ingrese la opción: "))
                 except ValueError:
@@ -119,12 +122,13 @@ def menu_main():
                     print("Opción inválida")
         # Menú de turnos
         elif eleccion == 3:
-            print("1 - Mostrar turnos")
-            print("2 - Agregar turnos")
-            print("3 - Borrar turnos")
-            print("0 - Cerrar menú")
             while True:
-                print("-"*50)
+                separador()
+                print("1 - Mostrar turnos")
+                print("2 - Agregar turnos")
+                print("3 - Borrar turnos")
+                print("0 - Cerrar menú")
+                separador()
                 try:
                     eleccion_opcion_3 = int(input("Seleccione una opción: "))
                 except ValueError:
@@ -152,32 +156,36 @@ def menu_main():
                     print("Opción inválida")
         # Menú de seguros médicos
         elif eleccion == 4:
-            print("1 - Mostrar cantidad de usuarios activos")
-            print("2 - Mostrar la cantidad de seguros medicos")
-            print("0 - Cerrar menú")
-            try:
-                eleccion_opcion_4 = int(input("Ingrese la opcion: "))
-            except ValueError:
-                print("Se espera un número...")
-                continue
-            if eleccion_opcion_4 == 1:
-                activos = recursividad_activos("datos/usuarios.json")
-                print(f"Usuarios activos: {activos}")
-            elif eleccion_opcion_4 == 2:
-                activos = recursividad_seguros_kukardo("datos/usuarios.json")
-                print(f"Usuarios con seguro kukardo: {activos}")
-                mate = recursividad_seguros_consejo("datos/usuarios.json")
-                print(f"Usuarios con seguro ConsejoMate: {mate}")
-                particular = recursividad_particular("datos/usuarios.json")
-                print(f"Usuarios particular: {particular}")
-            elif eleccion_opcion_4 == 0:
-                print("Volviendo...")
-                time.sleep(2)
-                break
-            else:
-                print("Número incorrecto.")
+            while True:
+                separador()
+                print("1 - Mostrar cantidad de usuarios activos")
+                print("2 - Mostrar la cantidad de seguros medicos")
+                print("0 - Cerrar menú")
+                separador()
+                try:
+                    eleccion_opcion_4 = int(input("Ingrese la opcion: "))
+                except ValueError:
+                    print("Se espera un número...")
+                    continue
+                if eleccion_opcion_4 == 1:
+                    activos = recursividad_activos("datos/usuarios.json")
+                    print(f"Usuarios activos: {activos}")
+                elif eleccion_opcion_4 == 2:
+                    activos = recursividad_seguros_kukardo("datos/usuarios.json")
+                    print(f"Usuarios con seguro kukardo: {activos}")
+                    mate = recursividad_seguros_consejo("datos/usuarios.json")
+                    print(f"Usuarios con seguro ConsejoMate: {mate}")
+                    particular = recursividad_particular("datos/usuarios.json")
+                    print(f"Usuarios particular: {particular}")
+                elif eleccion_opcion_4 == 0:
+                    print("Volviendo...")
+                    time.sleep(2)
+                    break
+                else:
+                    print("Número incorrecto.")
         # Cerrar menú
         elif eleccion == 0:
+            separador()
             print("Volviendo al menú principal")
             time.sleep(3)
             break

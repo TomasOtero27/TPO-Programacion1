@@ -25,6 +25,7 @@ def main():
           print("1 - Ingresar")
           print("2 - Crear usuario")
           print("0 - Cerrar menú")
+          separador()
           try:
                opcion = int(input("Ingrese la opción: "))
           except ValueError:
@@ -34,7 +35,7 @@ def main():
           if opcion == 1: 
                separador()  
                try:
-                    print("0 - Cerrar menú")
+                    print("Ingrese 0 para vovler al menú.")
                     ingreso = int(input("Ingrese su DNI:"))
                except ValueError:
                     print("Se espera numeros enteros")
@@ -75,7 +76,7 @@ def main():
                agregar_usuarios("datos/usuarios.json")     
           # Cerrar menú
           elif opcion == 0:
-               print("Cerrando el menu")
+               print("Cerrando el programa...")
                time.sleep(1)
                break
           else:

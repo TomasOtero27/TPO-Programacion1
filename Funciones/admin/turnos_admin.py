@@ -195,4 +195,4 @@ def borrar_turnos_admin(archivo_turnos, archivo_turnos_disponibles, archivo_usua
     with open(archivo_turnos_disponibles, 'w', encoding='utf-8') as f:
         json.dump(turnos_disponibles, f, ensure_ascii=False, indent=4)
 
-    print("✅ Turno eliminado y horario marcado como disponible.")
+    print("Turno eliminado y horario marcado como disponible.")

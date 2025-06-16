@@ -91,6 +91,7 @@ def agregar_usuarios(archivo):
 
         while True:
             try:
+                print("Ingrese 0 para volver al menú.")
                 dni = int(input("Ingrese el DNI: "))
                 if dni == 0:
                     print("Volviendo al menú principal...")

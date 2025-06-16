@@ -38,13 +38,17 @@ def realizar_turnos_usuarios(archivo_turnos, archivo_turnos_disponibles, archivo
     for esp in especialidades:
         print(f"- {numero} {esp}")
         numero += 1
-    try:
-        opcion = int(input("Ingrese el número de la especialidad deseada: "))
-        if opcion < 1 or opcion > len(especialidades):
-            print("Número inválido.")
-            return
-    except ValueError:
-        print("Debe ingresar un número válido.")
+    while True:
+        try:
+            opcion = int(input("Ingrese el número de la especialidad deseada: "))
+            if opcion < 1 or opcion > len(especialidades):
+                print("Número inválido. Intente nuevamente.")
+                continue
+            else:
+                break
+        except ValueError:
+            print("Debe ingresar un número válido. Intente nuevamente.")
+            continue
         
     especialidad = especialidades[opcion - 1]
         
@@ -62,11 +66,24 @@ def realizar_turnos_usuarios(archivo_turnos, archivo_turnos_disponibles, archivo
     for turno in turnos_filtrados:
         print(f"ID: {turno['id']}, Día: {turno['dia']}, Hora: {turno['hora']}, Médico: {turno['medico']}")
 
-    try:
-        id_turno = int(input("Seleccione el ID del turno a asignar: "))
-    except ValueError:
-        print("Debe ingresar un número válido.")
-        return
+    while True:
+        try:
+            id_turno = int(input("Seleccione el ID del turno a asignar: "))
+            # Verifica si el ID ingresado está en los turnos
+            id_valido = False
+            for turno in turnos_filtrados:
+                if turno["id"] == id_turno:
+                    id_valido = True
+                    break
+            if id_valido:
+                break
+            else:
+                print("ID no válido. Intente nuevamente.")
+                continue
+        except ValueError:
+            print("Debe ingresar un número válido. Intente nuevamente.")
+            continue
+        
 
     # Verificar que el ID sea válido
     turno_seleccionado = ""
@@ -110,7 +127,6 @@ def realizar_turnos_usuarios(archivo_turnos, archivo_turnos_disponibles, archivo
     print(f"Doctor: {turno_seleccionado['medico']}")
     print(f"Fecha: {turno_seleccionado['dia']}")
     print(f"Hora: {turno_seleccionado['hora']}")
-
 
 
 #------------------------------------BORRAR TURNOS COMO USUARIO---------------------------------

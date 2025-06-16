@@ -3,6 +3,8 @@ from Funciones.usuarios.crud_usuarios import *
 from Funciones.usuarios.turnos import *
 from datos.datos import *
 
+def separador():
+    print("-" * 50)
 # Menú de usuario
 def menu_usuario(ingreso):
         while True:
@@ -12,6 +14,8 @@ def menu_usuario(ingreso):
             print("1 - Turnos")
             print("2 - Mis Datos")
             print("0 - Salir")
+            separador()
+
             try:
                   eleccion = int(input("Seleccione una opción: "))
             except ValueError:
@@ -28,6 +32,7 @@ def menu_usuario(ingreso):
                   print("2 - Mostrar mis turnos")
                   print("3 - Eliminar mi turno")
                   print("0 - Salir")
+                  separador()
                   try:
                         opcion = int(input("Seleccione una opción: "))
                   except ValueError:                             
@@ -48,17 +53,24 @@ def menu_usuario(ingreso):
                         print("Saliendo...")
                         break
             elif eleccion == 2:
-                  print("1 - Mostrar mis datos")
-                  print("2 - Modificar mis datos")
-                  try:
-                        opcion_datos = int(input("Seleccione una opción: "))
-                  except ValueError:                             
-                        print("Solo números enteros")
-                        continue
-                  if opcion_datos == 1:
-                        mostrar_datos_usuarios("datos/usuarios.json",ingreso)
-                  elif opcion_datos == 2:
-                        modificar_datos_usuarios("datos/usuarios.json",ingreso)
+                  while True:
+                        separador()
+                        print("1 - Mostrar mis datos")
+                        print("2 - Modificar mis datos")
+                        print("0 - Salir")
+                        separador()
+                        try:
+                              opcion_datos = int(input("Seleccione una opción: "))
+                        except ValueError:                             
+                              print("Solo números enteros")
+                              continue
+                        if opcion_datos == 1:
+                              mostrar_datos_usuarios("datos/usuarios.json",ingreso)
+                        elif opcion_datos == 2:
+                              modificar_datos_usuarios("datos/usuarios.json",ingreso)
+                        elif opcion_datos == 0:
+                              print("Saliendo...")
+                              break
 
             elif eleccion == 0:
                   break
