@@ -2,6 +2,8 @@ from datos.datos import *
 import re
 
 #------------------------------------- 
+def separador():
+    print("-" * 50)
 
 def agregar_medicos (archivo):
     try:
@@ -93,8 +95,7 @@ def borrar_datos_medicos(archivo):
             datos_medicos = [[campo.strip() for campo in fila] for fila in datos_medicos]
 
         while True:
-            print("Ingrese 0 para terminar")
-            dni = input("Ingrese su DNI (0 para salir): ").strip()
+            dni = input("Ingrese el DNI a modificar (0 para salir): ").strip()
             if dni == "0":
                 print("Saliendo de la función...")
                 break
@@ -133,25 +134,24 @@ def remplazar_datos_medicos(archivo):
             lineas = f.readlines()
             datos_medicos = [linea.strip().split(";") for linea in lineas]
             datos_medicos = [[campo.strip() for campo in fila] for fila in datos_medicos]
-
-        print("0 para terminar")
         while True:
             try:
-                dni = input("Ingrese su DNI: ").strip()
+                dni = input("Ingrese el DNI a modificar (0 para salir): ").strip()
                 if dni == "0":
-                    print("Saliendo de la funcion....")
+                    print("Saliendo de la función....")
                     break
                 encontrado = False
                 for fila in datos_medicos:
                     if fila[0] == dni:
                         encontrado = True
-                        print("Indique el dato a modificar")
-                        print(f"1 - Nombre: {fila[1]}")
-                        print(f"2 - Correo: {fila[2]}")
-                        print(f"3 - Especialidad: {fila[3]}")
-                        print("0 - Salir")
-
                         while True:
+                            separador()
+                            print("Indique el dato a modificar")
+                            print(f"1 - Nombre: {fila[1]}")
+                            print(f"2 - Correo: {fila[2]}")
+                            print(f"3 - Especialidad: {fila[3]}")
+                            print("0 - Salir")
+                            separador()
                             try:
                                 opcion = int(input("Ingrese la opción a cambiar: "))
                             except ValueError:

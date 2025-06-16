@@ -13,6 +13,8 @@ def abrir_archivo_medicos(archivo):
                     print(f'{dni.strip():<10}{nombres.strip():<20}{gmail.strip():<25}{especialidad.strip():<25}')
                 except ValueError:
                     print("Línea con formato incorrecto:", linea)
+            print("-" * 87)
+            
     except FileNotFoundError:
         print("Archivo no encontrado")
     except OSError as mensaje:

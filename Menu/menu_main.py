@@ -95,10 +95,12 @@ def menu_main():
                 print("4 - Remover médicos")  
                 print("0 - Cerrar menú")
                 separador()
+
                 try:
                     eleccion_opcion_2 = int(input("Ingrese la opción: "))
                 except ValueError:
                     print("Se espera un número...")
+                    continue
                 # Mostrar médicos
                 if eleccion_opcion_2 == 1:
                     print("Mostrando datos de médicos")
