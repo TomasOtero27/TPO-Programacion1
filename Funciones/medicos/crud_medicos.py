@@ -1,4 +1,5 @@
 from datos.datos import *
+import re
 
 #------------------------------------- 
 
@@ -6,7 +7,7 @@ def agregar_medicos (archivo):
     try:
         arch = open(archivo,"a", encoding="UTF-8")
     except OSError as mensaje:
-        print("Fallo todo")
+        print(f"Fallo todo {mensaje}")
     else:
         print("0 para terminar")
         while True:
@@ -22,17 +23,57 @@ def agregar_medicos (archivo):
             # Validamos el largo del DNI
                 elif (dni < 1000000 or dni > 99999999):
                     print("DNI inválido") 
-                #elif dni in dato_medicos.txt:
-                    #print("DNI ya se encuentra registrado...")
+                    continue 
+            # Validamos si el DNI ya existe
+                with open(archivo, "r", encoding="UTF-8") as f:
+                    lineas = f.readlines()
+                    for linea in lineas:
+                        if str(dni) in linea:
+                            print("El DNI ya existe, por favor ingrese otro.")
+                            break
                     #continue
-                else:
-                    nombre_agregado = input("Nombre y Apellido: ")
-                    gmail = input("Gmail: ")
-                    especialidad_agregado = input("Especialidad: ")
-                    nombre = nombre_agregado.upper()
-                    especialidad = especialidad_agregado.upper()
-                    arch.write("\n" + str(dni) + ";" + nombre + ";"   + gmail  + ";"  + especialidad)
-                    print("Agregado correctamente") 
+                    else:
+                        while True:
+                            nombre_agregado = input("Ingrese el nombre: ").strip().upper()
+                            if not nombre_agregado.isalpha():
+                                print("El nombre debe contener solo letras.")
+                                continue
+                            elif nombre_agregado == "":
+                                print("El nombre no puede estar vacío.")
+                                continue
+                            else:
+                                break
+                        while True:
+                            apellido = input("Ingrese su apellido: ").strip().upper()
+                            if apellido == "":
+                                print("El apellido no puede estar vacío. Intente nuevamente.")
+                            elif not apellido.isalpha():
+                                print("El apellido solo puede contener letras. Intente nuevamente.")
+                            else:
+                                break
+                        nombref = nombre_agregado + " " + apellido
+                        while True:
+                            gmail = input("Ingrese su correo: ")
+                            # Validamos el formato del correo como cadena
+                            # Empieza con cualquier cosa que no sea '@', contiene '@' y termina con un dominio
+                            if not re.match(r"[^@]+@[^@]+\.[^@]+", gmail):
+                                print("Correo inválido. Debe contener '@' y finalizar con un dominio. Intente nuevamente.")
+                            elif gmail == "":
+                                print("El correo no puede estar vacío. Intente nuevamente.")
+                            else:
+                                break
+                        while True:
+                            especialidad_agregado = input("Especialidad: ")
+                            if especialidad_agregado == "":
+                                print("La especialidad no puede estar vacía. Intente nuevamente.")
+                            elif not especialidad_agregado.isalpha():
+                                print("La especialidad solo puede contener letras. Intente nuevamente.")
+                            else:
+                                break
+                        nombre = nombref.upper()
+                        especialidad = especialidad_agregado.upper()
+                        arch.write("\n" + str(dni) + ";" + nombre + ";"   + gmail  + ";"  + especialidad)
+                        print("Agregado correctamente") 
     finally:
         try:
             arch.close()
@@ -111,21 +152,52 @@ def remplazar_datos_medicos(archivo):
                         print("0 - Salir")
 
                         while True:
-                            opcion = input("Ingrese la opción a cambiar: ").strip()
-                            if opcion == "1":
-                                nuevo = input("Ingrese el nuevo nombre: ").strip().title()
-                                fila[1] = nuevo
-                                print("Nombre actualizado.")
-                            elif opcion == "2":
-                                nuevo = input("Ingrese el nuevo correo: ").strip()
-                                fila[2] = nuevo
-                                print("Correo actualizado.")
-                            elif opcion == "3":
+                            try:
+                                opcion = int(input("Ingrese la opción a cambiar: "))
+                            except ValueError:
+                                print("Se espera un número.")
+                                continue
+                            if opcion == 1:
+                                while True:
+                                    nuevo = input("Ingrese el nuevo nombre: ").strip()
+                                    if not nuevo.isalpha():
+                                        print("El nombre debe contener solo letras.")
+                                        continue
+                                    elif nuevo == "":
+                                        print("El nombre no puede estar vacío.")
+                                        continue
+                                    else:
+                                        apellido = input("Ingrese el apellido: ").strip()
+                                        if not apellido.isalpha():
+                                            print("El apellido debe contener solo letras.")
+                                            continue
+                                        elif apellido == "":
+                                            print("El apellido no puede estar vacío.")
+                                            continue
+                                        else:
+                                            nuevo = nuevo + " " + apellido
+                                            nuevo = nuevo.upper()
+                                            fila[1] = nuevo
+                                            print("Nombre actualizado.")
+                                            break
+                            elif opcion == 2:
+                                while True:
+                                    nuevo = input("Ingrese el nuevo correo: ")
+                                    if not re.match(r"[^@]+@[^@]+\.[^@]+", nuevo):
+                                        print("Correo inválido. Debe contener '@' y finalizar con un dominio.")
+                                        continue
+                                    elif nuevo == "":
+                                        print("El correo no puede estar vacío.")
+                                        continue
+                                    else:
+                                        fila[2] = nuevo
+                                        print("Correo actualizado.")
+                            elif opcion == 3:
                                 nuevo = input("Ingrese la nueva especialidad: ").strip().title()
                                 fila[3] = nuevo
                                 print("Especialidad actualizada.")
-                            elif opcion == "0":
-                                print("Saliendo..")
+                            elif opcion == 0:
+                                print("Saliendo...")
                                 break
                             else:
                                 print("Opción inválida.")
